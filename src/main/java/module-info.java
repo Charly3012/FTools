@@ -3,6 +3,6 @@ module com.example.ftoolss {
     requires javafx.fxml;
 
 
-    opens com.example.ftoolss to javafx.fxml;
-    exports com.example.ftoolss;
+    opens controlador to javafx.fxml;
+    exports controlador;
 }

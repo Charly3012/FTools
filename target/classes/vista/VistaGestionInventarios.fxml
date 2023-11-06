@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ContoladorGestionInventarios">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="45.0" prefHeight="100.0" prefWidth="532.0">
+         <children>
+            <TextField fx:id="txtBuscarProducto" layoutY="14.0" prefHeight="25.0" prefWidth="276.0" promptText="Buscar producto" />
+            <Button fx:id="btnAgregarProducto" layoutY="50.0" mnemonicParsing="false" onAction="#ClickAgregarProducto" prefHeight="25.0" prefWidth="276.0" text="Agregar producto" />
+            <Button fx:id="btnBuscar" layoutX="291.0" layoutY="14.0" mnemonicParsing="false" onAction="#ClickBuscar" text="Buscar" />
+            <ComboBox fx:id="comFiltro" layoutX="368.0" layoutY="50.0" prefWidth="150.0" promptText="Filtro" />
+            <ComboBox fx:id="comFiltrarPor" layoutX="368.0" layoutY="14.0" prefWidth="150.0" promptText="Filtrar por:" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="145.0" prefHeight="346.0" prefWidth="500.0">
+         <children>
+            <TableView fx:id="tblProductosGestionInventarios" prefHeight="346.0" prefWidth="532.0">
+              <columns>
+                <TableColumn fx:id="colNombreProducto" prefWidth="178.0" text="Nombre" />
+                <TableColumn fx:id="colCategoriasProducto" minWidth="0.0" prefWidth="131.0" text="Categoria" />
+                  <TableColumn fx:id="colSkuProducto" prefWidth="103.0" text="SKU" />
+                  <TableColumn fx:id="colInventarioProducto" prefWidth="119.0" text="Inventario" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+      <AnchorPane layoutY="-1.0" prefHeight="41.0" prefWidth="922.0">
+         <children>
+            <Label fx:id="labNombrePestaña" layoutX="90.0" layoutY="12.0" prefHeight="17.0" prefWidth="157.0" text="Gestión de inventario" />
+            <MenuButton fx:id="comMenuDesplegable" layoutX="10.0" layoutY="7.0" mnemonicParsing="false" text="Menu">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Compras y Ventas" />
+                  <MenuItem mnemonicParsing="false" text="Proveedores" />
+              </items>
+            </MenuButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="559.0" layoutY="52.0" prefHeight="439.0" prefWidth="349.0">
+         <children>
+            <Separator layoutX="12.0" layoutY="36.0" prefHeight="2.0" prefWidth="325.0" />
+            <Label layoutX="122.0" layoutY="14.0" text="Detalle de producto" />
+            <Label layoutX="24.0" layoutY="58.0" text="Nombre: " />
+            <Label layoutX="25.0" layoutY="166.0" text="Código de barras: " />
+            <Label layoutX="25.0" layoutY="132.0" text="SKU: " />
+            <Label layoutX="24.0" layoutY="272.0" text="Categoría: " />
+            <Label layoutX="24.0" layoutY="96.0" text="Marca: " />
+            <Label layoutX="25.0" layoutY="203.0" text="Existencia: " />
+            <Label layoutX="25.0" layoutY="237.0" text="Precio: " />
+            <Label layoutX="25.0" layoutY="306.0" text="Descripción: " />
+            <TextField fx:id="txtNombreProducto" layoutX="184.0" layoutY="54.0" promptText="Ingrese el nombre" />
+            <TextField fx:id="txtMarcaProducto" layoutX="184.0" layoutY="92.0" promptText="Ingrese marca" />
+            <TextField fx:id="txtSkuProducto" layoutX="184.0" layoutY="128.0" promptText="Ingrese SKU" />
+            <TextField fx:id="txtCodigoBarrasProducto" layoutX="184.0" layoutY="162.0" promptText="Ingrese código de barras" />
+            <TextField fx:id="txtExistenciaProducto" layoutX="184.0" layoutY="199.0" promptText="Cantidad de inventario" />
+            <TextField fx:id="txtPrecioProducto" layoutX="184.0" layoutY="233.0" promptText="Precio unitario" />
+            <TextField fx:id="txtCategoriaProducto" layoutX="184.0" layoutY="268.0" promptText="Ingrese la categoría" />
+            <TextArea fx:id="txtDescripcionProducto" layoutX="106.0" layoutY="306.0" prefHeight="54.0" prefWidth="229.0" promptText="Ingrese una descripción" />
+            <Button fx:id="btnGuardarProducto" layoutX="33.0" layoutY="384.0" mnemonicParsing="false" onAction="#ClickGuardarProducto" prefHeight="25.0" prefWidth="100.0" text="Guardar" />
+            <Button fx:id="btnEliminarProducto" layoutX="209.0" layoutY="384.0" mnemonicParsing="false" onAction="#ClickEliminarProducto" prefHeight="25.0" prefWidth="100.0" text="Eliminar" />
+            <Separator layoutX="12.0" layoutY="422.0" prefHeight="2.0" prefWidth="325.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
