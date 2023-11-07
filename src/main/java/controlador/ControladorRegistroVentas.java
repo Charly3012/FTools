@@ -67,17 +67,31 @@ public class ControladorRegistroVentas {
     @FXML
     private TextField txtTotal;
 
+    /**
+     * Maneja el evento de clic en el botón de búsqueda.
+     *
+     * @param event El evento de acción generado por el clic.
+     */
     @FXML
     void clickBuscar(ActionEvent event) {
 
     }
 
+    /**
+     * Maneja el evento de clic en el botón de pagar.
+     *
+     * @param event El evento de acción generado por el clic.
+     */
     @FXML
     void clickPagar(ActionEvent event) {
 
     }
 
 
+    /**
+     * Cierra la pestaña de la vista y retorna a la pestaña principal
+     * El evento de acción generado por el clic.
+     */
     public void cerrarVentana() {
 
         try {

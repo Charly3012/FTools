@@ -16,6 +16,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Controlador de la pestaña encargada de gestionar los provedores existentes en el sistema,
+ * realiza operaciones como agregar nuevos, actualizar o eliminar
+ * @author Zared
+ * @version 1.0
+ */
 public class ControladorGestionDeProveedores {
 
     @FXML

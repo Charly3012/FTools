@@ -5,6 +5,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Clase encargada de agregar nuevos proveedores
+ * @author Zared
+ * @version 1.0
+ */
 public class ControladorNuevoProveedor {
 
     /**
