@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorRegistroVentas">
+   <children>
+      <AnchorPane prefHeight="40.0" prefWidth="862.0">
+         <children>
+            <Label layoutX="130.0" layoutY="12.0" text="Registro de compras y ventas" />
+            <MenuButton fx:id="btnMenu" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="50.0" prefHeight="101.0" prefWidth="478.0">
+         <children>
+            <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto" />
+            <Button fx:id="btnBuscar" layoutX="336.0" layoutY="15.0" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="14.0" layoutY="135.0" prefHeight="344.0" prefWidth="478.0">
+         <children>
+            <TableView fx:id="tblProductosDisponibles" prefHeight="344.0" prefWidth="478.0">
+              <columns>
+                <TableColumn fx:id="colProuctoDisp" prefWidth="156.7999849319458" text="Producto" />
+                <TableColumn fx:id="colCategoriaDisp" prefWidth="139.1999969482422" text="Categoria" />
+                  <TableColumn fx:id="colInventarioDisp" prefWidth="92.0" text="Inventario" />
+                  <TableColumn fx:id="colPrecioUnitarioDisp" prefWidth="92.0" text="Precio unitario" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+      <Separator layoutX="516.0" layoutY="36.0" orientation="VERTICAL" prefHeight="442.0" prefWidth="7.0" />
+      <AnchorPane fx:id="anchorDetalleVenta" layoutX="523.0" layoutY="36.0" prefHeight="442.0" prefWidth="322.0">
+         <children>
+            <Text layoutX="79.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalle de venta" textAlignment="CENTER">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Text>
+            <TableView fx:id="tblDetalleVenta" layoutX="11.0" layoutY="70.0" prefHeight="269.0" prefWidth="300.0">
+              <columns>
+                <TableColumn fx:id="colProductoDv" prefWidth="140.79998779296875" text="Producto" />
+                <TableColumn fx:id="colCantidadDv" prefWidth="87.20001220703125" text="Cantidad" />
+                  <TableColumn fx:id="colTotalDv" prefWidth="71.2000732421875" text="Total" />
+              </columns>
+            </TableView>
+            <TextField fx:id="txtTotal" editable="false" layoutX="14.0" layoutY="400.0" prefHeight="26.0" prefWidth="300.0" text="Total: " />
+            <Button fx:id="btnPagar" layoutX="231.0" layoutY="400.0" mnemonicParsing="false" onAction="#clickPagar" prefHeight="26.0" prefWidth="82.0" text="Pagar" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
