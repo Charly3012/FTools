@@ -57,6 +57,10 @@ public class ControladorGestionDeProveedores {
     @FXML
     private TextField txtBuscarProveedores;
 
+    /**
+     * Abre una ventana para agregar un nuevo proveedor.
+     * @param event Evento de clic en el botón de agregar nuevo.
+     */
     @FXML
     void agregarNuevoP(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("VistaNuevoProveedor.fxml"));
