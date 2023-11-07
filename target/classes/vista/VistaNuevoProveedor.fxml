@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+
+<AnchorPane prefHeight="259.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorNuevoProveedor">
+   <children>
+      <Button fx:id="btnNuevoProveedorAceptar" layoutX="95.0" layoutY="213.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Aceptar" />
+      <Button fx:id="btnNuevoProveedorCancelar" layoutX="390.0" layoutY="213.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Cancelar" />
+      <Label fx:id="labNuevoProveedorContacto" layoutX="16.0" layoutY="20.0" text="Area de contacto" />
+      <Label fx:id="labNuevoProveedorNombre" layoutX="35.0" layoutY="71.0" text="Nombre:" />
+      <TextField fx:id="txtNuevoProveedorNombre" layoutX="95.0" layoutY="67.0" />
+      <Label fx:id="labNuevoProveedorDireccion" layoutX="311.0" layoutY="71.0" text="Dirección:" />
+      <TextField fx:id="txtNuevoProveedorDireccion" layoutX="377.0" layoutY="71.0" />
+      <Label fx:id="labNuevoProveedorCel" layoutX="62.0" layoutY="124.0" text="Cel:" />
+      <TextField fx:id="txtNuevoProveedorCel" layoutX="95.0" layoutY="120.0" promptText="+0 (080) 012 3456" />
+      <Label fx:id="labNuevoProveedorCorreo" layoutX="325.0" layoutY="124.0" text="Correo:" />
+      <TextField fx:id="txtNuevoProveedorCorreo" layoutX="377.0" layoutY="120.0" />
+      <Line endX="441.0" fill="#00000078" layoutX="117.0" layoutY="44.0" startX="-100.0" stroke="#bfbfbf" />
+   </children>
+</AnchorPane>
