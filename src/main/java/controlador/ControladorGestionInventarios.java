@@ -17,6 +17,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Clase encargada en controlar la vista de la pestaña "Gestión de intentarios",
+ * así como es la encargada de realizar las operaciones necesarias para mostrar la información correspondiente
+ * de la vista antes mencionada
+ * @author Charly
+ * @version 1.0
+ */
 public class ControladorGestionInventarios {
 
     @FXML
@@ -85,34 +92,55 @@ public class ControladorGestionInventarios {
     @FXML
     private TextField txtSkuProducto;
 
+    /**
+     * Se encarga de desplegar una ventana emergente donde se puede ingresar la información de nuevo producto,
+     * dicho producto se agrega a la base de datos
+     * @param event Recibe la ejecución de un click en el botón correspondiente
+     */
     @FXML
     void ClickAgregarProducto(ActionEvent event) {
 
     }
 
+    /**
+     * Manda la información correspondiente a un parametro de busqueda y despliega los resultados correspondientes
+     *
+     * @param event Recibe la ejecución de un click en el botón correspondiente
+     */
     @FXML
     void ClickBuscar(ActionEvent event) {
 
     }
 
+    /**
+     * Elimina el producto seleccionado de la base de datos
+     * @param event Recibe la ejecución de un click en el botón correspondiente
+     */
     @FXML
     void ClickEliminarProducto(ActionEvent event) {
 
     }
 
+    /**
+     * Guarda los cambios correspondientes en la base de datos, actualiza la información que haya sido alterada
+     * @param event Recibe la ejecución de un click en el botón correspondiente
+     */
     @FXML
     void ClickGuardarProducto(ActionEvent event) {
 
     }
 
+    /**
+     * Cierra la ventana y regresa al menú principal
+     */
     public void cerrarVentana(){
-
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaMenuPrincipal.fxml"));
             Parent root = loader.load();
             ControladorMenuPrincipal controlador = loader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
+            stage.setTitle("FTools");
             stage.setScene(scene);
             stage.show();
             Stage myStage = (Stage) this.btnBuscar.getScene().getWindow();

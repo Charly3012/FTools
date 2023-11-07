@@ -2,7 +2,13 @@ package controlador;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**
  * clase encargada de ser el controlador del Registro de ventas
@@ -69,5 +75,28 @@ public class ControladorRegistroVentas {
 
     @FXML
     public void txtfield(ActionEvent actionEvent) {
+    }
+
+    /**
+     * Cierra la pestaña de la vista y retorna a la pestaña principal
+     * El evento de acción generado por el clic.
+     */
+    public void cerrarVentana(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaMenuPrincipal.fxml"));
+            Parent root = loader.load();
+            ControladorMenuPrincipal controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("FTools");
+            stage.setScene(scene);
+            stage.show();
+            Stage myStage = (Stage) this.btnMenu.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
