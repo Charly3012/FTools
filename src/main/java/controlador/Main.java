@@ -7,6 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
+/**
+ * Clase encargada de ejecutar la pestaña principal de la aplicación
+ * @author Charly
+ * @version 1.0
+ */
 public class
 Main extends Application {
 
@@ -14,6 +20,11 @@ Main extends Application {
         launch(args);
     }
 
+    /**
+     * Creación de la primera "Stage" utilizando la vista del menu principal
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/vista/VistaMenuPrincipal.fxml"));
