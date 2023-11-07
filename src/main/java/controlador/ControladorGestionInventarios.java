@@ -1,21 +1,20 @@
 package controlador;
 
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Clase encargada en controlar la vista de la pestaña "Gestión de intentarios",
@@ -63,7 +62,7 @@ public class ControladorGestionInventarios {
     private Label labNombrePestaña;
 
     @FXML
-    private TableView<?> tblProductosGestionInventarios;
+    private TableView<Producto> tblProductosGestionInventarios;
 
     @FXML
     private TextField txtBuscarProducto;
@@ -91,6 +90,20 @@ public class ControladorGestionInventarios {
 
     @FXML
     private TextField txtSkuProducto;
+
+    private ObservableList<Producto> productos;
+
+    @FXML
+    public void initialize (URL url, ResourceBundle eb){
+        productos = FXCollections.observableArrayList();
+
+        this.colNombreProducto.setCellValueFactory((new PropertyValueFactory("nombre")));
+        this.colCategoriasProducto.setCellValueFactory((new PropertyValueFactory("categoria")));
+        this.colInventarioProducto.setCellValueFactory((new PropertyValueFactory("cantExistencia")));
+        this.colSkuProducto.setCellValueFactory((new PropertyValueFactory("sku")));
+
+
+    }
 
     /**
      * Se encarga de desplegar una ventana emergente donde se puede ingresar la información de nuevo producto,
@@ -127,6 +140,34 @@ public class ControladorGestionInventarios {
      */
     @FXML
     void ClickGuardarProducto(ActionEvent event) {
+        String nombre = this.txtNombreProducto.getText();
+        String categoria = this.txtCategoriaProducto.getText();
+        int cantExistencia = Integer.parseInt(this.txtExistenciaProducto.getText());
+        double precio = Double.parseDouble(this.txtPrecioProducto.getText());
+
+        Producto p = new Producto(nombre, categoria, cantExistencia, precio);
+
+
+        try{
+            if(!this.productos.contains(p)){
+                this.productos.add(p);
+                this.tblProductosGestionInventarios.setItems(productos);
+            }
+            else{
+                Alert alerta = new Alert(Alert.AlertType.ERROR);
+                alerta.setHeaderText(null);
+                alerta.setTitle("Error");
+                alerta.setContentText("Producto ya existe");
+                alerta.showAndWait();
+            }
+        }catch(NumberFormatException e){
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setHeaderText(null);
+            alerta.setTitle("Error");
+            alerta.setContentText("Error");
+            alerta.showAndWait();
+        }
+
 
     }
 

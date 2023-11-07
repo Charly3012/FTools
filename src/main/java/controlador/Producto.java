@@ -64,6 +64,20 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Consytructor de producto
+     * @param nombre
+     * @param categoria
+     * @param sku
+     * @param precioUnitario
+     */
+    public Producto(String nombre, String categoria, int cantExistencia, double precioUnitario) {
+        this.nombre = nombre;
+        this.categoria = categoria;
+        this.cantExistencia = cantExistencia;
+        this.precioUnitario = precioUnitario;
+    }
+
     public Producto() {
     }
 
