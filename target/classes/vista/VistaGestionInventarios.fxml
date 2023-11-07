@@ -12,7 +12,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ContoladorGestionInventarios">
+<AnchorPane prefHeight="500.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorGestionInventarios">
    <children>
       <AnchorPane layoutX="14.0" layoutY="45.0" prefHeight="100.0" prefWidth="532.0">
          <children>
@@ -22,9 +22,9 @@
             <ComboBox fx:id="comFiltro" layoutX="368.0" layoutY="50.0" prefWidth="150.0" promptText="Filtro" />
             <ComboBox fx:id="comFiltrarPor" layoutX="368.0" layoutY="14.0" prefWidth="150.0" promptText="Filtrar por:" />
          </children></AnchorPane>
-      <AnchorPane layoutX="14.0" layoutY="145.0" prefHeight="346.0" prefWidth="500.0">
+      <AnchorPane layoutX="14.0" layoutY="145.0" prefHeight="328.0" prefWidth="526.0">
          <children>
-            <TableView fx:id="tblProductosGestionInventarios" prefHeight="346.0" prefWidth="532.0">
+            <TableView fx:id="tblProductosGestionInventarios" prefHeight="331.0" prefWidth="526.0">
               <columns>
                 <TableColumn fx:id="colNombreProducto" prefWidth="178.0" text="Nombre" />
                 <TableColumn fx:id="colCategoriasProducto" minWidth="0.0" prefWidth="131.0" text="Categoria" />
