@@ -7,9 +7,15 @@ import javafx.scene.control.TextField;
 
 public class ControladorNuevoProveedor {
 
+    /**
+     * Botón para aceptar y guardar el proveedor.
+     */
     @FXML
     private Button btnNuevoProveedorAceptar;
 
+    /**
+     * Botón para cancelar y cerrar la ventana de agregar proveedor.
+     */
     @FXML
     private Button btnNuevoProveedorCancelar;
 
@@ -27,16 +33,26 @@ public class ControladorNuevoProveedor {
 
     @FXML
     private Label labNuevoProveedorNombre;
-
+    /**
+     * Campo para ingresar el número de contacto del proveedor.
+     */
     @FXML
     private TextField txtNuevoProveedorCel;
 
+    /**
+     * Campo para ingresar el correo electronico del proveedor.
+     */
     @FXML
     private TextField txtNuevoProveedorCorreo;
-
+    /**
+     * Campo para ingresar la dirección  del proveedor.
+     */
     @FXML
     private TextField txtNuevoProveedorDireccion;
 
+    /**
+     * Campo para ingresar el nombre del proveedor.
+     */
     @FXML
     private TextField txtNuevoProveedorNombre;
 
