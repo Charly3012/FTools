@@ -2,6 +2,9 @@ package controlador;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -10,8 +13,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class ContoladorGestionInventarios {
+import java.io.IOException;
+
+public class ControladorGestionInventarios {
 
     @FXML
     private Button btnAgregarProducto;
@@ -96,6 +102,25 @@ public class ContoladorGestionInventarios {
 
     @FXML
     void ClickGuardarProducto(ActionEvent event) {
+
+    }
+
+    public void cerrarVentana(){
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaMenuPrincipal.fxml"));
+            Parent root = loader.load();
+            ControladorMenuPrincipal controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+            Stage myStage = (Stage) this.btnBuscar.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
