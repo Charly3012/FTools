@@ -41,16 +41,16 @@ public class ControladorMenuPrincipal {
     @FXML
     void clickComprasYVentas(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/RegistroventasVista.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaRegistroComprasVentas.fxml"));
             Parent root = loader.load();
             ControladorRegistroVentas controlador = loader.getController();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
-            stage.setTitle("Gestion de compras y ventas");
+            stage.setTitle("Compras y ventas");
             stage.setScene(scene);
             stage.show();
             stage.setOnCloseRequest(e -> controlador.cerrarVentana());
-            Stage myStage = (Stage) this.btnInventarios.getScene().getWindow();
+            Stage myStage = (Stage) this.btnComprasYVentas.getScene().getWindow();
             myStage.close();
 
         } catch (IOException e) {
@@ -88,7 +88,22 @@ public class ControladorMenuPrincipal {
      */
     @FXML
     void clickProveedores(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaGestionDeProvedores.fxml"));
+            Parent root = loader.load();
+            ControladorGestionDeProveedores controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Gestión de proveedores");
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e -> controlador.cerrarVentana());
+            Stage myStage = (Stage) this.btnInventarios.getScene().getWindow();
+            myStage.close();
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

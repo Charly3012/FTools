@@ -59,7 +59,7 @@ public class ControladorGestionDeProveedores {
 
     @FXML
     void agregarNuevoP(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("VistaNuevoProveedor.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaNuevoProveedor.fxml"));
 
         try {
             Parent root = loader.load();
@@ -75,6 +75,29 @@ public class ControladorGestionDeProveedores {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Cierra la pestaña de la vista y retorna a la pestaña principal
+     * El evento de acción generado por el clic.
+     */
+    public void cerrarVentana(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaMenuPrincipal.fxml"));
+            Parent root = loader.load();
+            ControladorMenuPrincipal controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("FTools");
+            stage.setScene(scene);
+            stage.show();
+            Stage myStage = (Stage) this.btnAgregarProveedor.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }
