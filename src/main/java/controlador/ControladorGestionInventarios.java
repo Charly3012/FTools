@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -23,7 +24,13 @@ import java.util.ResourceBundle;
  * @author Charly
  * @version 1.0
  */
-public class ControladorGestionInventarios {
+public class ControladorGestionInventarios implements Initializable {
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
 
     @FXML
     private Button btnAgregarProducto;
@@ -93,8 +100,30 @@ public class ControladorGestionInventarios {
 
     private ObservableList<Producto> productos;
 
-    @FXML
-    public void initialize (URL url, ResourceBundle eb){
+    public void initialize(URL url, ResourceBundle rb) {
+        assert btnAgregarProducto != null : "fx:id=\"btnAgregarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert btnBuscar != null : "fx:id=\"btnBuscar\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert btnEliminarProducto != null : "fx:id=\"btnEliminarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert btnGuardarProducto != null : "fx:id=\"btnGuardarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert colCategoriasProducto != null : "fx:id=\"colCategoriasProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert colInventarioProducto != null : "fx:id=\"colInventarioProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert colNombreProducto != null : "fx:id=\"colNombreProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert colSkuProducto != null : "fx:id=\"colSkuProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert comFiltrarPor != null : "fx:id=\"comFiltrarPor\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert comFiltro != null : "fx:id=\"comFiltro\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert comMenuDesplegable != null : "fx:id=\"comMenuDesplegable\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert labNombrePestaña != null : "fx:id=\"labNombrePestaña\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert tblProductosGestionInventarios != null : "fx:id=\"tblProductosGestionInventarios\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtBuscarProducto != null : "fx:id=\"txtBuscarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtCategoriaProducto != null : "fx:id=\"txtCategoriaProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtCodigoBarrasProducto != null : "fx:id=\"txtCodigoBarrasProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtDescripcionProducto != null : "fx:id=\"txtDescripcionProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtExistenciaProducto != null : "fx:id=\"txtExistenciaProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtMarcaProducto != null : "fx:id=\"txtMarcaProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtNombreProducto != null : "fx:id=\"txtNombreProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtPrecioProducto != null : "fx:id=\"txtPrecioProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert txtSkuProducto != null : "fx:id=\"txtSkuProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+
         productos = FXCollections.observableArrayList();
 
         this.colNombreProducto.setCellValueFactory((new PropertyValueFactory("nombre")));
@@ -143,9 +172,9 @@ public class ControladorGestionInventarios {
         String nombre = this.txtNombreProducto.getText();
         String categoria = this.txtCategoriaProducto.getText();
         int cantExistencia = Integer.parseInt(this.txtExistenciaProducto.getText());
-        double precio = Double.parseDouble(this.txtPrecioProducto.getText());
+        String sku = this.txtSkuProducto.getText();
 
-        Producto p = new Producto(nombre, categoria, cantExistencia, precio);
+        Producto p = new Producto(nombre, categoria, cantExistencia, sku);
 
 
         try{

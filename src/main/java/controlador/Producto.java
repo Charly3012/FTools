@@ -69,13 +69,13 @@ public class Producto {
      * @param nombre
      * @param categoria
      * @param sku
-     * @param precioUnitario
+     * @param cantExistencia
      */
-    public Producto(String nombre, String categoria, int cantExistencia, double precioUnitario) {
+    public Producto(String nombre, String categoria, int cantExistencia, String sku) {
         this.nombre = nombre;
         this.categoria = categoria;
         this.cantExistencia = cantExistencia;
-        this.precioUnitario = precioUnitario;
+        this.sku = sku;
     }
 
     public Producto() {

@@ -17,7 +17,7 @@
       <AnchorPane layoutX="14.0" layoutY="45.0" prefHeight="100.0" prefWidth="532.0">
          <children>
             <TextField fx:id="txtBuscarProducto" layoutY="14.0" prefHeight="25.0" prefWidth="276.0" promptText="Buscar producto" />
-            <Button fx:id="btnAgregarProducto" layoutY="50.0" mnemonicParsing="false" onAction="#ClickAgregarProducto" prefHeight="25.0" prefWidth="276.0" text="Agregar producto" />
+            <Button fx:id="btnAgregarProducto" layoutY="50.0" mnemonicParsing="false" onAction="#ClickAgregarProducto" prefHeight="31.0" prefWidth="276.0" text="Agregar producto" />
             <Button fx:id="btnBuscar" layoutX="291.0" layoutY="14.0" mnemonicParsing="false" onAction="#ClickBuscar" text="Buscar" />
             <ComboBox fx:id="comFiltro" layoutX="368.0" layoutY="50.0" prefWidth="150.0" promptText="Filtro" />
             <ComboBox fx:id="comFiltrarPor" layoutX="368.0" layoutY="14.0" prefWidth="150.0" promptText="Filtrar por:" />
@@ -42,6 +42,7 @@
                   <MenuItem mnemonicParsing="false" text="Proveedores" />
               </items>
             </MenuButton>
+            <Label layoutX="671.0" layoutY="13.0" text="Hora: " />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="559.0" layoutY="52.0" prefHeight="439.0" prefWidth="349.0">
@@ -64,8 +65,8 @@
             <TextField fx:id="txtPrecioProducto" layoutX="184.0" layoutY="233.0" promptText="Precio unitario" />
             <TextField fx:id="txtCategoriaProducto" layoutX="184.0" layoutY="268.0" promptText="Ingrese la categoría" />
             <TextArea fx:id="txtDescripcionProducto" layoutX="106.0" layoutY="306.0" prefHeight="54.0" prefWidth="229.0" promptText="Ingrese una descripción" />
-            <Button fx:id="btnGuardarProducto" layoutX="33.0" layoutY="384.0" mnemonicParsing="false" onAction="#ClickGuardarProducto" prefHeight="25.0" prefWidth="100.0" text="Guardar" />
-            <Button fx:id="btnEliminarProducto" layoutX="209.0" layoutY="384.0" mnemonicParsing="false" onAction="#ClickEliminarProducto" prefHeight="25.0" prefWidth="100.0" text="Eliminar" />
+            <Button fx:id="btnGuardarProducto" layoutX="33.0" layoutY="384.0" mnemonicParsing="false" onAction="#ClickGuardarProducto" prefHeight="31.0" prefWidth="100.0" text="Guardar" />
+            <Button fx:id="btnEliminarProducto" layoutX="209.0" layoutY="384.0" mnemonicParsing="false" onAction="#ClickEliminarProducto" prefHeight="31.0" prefWidth="99.0" text="Eliminar" />
             <Separator layoutX="12.0" layoutY="422.0" prefHeight="2.0" prefWidth="325.0" />
          </children>
       </AnchorPane>
