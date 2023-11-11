@@ -1,4 +1,4 @@
-package controlador;
+package modelo;
 
 import java.util.Objects;
 
