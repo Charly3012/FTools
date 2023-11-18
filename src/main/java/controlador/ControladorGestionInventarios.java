@@ -10,7 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.Alerta;
 import modelo.Producto;
 
 import java.io.IOException;
@@ -27,22 +30,23 @@ import java.util.ResourceBundle;
 public class ControladorGestionInventarios implements Initializable {
 
     @FXML
-    private ResourceBundle resources;
+    public Button btnEditarProducto;
 
     @FXML
-    private URL location;
+    public TableColumn<?, ?> colMarcaProducto;
+
+    @FXML
+    public TableColumn<?, ?> colPrecioUnitario;
+
+    @FXML
+    public TableColumn<?, ?> colCodigoBarrasProducto;
 
     @FXML
     private Button btnAgregarProducto;
 
     @FXML
-    private Button btnBuscar;
-
-    @FXML
     private Button btnEliminarProducto;
 
-    @FXML
-    private Button btnGuardarProducto;
 
     @FXML
     private TableColumn<?, ?> colCategoriasProducto;
@@ -60,13 +64,10 @@ public class ControladorGestionInventarios implements Initializable {
     private ComboBox<?> comFiltrarPor;
 
     @FXML
-    private ComboBox<?> comFiltro;
-
-    @FXML
     private MenuButton comMenuDesplegable;
 
     @FXML
-    private Label labNombrePestaña;
+    private Label labNombrePestana;
 
     @FXML
     private TableView<Producto> tblProductosGestionInventarios;
@@ -74,63 +75,115 @@ public class ControladorGestionInventarios implements Initializable {
     @FXML
     private TextField txtBuscarProducto;
 
-    @FXML
-    private TextField txtCategoriaProducto;
-
-    @FXML
-    private TextField txtCodigoBarrasProducto;
-
-    @FXML
-    private TextArea txtDescripcionProducto;
-
-    @FXML
-    private TextField txtExistenciaProducto;
-
-    @FXML
-    private TextField txtMarcaProducto;
-
-    @FXML
-    private TextField txtNombreProducto;
-
-    @FXML
-    private TextField txtPrecioProducto;
-
-    @FXML
-    private TextField txtSkuProducto;
-
+    @FXML //Lista que se muestra de productos
     private ObservableList<Producto> productos;
+
+    @FXML //Lista que se muestra cuando se esta buscando entre los productos
+    private ObservableList<Producto> busquedaProductos;
 
     public void initialize(URL url, ResourceBundle rb) {
         assert btnAgregarProducto != null : "fx:id=\"btnAgregarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert btnBuscar != null : "fx:id=\"btnBuscar\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert btnEliminarProducto != null : "fx:id=\"btnEliminarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert btnGuardarProducto != null : "fx:id=\"btnGuardarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert colCategoriasProducto != null : "fx:id=\"colCategoriasProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert colInventarioProducto != null : "fx:id=\"colInventarioProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert colNombreProducto != null : "fx:id=\"colNombreProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert colSkuProducto != null : "fx:id=\"colSkuProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert comFiltrarPor != null : "fx:id=\"comFiltrarPor\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert comFiltro != null : "fx:id=\"comFiltro\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert comMenuDesplegable != null : "fx:id=\"comMenuDesplegable\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert labNombrePestaña != null : "fx:id=\"labNombrePestaña\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
+        assert labNombrePestana != null : "fx:id=\"labNombrePestaña\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert tblProductosGestionInventarios != null : "fx:id=\"tblProductosGestionInventarios\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert txtBuscarProducto != null : "fx:id=\"txtBuscarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtCategoriaProducto != null : "fx:id=\"txtCategoriaProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtCodigoBarrasProducto != null : "fx:id=\"txtCodigoBarrasProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtDescripcionProducto != null : "fx:id=\"txtDescripcionProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtExistenciaProducto != null : "fx:id=\"txtExistenciaProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtMarcaProducto != null : "fx:id=\"txtMarcaProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtNombreProducto != null : "fx:id=\"txtNombreProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtPrecioProducto != null : "fx:id=\"txtPrecioProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
-        assert txtSkuProducto != null : "fx:id=\"txtSkuProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
 
-        productos = FXCollections.observableArrayList();
 
-        this.colNombreProducto.setCellValueFactory((new PropertyValueFactory("nombre")));
-        this.colCategoriasProducto.setCellValueFactory((new PropertyValueFactory("categoria")));
-        this.colInventarioProducto.setCellValueFactory((new PropertyValueFactory("cantExistencia")));
-        this.colSkuProducto.setCellValueFactory((new PropertyValueFactory("sku")));
 
+        productos = FXCollections.observableArrayList(); //Se tiene que crear otro arraylist que va a ser el que se va a visualizar en la vista
+        busquedaProductos = FXCollections.observableArrayList();
+
+        this.tblProductosGestionInventarios.setItems(productos); //Para setear los elementos de nuestro array original al que se muestra en pantalla
+
+        //Mapeo de las columnas de la tabla con los atributos de los objetos persona
+        this.colNombreProducto.setCellValueFactory((new PropertyValueFactory<>("nombre")));
+        this.colMarcaProducto.setCellValueFactory((new PropertyValueFactory<>("marca")));
+        this.colSkuProducto.setCellValueFactory((new PropertyValueFactory<>("sku")));
+        this.colCodigoBarrasProducto.setCellValueFactory((new PropertyValueFactory<>("codigoBarras")));
+        this.colInventarioProducto.setCellValueFactory((new PropertyValueFactory<>("cantExistencia")));
+        this.colPrecioUnitario.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
+        this.colCategoriasProducto.setCellValueFactory((new PropertyValueFactory<>("categoria")));
+    }
+
+
+
+    /**
+     * Elimina el producto seleccionado de la base de datos
+     * @param event Recibe la ejecución de un click en el botón correspondiente
+     */
+    @FXML
+    void ClickEliminarProducto(ActionEvent event) {
+
+        //Para seleccionar un objeto
+        Producto productoSeleccionado = this.tblProductosGestionInventarios.getSelectionModel().getSelectedItem();
+
+        if(productoSeleccionado == null){
+            Alerta alertaSeleccionarProducto = new Alerta("Error", "Debes seleccionar un producto");
+            alertaSeleccionarProducto.mostrarAlertaError();
+        }else{
+            this.productos.remove(productoSeleccionado);
+            this.busquedaProductos.remove(productoSeleccionado);
+            this.tblProductosGestionInventarios.refresh();
+
+            Alerta alertaProductoEliminado = new Alerta("Producto eliminado", "El producto seleccionado se ha eliminado con exito");
+            alertaProductoEliminado.mostrarAlertaInformation();
+        }
+    }
+
+    /**
+     * Lanza una pestaña con la posibilidad de editar el producto seleccionado
+     * @param actionEvent Recibe la ejecución de un click en el botón correspondiente
+     */
+    @FXML
+    public void ClickEditarProducto(ActionEvent actionEvent) {
+
+        //Seleccionar al producto a editar
+        Producto productoSeleccionado = this.tblProductosGestionInventarios.getSelectionModel().getSelectedItem();
+
+        if(productoSeleccionado == null){
+            Alerta alertaSeleccionarProducto = new Alerta("Error", "Debes seleccionar un producto");
+            alertaSeleccionarProducto.mostrarAlertaError();
+        }else{
+            //Abrir una ventana modal, y si, cada que quieras abrir una tienes que escribir esto
+            try {
+                FXMLLoader vistaEmergente = new FXMLLoader(getClass().getResource("/vista/VistaEmAgregarProducto.fxml"));
+                Parent root = vistaEmergente.load();
+
+                ControladorEmAgregarProducto controlador = vistaEmergente.getController();
+                controlador.inicializarAtributos(productos, productoSeleccionado);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+                //Abre para agregar a la persona y si es correcto sigue con lo que sigue de código
+
+                Producto productoEditado = controlador.getProductoAux();
+
+                if (productoEditado != null){
+
+                    //Para evitar conflictos cuando se está buscando
+                    if (!(productoEditado.getNombre().toLowerCase().contains(this.txtBuscarProducto.getText().toLowerCase()))){
+                        this.busquedaProductos.remove(productoEditado);
+                    }
+                    this.tblProductosGestionInventarios.refresh();
+
+                }
+
+            } catch (IOException e) {
+                Alerta alerta = new Alerta("Error", e.getMessage());
+                alerta.mostrarAlertaError();
+            }
+
+        }
 
     }
 
@@ -142,62 +195,38 @@ public class ControladorGestionInventarios implements Initializable {
     @FXML
     void ClickAgregarProducto(ActionEvent event) {
 
-    }
+        //Abrir una ventana modal, y si, cada que quieras abrir una tienes que escribir esto
+        try {
+            FXMLLoader vistaEmergente = new FXMLLoader(getClass().getResource("/vista/VistaEmAgregarProducto.fxml"));
+            Parent root = vistaEmergente.load();
 
-    /**
-     * Manda la información correspondiente a un parametro de busqueda y despliega los resultados correspondientes
-     *
-     * @param event Recibe la ejecución de un click en el botón correspondiente
-     */
-    @FXML
-    void ClickBuscar(ActionEvent event) {
+            ControladorEmAgregarProducto controlador = vistaEmergente.getController();
+            controlador.inicializarAtributos(productos);
 
-    }
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
 
-    /**
-     * Elimina el producto seleccionado de la base de datos
-     * @param event Recibe la ejecución de un click en el botón correspondiente
-     */
-    @FXML
-    void ClickEliminarProducto(ActionEvent event) {
+            //Abre para agregar a la persona y si es correcto sigue con lo que sigue de código
 
-    }
+            Producto nuevoProducto = controlador.getProductoAux();
+            if (nuevoProducto != null){
+                this.productos.add(nuevoProducto);
 
-    /**
-     * Guarda los cambios correspondientes en la base de datos, actualiza la información que haya sido alterada
-     * @param event Recibe la ejecución de un click en el botón correspondiente
-     */
-    @FXML
-    void ClickGuardarProducto(ActionEvent event) {
-        String nombre = this.txtNombreProducto.getText();
-        String categoria = this.txtCategoriaProducto.getText();
-        int cantExistencia = Integer.parseInt(this.txtExistenciaProducto.getText());
-        String sku = this.txtSkuProducto.getText();
+                //Para evitar conflictos cuando se está buscando
+                if (nuevoProducto.getNombre().toLowerCase().contains(this.txtBuscarProducto.getText().toLowerCase())){
+                    this.busquedaProductos.add(nuevoProducto);
+                }
+                this.tblProductosGestionInventarios.refresh();
 
-        Producto p = new Producto(nombre, categoria, cantExistencia, sku);
-
-
-        try{
-            if(!this.productos.contains(p)){
-                this.productos.add(p);
-                this.tblProductosGestionInventarios.setItems(productos);
             }
-            else{
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setHeaderText(null);
-                alerta.setTitle("Error");
-                alerta.setContentText("Producto ya existe");
-                alerta.showAndWait();
-            }
-        }catch(NumberFormatException e){
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setHeaderText(null);
-            alerta.setTitle("Error");
-            alerta.setContentText("Error");
-            alerta.showAndWait();
+
+        } catch (IOException e) {
+            Alerta alerta = new Alerta("Error", e.getMessage());
+            alerta.mostrarAlertaError();
         }
-
-
     }
 
     /**
@@ -213,7 +242,7 @@ public class ControladorGestionInventarios implements Initializable {
             stage.setTitle("FTools");
             stage.setScene(scene);
             stage.show();
-            Stage myStage = (Stage) this.btnBuscar.getScene().getWindow();
+            Stage myStage = (Stage) this.btnAgregarProducto.getScene().getWindow();
             myStage.close();
 
         } catch (IOException e) {
@@ -222,4 +251,22 @@ public class ControladorGestionInventarios implements Initializable {
 
     }
 
+    @FXML
+    public void escribirEnBuscar(KeyEvent keyEvent) {
+
+        String busqueda = this.txtBuscarProducto.getText();
+
+        if(busqueda.isEmpty()){
+            this.tblProductosGestionInventarios.setItems(productos);
+        }
+        else{
+            this.busquedaProductos.clear();
+            for (Producto producto : this.productos){
+                if(producto.getNombre().toLowerCase().contains(busqueda.toLowerCase())){
+                    this.busquedaProductos.add(producto);
+                }
+            }
+            this.tblProductosGestionInventarios.setItems(busquedaProductos);
+        }
+    }
 }

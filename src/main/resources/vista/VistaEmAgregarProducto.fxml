@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorEmAgregarProducto">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="14.0" prefHeight="346.0" prefWidth="580.0">
+         <children>
+            <Label layoutX="6.0" layoutY="6.0" text="Proporcione la información del nuevo producto: " />
+            <Label layoutX="26.0" layoutY="46.0" text="Nombre: " />
+            <TextField fx:id="txtNombre" layoutX="90.0" layoutY="42.0" prefHeight="25.0" prefWidth="216.0" promptText="Ingrese nombre del producto" />
+            <AnchorPane layoutX="14.0" layoutY="81.0" prefHeight="65.0" prefWidth="172.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="5.0" text="Código de barras: " />
+                  <TextField fx:id="txtCodigoBarras" layoutX="8.0" layoutY="29.0" prefHeight="25.0" prefWidth="152.0" promptText="Código de barras" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="204.0" layoutY="81.0" prefHeight="65.0" prefWidth="172.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="5.0" text="SKU:" />
+                  <TextField fx:id="txtSKU" layoutX="8.0" layoutY="29.0" prefHeight="25.0" prefWidth="152.0" promptText="SKU" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="388.0" layoutY="81.0" prefHeight="65.0" prefWidth="172.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="5.0" text="Marca" />
+                  <TextField fx:id="txtMarca" layoutX="8.0" layoutY="29.0" prefHeight="25.0" prefWidth="152.0" promptText="Marca " />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="14.0" layoutY="143.0" prefHeight="65.0" prefWidth="172.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="5.0" text="Inventario: " />
+                  <TextField fx:id="txtInventario" layoutX="8.0" layoutY="29.0" prefHeight="25.0" prefWidth="152.0" promptText="Existencia en tienda" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="204.0" layoutY="143.0" prefHeight="65.0" prefWidth="172.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="5.0" text="Categoría" />
+                  <ComboBox fx:id="cmbCategoria" layoutX="10.0" layoutY="28.0" prefHeight="25.0" prefWidth="152.0" promptText="Seleccionar" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="388.0" layoutY="143.0" prefHeight="65.0" prefWidth="172.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="5.0" text="Precio publico" />
+                  <TextField fx:id="txtPrecioPublico" layoutX="8.0" layoutY="29.0" prefHeight="25.0" prefWidth="152.0" promptText="Precio al publico" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="14.0" layoutY="209.0" prefHeight="83.0" prefWidth="544.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="5.0" text="Descripción: " />
+                  <TextArea fx:id="txtDescripcion" layoutX="9.0" layoutY="28.0" prefHeight="42.0" prefWidth="527.0" promptText="Escriba una descripción del producto" />
+               </children>
+            </AnchorPane>
+            <Button fx:id="btnGuardar" layoutX="230.0" layoutY="313.0" mnemonicParsing="false" onAction="#clickGuardar" prefHeight="25.0" prefWidth="120.0" text="Guardar" />
+            <Button fx:id="btnLimpiar" layoutX="59.0" layoutY="313.0" mnemonicParsing="false" onAction="#clickLimpiar" prefHeight="25.0" prefWidth="120.0" text="Limpiar" />
+            <Button fx:id="btnSalir" layoutX="400.0" layoutY="313.0" mnemonicParsing="false" onAction="#clickSalir" prefHeight="25.0" prefWidth="120.0" text="Salir" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
