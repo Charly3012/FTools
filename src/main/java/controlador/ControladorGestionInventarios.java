@@ -126,6 +126,8 @@ public class ControladorGestionInventarios implements Initializable {
      */
     @FXML
     void ClickEliminarProducto(ActionEvent event) {
+
+        //Para seleccionar un objeto
         Producto productoSeleccionado = this.tblProductosGestionInventarios.getSelectionModel().getSelectedItem();
 
         if(productoSeleccionado == null){
@@ -146,6 +148,44 @@ public class ControladorGestionInventarios implements Initializable {
      */
     @FXML
     public void ClickEditarProducto(ActionEvent actionEvent) {
+
+        //Seleccionar al producto a editar
+        Producto productoSeleccionado = this.tblProductosGestionInventarios.getSelectionModel().getSelectedItem();
+
+        if(productoSeleccionado == null){
+            Alerta alertaSeleccionarProducto = new Alerta("Error", "Debes seleccionar un producto");
+            alertaSeleccionarProducto.mostrarAlertaError();
+        }else{
+            //Abrir una ventana modal, y si, cada que quieras abrir una tienes que escribir esto
+            try {
+                FXMLLoader vistaEmergente = new FXMLLoader(getClass().getResource("/vista/VistaEmAgregarProducto.fxml"));
+                Parent root = vistaEmergente.load();
+
+                ControladorEmAgregarProducto controlador = vistaEmergente.getController();
+                controlador.inicializarAtributos(productos, productoSeleccionado);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+                //Abre para agregar a la persona y si es correcto sigue con lo que sigue de código
+
+                Producto productoEditado = controlador.getProductoAux();
+
+                if (productoEditado != null){
+                    this.tblProductosGestionInventarios.refresh();
+
+                }
+
+            } catch (IOException e) {
+                Alerta alerta = new Alerta("Error", e.getMessage());
+                alerta.mostrarAlertaError();
+            }
+
+        }
+
     }
 
     /**
@@ -172,68 +212,18 @@ public class ControladorGestionInventarios implements Initializable {
 
             //Abre para agregar a la persona y si es correcto sigue con lo que sigue de código
 
-            Producto nuevoProducto = controlador.getNuevoProducto();
+            Producto nuevoProducto = controlador.getProductoAux();
             if (nuevoProducto != null){
                 this.productos.add(nuevoProducto);
                 this.tblProductosGestionInventarios.setItems(productos);
 
             }
 
-
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Alerta alerta = new Alerta("Error", e.getMessage());
+            alerta.mostrarAlertaError();
         }
-
-
-
-
-
-        /*
-        Producto productoSeleccionado = this.tblProductosGestionInventarios.getSelectionModel().getSelectedItem();
-
-        if(productoSeleccionado == null){
-            Alerta alertaSeleccionarProducto = new Alerta("Error", "Debes seleccionar un producto");
-            alertaSeleccionarProducto.mostrarAlertaError();
-        }else {
-
-        }*/
-
     }
-
-    /* Codigo anterior para agregar un elemento a la tabla por medio de una observable list
-    @FXML
-    void ClickGuardarProducto(ActionEvent event) {
-        String nombre = this.txtNombreProducto.getText();
-        String categoria = this.txtCategoriaProducto.getText();
-        int cantExistencia = Integer.parseInt(this.txtExistenciaProducto.getText());
-        String sku = this.txtSkuProducto.getText();
-
-        Producto p = new Producto(nombre, categoria, cantExistencia, sku);
-
-
-        try{
-            if(!this.productos.contains(p)){
-                this.productos.add(p);
-                this.tblProductosGestionInventarios.setItems(productos);
-            }
-            else{
-                Alert alerta = new Alert(Alert.AlertType.ERROR);
-                alerta.setHeaderText(null);
-                alerta.setTitle("Error");
-                alerta.setContentText("Producto ya existe");
-                alerta.showAndWait();
-            }
-        }catch(NumberFormatException e){
-            Alert alerta = new Alert(Alert.AlertType.ERROR);
-            alerta.setHeaderText(null);
-            alerta.setTitle("Error");
-            alerta.setContentText("Error");
-            alerta.showAndWait();
-        }
-
-
-    }
-     */
 
     /**
      * Cierra la ventana y regresa al menú principal

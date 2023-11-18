@@ -18,6 +18,9 @@ import modelo.Producto;
 public class ControladorEmAgregarProducto implements Initializable {
 
     @FXML
+    public Button btnSalir;
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -53,7 +56,7 @@ public class ControladorEmAgregarProducto implements Initializable {
     @FXML
     private TextField txtSKU;
 
-    private Producto nuevoProducto;
+    private Producto productoAux;
 
     private ObservableList<Producto> productos;
 
@@ -83,11 +86,25 @@ public class ControladorEmAgregarProducto implements Initializable {
 
     }
 
+    public void inicializarAtributos(ObservableList<Producto> productos, Producto p){
+        this.productos = productos;
+        this.productoAux = p;
+
+        this.txtNombre.setText(p.getNombre());
+        this.txtDescripcion.setText(p.getDescripcion());
+        this.txtInventario.setText(p.getCantExistencia() + "");
+        this.txtSKU.setText(p.getSku());
+        this.txtMarca.setText(p.getMarca());
+        this.txtCodigoBarras.setText(p.getCodigoBarras() + "");
+        this.txtPrecioPublico.setText(p.getPrecioUnitario() + "");
+
+    }
+
     @FXML
     void clickGuardar(ActionEvent event) {
 
         String nombre = this.txtNombre.getText();
-        String marca = this.txtNombre.getText();
+        String marca = this.txtMarca.getText();
         String sku = this.txtSKU.getText();
         int codigoBarras = Integer.parseInt(txtCodigoBarras.getText());
         int cantExistencia = Integer.parseInt(txtInventario.getText());
@@ -95,18 +112,38 @@ public class ControladorEmAgregarProducto implements Initializable {
         String categoria = this.cmbCategoria.getTypeSelector();
         String descripcion = this.txtDescripcion.getText();
 
-        Producto nuevoProductoTemp = new Producto(nombre, marca, sku, codigoBarras, cantExistencia, precioUnitario, categoria, descripcion);
+        Producto productoAuxNuevo = new Producto(nombre, marca, sku, codigoBarras, cantExistencia, precioUnitario, categoria, descripcion);
 
         //Comprueba que no exista uno igual
-        if(!(productos.contains(nuevoProductoTemp))){
-            this.nuevoProducto = nuevoProductoTemp;
+        if(!(productos.contains(productoAuxNuevo))){
 
-            Alerta agregadoCorrectamente = new Alerta("Producto agregado", "El producto se ha agregado con éxito");
-            agregadoCorrectamente.mostrarAlertaInformation();
+            //Modificar
+            if(this.productoAux != null){
+
+                this.productoAux.setNombre(nombre);
+                //this.productoAux.setCategoria(categoria);
+                this.productoAux.setCantExistencia(cantExistencia);
+                this.productoAux.setSku(sku);
+                this.productoAux.setDescripcion(descripcion);
+                this.productoAux.setCodigoBarras(codigoBarras);
+                this.productoAux.setPrecioUnitario(precioUnitario);
+
+                Alerta editadoExitoso = new Alerta("Producto modificado", "El producto se ha modificado con exito");
+                editadoExitoso.mostrarAlertaInformation();
+            }
+            //Nuevo
+            else{
+                this.productoAux = productoAuxNuevo;
+
+                Alerta agregadoCorrectamente = new Alerta("Producto agregado", "El producto se ha agregado con éxito");
+                agregadoCorrectamente.mostrarAlertaInformation();
+            }
 
             //Cierra la pestaña y termina el guardado
             Stage stage = (Stage) this.btnGuardar.getScene().getWindow();
             stage.close();
+
+
         }else{
             Alerta productoExistente = new Alerta("Error", "El producto ya existe");
             productoExistente.mostrarAlertaError();
@@ -120,9 +157,24 @@ public class ControladorEmAgregarProducto implements Initializable {
     @FXML
     void clickLimpiar(ActionEvent event) {
 
+        this.txtNombre.setText("");
+        this.txtMarca.setText("");
+        this.txtSKU.setText("");
+        this.txtPrecioPublico.setText("");
+        this.txtInventario.setText("");
+        this.txtCodigoBarras.setText("");
+        this.txtDescripcion.setText("");
+
     }
 
-    public Producto getNuevoProducto() {
-        return nuevoProducto;
+    public Producto getProductoAux() {
+        return productoAux;
+    }
+
+    @FXML
+    public void clickSalir(ActionEvent actionEvent) {
+        this.productoAux = null;
+        Stage stage = (Stage) this.btnGuardar.getScene().getWindow();
+        stage.close();
     }
 }
