@@ -15,8 +15,7 @@
    <children>
       <AnchorPane layoutX="14.0" layoutY="59.0" prefHeight="62.0" prefWidth="523.0">
          <children>
-            <TextField fx:id="txtBuscarProducto" layoutY="19.0" prefHeight="25.0" prefWidth="276.0" promptText="Buscar producto" />
-            <Button fx:id="btnBuscar" layoutX="289.0" layoutY="19.0" mnemonicParsing="false" onAction="#ClickBuscar" text="Buscar" />
+            <TextField fx:id="txtBuscarProducto" layoutY="19.0" onKeyReleased="#escribirEnBuscar" prefHeight="25.0" prefWidth="339.0" promptText="Buscar producto" />
             <ComboBox fx:id="comFiltrarPor" layoutX="359.0" layoutY="19.0" prefWidth="150.0" promptText="Buscar por:" />
          </children></AnchorPane>
       <AnchorPane layoutY="130.0" prefHeight="370.0" prefWidth="922.0">
