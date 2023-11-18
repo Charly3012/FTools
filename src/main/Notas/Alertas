@@ -1,0 +1,11 @@
+Código para mostrar una alerta model en la pantalla
+
+
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setHeaderText(null);
+            alerta.setTitle("Error");
+            alerta.setContentText("Error");
+            alerta.showAndWait();
+
+Norlmalmente esta dentro de un try-catch
+
