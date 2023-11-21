@@ -1,5 +1,6 @@
 package controlador;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.Proveedor;
 
 import java.io.IOException;
 
@@ -58,11 +60,12 @@ public class ControladorGestionDeProveedores {
     private Label labProveedoresMenu;
 
     @FXML
-    private TableView<?> tlbrBarraProveedor;
+    private TableView<Proveedor> tlbrBarraProveedor;
 
     @FXML
     private TextField txtBuscarProveedores;
 
+    private ObservableList<Proveedor> proveedores;
     /**
      * Abre una ventana para agregar un nuevo proveedor.
      * @param event Evento de clic en el botón de agregar nuevo.
@@ -74,13 +77,22 @@ public class ControladorGestionDeProveedores {
         try {
             Parent root = loader.load();
 
-            ControladorNuevoProveedor controlador = loader .getController();
+            ControladorNuevoProveedor controlador = loader.getController();
+            controlador.initAttributtes(proveedores);
 
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+
+            Proveedor prvdr = controlador.getNuevoPro();
+            if (prvdr != null){
+                this.proveedores.add(prvdr);
+                this.tlbrBarraProveedor.refresh();
+            }else {
+
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
