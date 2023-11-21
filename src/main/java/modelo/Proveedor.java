@@ -1,16 +1,21 @@
 package modelo;
 
+import java.util.Objects;
+
 public class Proveedor {
     private String nombre;
     private String direccion;
-    private String coreo;
+    private String correo;
     private int numero;
 
-    public Proveedor(String nombre, String direccion, String coreo, int numero) {
+    public Proveedor(String nombre, String direccion, String correo, int numero) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.coreo = coreo;
+        this.correo = correo;
         this.numero = numero;
+    }
+
+    public Proveedor() {
     }
 
     public String getNombre() {
@@ -29,12 +34,12 @@ public class Proveedor {
         this.direccion = direccion;
     }
 
-    public String getCoreo() {
-        return coreo;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCoreo(String coreo) {
-        this.coreo = coreo;
+    public void setCorreo(String coreo) {
+        this.correo = correo;
     }
 
     public int getNumero() {
@@ -43,5 +48,18 @@ public class Proveedor {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Proveedor proveedor = (Proveedor) o;
+        return numero == proveedor.numero && Objects.equals(nombre, proveedor.nombre) && Objects.equals(direccion, proveedor.direccion) && Objects.equals(correo, proveedor.correo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, direccion, correo, numero);
     }
 }

@@ -1,22 +1,22 @@
 package controlador;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Proveedor;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controlador de la pestaña encargada de gestionar los provedores existentes en el sistema,
@@ -24,7 +24,7 @@ import java.io.IOException;
  * @author Zared
  * @version 1.0
  */
-public class ControladorGestionDeProveedores {
+public class ControladorGestionDeProveedores implements Initializable {
 
     @FXML
     private Button btnAgregarProveedor;
@@ -42,19 +42,16 @@ public class ControladorGestionDeProveedores {
     private MenuButton btnMenuProveedores;
 
     @FXML
-    private TableColumn<?, ?> colCorreoProveedor;
+    private TableColumn colCorreoProveedor;
 
     @FXML
-    private TableColumn<?, ?> colDireccionProveedor;
+    private TableColumn colDireccionProveedor;
 
     @FXML
-    private TableColumn<?, ?> colNombreProveedor;
+    private TableColumn colNombreProveedor;
 
     @FXML
-    private TableColumn<?, ?> colNumeroProveedor;
-
-    @FXML
-    private TableColumn<?, ?> colProductosProveedor;
+    private TableColumn colNumeroProveedor;
 
     @FXML
     private Label labProveedoresMenu;
@@ -66,15 +63,30 @@ public class ControladorGestionDeProveedores {
     private TextField txtBuscarProveedores;
 
     private ObservableList<Proveedor> proveedores;
+
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        proveedores = FXCollections.observableArrayList();
+        this.tlbrBarraProveedor.setItems(proveedores);
+
+        this.colNombreProveedor.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        this.colDireccionProveedor.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        this.colCorreoProveedor.setCellValueFactory(new PropertyValueFactory<>("correo"));
+        this.colNumeroProveedor.setCellValueFactory(new PropertyValueFactory<>("numero"));
+    }
     /**
      * Abre una ventana para agregar un nuevo proveedor.
      * @param event Evento de clic en el botón de agregar nuevo.
      */
     @FXML
     void agregarNuevoP(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaNuevoProveedor.fxml"));
 
         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaNuevoProveedor.fxml"));
+
+
             Parent root = loader.load();
 
             ControladorNuevoProveedor controlador = loader.getController();
@@ -86,12 +98,11 @@ public class ControladorGestionDeProveedores {
             stage.setScene(scene);
             stage.showAndWait();
 
-            Proveedor prvdr = controlador.getNuevoPro();
-            if (prvdr != null){
-                this.proveedores.add(prvdr);
-                this.tlbrBarraProveedor.refresh();
-            }else {
+            Proveedor p = controlador.getProveedor();
 
+            if (p != null){
+                this.proveedores.add(p);
+                this.tlbrBarraProveedor.refresh();
             }
 
         } catch (IOException e) {
@@ -121,6 +132,7 @@ public class ControladorGestionDeProveedores {
         }
 
     }
+
 
 }
 

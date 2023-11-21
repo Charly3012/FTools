@@ -70,7 +70,7 @@ public class ControladorNuevoProveedor implements Initializable{
     @FXML
     private TextField txtNuevoProveedorNombre;
 
-    private Proveedor nuevoPro;
+    private Proveedor proveedor;
 
     private ObservableList<Proveedor> proveedores;
 
@@ -90,13 +90,14 @@ public class ControladorNuevoProveedor implements Initializable{
         String correo = this.txtNuevoProveedorCorreo.getText();
         int numero = Integer.parseInt(this.txtNuevoProveedorCel.getText());
 
-        Proveedor prvdr = new Proveedor(nombre, direccion, correo, numero);
-        if (!proveedores.contains(prvdr)){
-            this.nuevoPro = prvdr;
+        Proveedor p = new Proveedor(nombre, direccion, correo, numero);
+
+        if (!proveedores.contains(p)){
+            this.proveedor = p;
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Info");
-            alert.setContentText("Se ha añadido correctamente");
+            alert.setContentText("El proveedor se ha añadido correctamente");
             alert.showAndWait();
 
             Stage stage = (Stage) this.btnNuevoProveedorAceptar.getScene().getWindow();
@@ -105,23 +106,20 @@ public class ControladorNuevoProveedor implements Initializable{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setTitle("Error");
-            alert.setContentText("Ya existe");
+            alert.setContentText("El proveedor ya existe");
             alert.showAndWait();
-
-            Stage stage = (Stage) this.btnNuevoProveedorAceptar.getScene().getWindow();
-            stage.close();
         }
     }
 
     @FXML
     void cancelarSalir(ActionEvent event) {
-        this.nuevoPro = null;
+        this.proveedor = null;
         Stage stage = (Stage) this.btnNuevoProveedorCancelar.getScene().getWindow();
         stage.close();
     }
 
-    public Proveedor getNuevoPro() {
-        return nuevoPro;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 }
 

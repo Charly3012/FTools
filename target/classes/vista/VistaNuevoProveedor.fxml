@@ -6,11 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
-
 <AnchorPane prefHeight="259.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorNuevoProveedor">
    <children>
-      <Button fx:id="btnNuevoProveedorAceptar" layoutX="95.0" layoutY="213.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Aceptar" />
-      <Button fx:id="btnNuevoProveedorCancelar" layoutX="390.0" layoutY="213.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Cancelar" />
+      <Button fx:id="btnNuevoProveedorAceptar" layoutX="95.0" layoutY="213.0" mnemonicParsing="false" onAction="#aceptarGuardar" prefHeight="25.0" prefWidth="95.0" text="Aceptar" />
+      <Button fx:id="btnNuevoProveedorCancelar" layoutX="390.0" layoutY="213.0" mnemonicParsing="false" onAction="#cancelarSalir" prefHeight="25.0" prefWidth="105.0" text="Cancelar" />
       <Label fx:id="labNuevoProveedorContacto" layoutX="16.0" layoutY="20.0" text="Area de contacto" />
       <Label fx:id="labNuevoProveedorNombre" layoutX="35.0" layoutY="71.0" text="Nombre:" />
       <TextField fx:id="txtNuevoProveedorNombre" layoutX="95.0" layoutY="67.0" />
