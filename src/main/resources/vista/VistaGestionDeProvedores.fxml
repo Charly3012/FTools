@@ -37,11 +37,10 @@
       <Label fx:id="labProveedoresMenu" layoutX="97.0" layoutY="18.0" text="Gestion de proveedores" />
       <TableView fx:id="tlbrBarraProveedor" layoutY="109.0" prefHeight="391.0" prefWidth="862.0">
         <columns>
-          <TableColumn fx:id="colNombreProveedor" prefWidth="152.0" text="Nombre " />
-          <TableColumn fx:id="colDireccionProveedor" prefWidth="155.0" text="Dirección" />
-            <TableColumn fx:id="colCorreoProveedor" prefWidth="210.0" text="Correo electronico" />
-            <TableColumn fx:id="colNumeroProveedor" prefWidth="157.0" text="Número de contacto" />
-            <TableColumn fx:id="colProductosProveedor" prefWidth="187.0" text="Productos" />
+          <TableColumn fx:id="colNombreProveedor" prefWidth="224.0" text="Nombre " />
+          <TableColumn fx:id="colDireccionProveedor" prefWidth="226.0" text="Dirección" />
+            <TableColumn fx:id="colCorreoProveedor" prefWidth="226.0" text="Correo electronico" />
+            <TableColumn fx:id="colNumeroProveedor" prefWidth="185.0" text="Número de contacto" />
         </columns>
       </TableView>
    </children>
