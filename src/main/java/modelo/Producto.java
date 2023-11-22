@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  * @author Charly
  * @version 1.0
  */
-public class Producto {
+public class Producto implements Serializable {
     /**
      * Nombre del producto
      */

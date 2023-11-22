@@ -16,8 +16,9 @@ import javafx.stage.Stage;
 import modelo.Alerta;
 import modelo.Producto;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
  * @author Charly
  * @version 1.0
  */
-public class ControladorGestionInventarios implements Initializable {
+public class ControladorGestionInventarios implements Initializable{
 
     @FXML
     public Button btnEditarProducto;
@@ -81,6 +82,10 @@ public class ControladorGestionInventarios implements Initializable {
     @FXML //Lista que se muestra cuando se esta buscando entre los productos
     private ObservableList<Producto> busquedaProductos;
 
+    private static final long serialId = 1L;
+
+
+
     public void initialize(URL url, ResourceBundle rb) {
         assert btnAgregarProducto != null : "fx:id=\"btnAgregarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert btnEliminarProducto != null : "fx:id=\"btnEliminarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
@@ -95,11 +100,11 @@ public class ControladorGestionInventarios implements Initializable {
         assert txtBuscarProducto != null : "fx:id=\"txtBuscarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
 
 
-
+        //Iniciar la visualización de objetos en la tabla
         productos = FXCollections.observableArrayList(); //Se tiene que crear otro arraylist que va a ser el que se va a visualizar en la vista
         busquedaProductos = FXCollections.observableArrayList();
-
         this.tblProductosGestionInventarios.setItems(productos); //Para setear los elementos de nuestro array original al que se muestra en pantalla
+
 
         //Mapeo de las columnas de la tabla con los atributos de los objetos persona
         this.colNombreProducto.setCellValueFactory((new PropertyValueFactory<>("nombre")));
@@ -109,6 +114,17 @@ public class ControladorGestionInventarios implements Initializable {
         this.colInventarioProducto.setCellValueFactory((new PropertyValueFactory<>("cantExistencia")));
         this.colPrecioUnitario.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
         this.colCategoriasProducto.setCellValueFactory((new PropertyValueFactory<>("categoria")));
+
+
+        //Persistencia - Leer el archivo de datos
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("gestionInventarios.ddr"));
+            ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
+            productos.addAll(productosGuardar);
+
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -233,6 +249,19 @@ public class ControladorGestionInventarios implements Initializable {
      * Cierra la ventana y regresa al menú principal
      */
     public void cerrarVentana(){
+
+        //Persistencia - Guardar los datos en un archivo
+
+        ArrayList<Producto> productosGuardar= new ArrayList<>(productos);
+       try{
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("gestionInventarios.ddr"));
+        oos.writeObject(productosGuardar);
+       } catch (IOException e) {
+           throw new RuntimeException(e);
+       }
+
+
+        //Retorna a la ventana anterior cuando se cierra
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaMenuPrincipal.fxml"));
             Parent root = loader.load();
