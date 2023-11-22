@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modelo.Alerta;
 
 import java.io.IOException;
 
@@ -112,6 +113,9 @@ public class ControladorMenuPrincipal {
      */
     @FXML
     void clickSalir(MouseEvent event) {
+        Alerta alertaSalir = new Alerta("Salir de la aplicación", "Desea salir de la aplicación?\nSus datos se guardaran");
+        alertaSalir.mostrarAlertaConfirmation();
+
         Stage stage = (Stage) imgSalir.getScene().getWindow();
         stage.close();
     }
