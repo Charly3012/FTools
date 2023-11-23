@@ -16,8 +16,9 @@ import javafx.stage.Stage;
 import modelo.Alerta;
 import modelo.Producto;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
  * @author Charly
  * @version 1.0
  */
-public class ControladorGestionInventarios implements Initializable {
+public class ControladorGestionInventarios implements Initializable{
 
     @FXML
     public Button btnEditarProducto;
@@ -81,6 +82,10 @@ public class ControladorGestionInventarios implements Initializable {
     @FXML //Lista que se muestra cuando se esta buscando entre los productos
     private ObservableList<Producto> busquedaProductos;
 
+    private static final long serialId = 1L;
+
+
+
     public void initialize(URL url, ResourceBundle rb) {
         assert btnAgregarProducto != null : "fx:id=\"btnAgregarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert btnEliminarProducto != null : "fx:id=\"btnEliminarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
@@ -94,21 +99,10 @@ public class ControladorGestionInventarios implements Initializable {
         assert tblProductosGestionInventarios != null : "fx:id=\"tblProductosGestionInventarios\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert txtBuscarProducto != null : "fx:id=\"txtBuscarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
 
+        iniciarDatosObservables();
+        persistenciaLeer();
 
 
-        productos = FXCollections.observableArrayList(); //Se tiene que crear otro arraylist que va a ser el que se va a visualizar en la vista
-        busquedaProductos = FXCollections.observableArrayList();
-
-        this.tblProductosGestionInventarios.setItems(productos); //Para setear los elementos de nuestro array original al que se muestra en pantalla
-
-        //Mapeo de las columnas de la tabla con los atributos de los objetos persona
-        this.colNombreProducto.setCellValueFactory((new PropertyValueFactory<>("nombre")));
-        this.colMarcaProducto.setCellValueFactory((new PropertyValueFactory<>("marca")));
-        this.colSkuProducto.setCellValueFactory((new PropertyValueFactory<>("sku")));
-        this.colCodigoBarrasProducto.setCellValueFactory((new PropertyValueFactory<>("codigoBarras")));
-        this.colInventarioProducto.setCellValueFactory((new PropertyValueFactory<>("cantExistencia")));
-        this.colPrecioUnitario.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
-        this.colCategoriasProducto.setCellValueFactory((new PropertyValueFactory<>("categoria")));
     }
 
 
@@ -230,9 +224,14 @@ public class ControladorGestionInventarios implements Initializable {
     }
 
     /**
-     * Cierra la ventana y regresa al menú principal
+     * Código util que se ejecuta cuando se cierra la ventana
+     * Su principal funcion es retornar a la pestaña previa así como llamar que permite la persistencia
      */
     public void cerrarVentana(){
+
+        persistenciaEscribir();
+
+        //Retorna a la ventana anterior cuando se cierra
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaMenuPrincipal.fxml"));
             Parent root = loader.load();
@@ -251,6 +250,10 @@ public class ControladorGestionInventarios implements Initializable {
 
     }
 
+    /**
+     * Permite realizar busquedas por nombre en la tabla principal
+     * @param keyEvent
+     */
     @FXML
     public void escribirEnBuscar(KeyEvent keyEvent) {
 
@@ -268,5 +271,55 @@ public class ControladorGestionInventarios implements Initializable {
             }
             this.tblProductosGestionInventarios.setItems(busquedaProductos);
         }
+    }
+
+    /**
+     * Lee los registros de sesiones pasadas permitiendo la persistencia de datos
+     */
+    public void persistenciaLeer(){
+        //Persistencia - Leer el archivo de datos
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
+            ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
+            productos.addAll(productosGuardar);
+
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Guarda y actualiza los cambios realizados en las tablas permitiendo la persistencia
+     * En caso de que sea primera vez que se guarda algún dato, permite la creación del archivo.
+     */
+    public void persistenciaEscribir(){
+        //Persistencia - Guardar los datos en un archivo
+        ArrayList<Producto> productosGuardar= new ArrayList<>(productos);
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/resources/persistencia/gestionInventarios.cja"));
+            oos.writeObject(productosGuardar);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Inicia y setea los datos para que sean visibles para el usuario en una tabla en la GUI
+     */
+    public void iniciarDatosObservables(){
+        //Iniciar la visualización de objetos en la tabla
+        productos = FXCollections.observableArrayList(); //Se tiene que crear otro arraylist que va a ser el que se va a visualizar en la vista
+        busquedaProductos = FXCollections.observableArrayList();
+        this.tblProductosGestionInventarios.setItems(productos); //Para setear los elementos de nuestro array original al que se muestra en pantalla
+
+
+        //Mapeo de las columnas de la tabla con los atributos de los objetos persona
+        this.colNombreProducto.setCellValueFactory((new PropertyValueFactory<>("nombre")));
+        this.colMarcaProducto.setCellValueFactory((new PropertyValueFactory<>("marca")));
+        this.colSkuProducto.setCellValueFactory((new PropertyValueFactory<>("sku")));
+        this.colCodigoBarrasProducto.setCellValueFactory((new PropertyValueFactory<>("codigoBarras")));
+        this.colInventarioProducto.setCellValueFactory((new PropertyValueFactory<>("cantExistencia")));
+        this.colPrecioUnitario.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
+        this.colCategoriasProducto.setCellValueFactory((new PropertyValueFactory<>("categoria")));
     }
 }
