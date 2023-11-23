@@ -13,6 +13,8 @@ import modelo.Proveedor;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Clase encargada de agregar nuevos proveedores
@@ -90,7 +92,18 @@ public class ControladorNuevoProveedor implements Initializable{
         String correo = this.txtNuevoProveedorCorreo.getText();
         int numero = Integer.parseInt(this.txtNuevoProveedorCel.getText());
 
+
         Proveedor p = new Proveedor(nombre, direccion, correo, numero);
+
+
+        if (!validarEmail(correo)){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Error");
+            alert.setContentText("El correo no es valido");
+            alert.showAndWait();
+        }
+
 
         if (!proveedores.contains(p)){
             this.proveedor = p;
@@ -103,12 +116,24 @@ public class ControladorNuevoProveedor implements Initializable{
             Stage stage = (Stage) this.btnNuevoProveedorAceptar.getScene().getWindow();
             stage.close();
         }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setTitle("Error");
             alert.setContentText("El proveedor ya existe");
             alert.showAndWait();
         }
+    }
+
+    private boolean validarDireccion(String direccion){
+        String validDireccion = "^[a-zA-Z0-9#.-]*$";
+        return direccion.matches(validDireccion);
+    }
+
+    private boolean validarEmail(String correo) {
+        String validCorreo = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(validCorreo);
+        Matcher matcher = pattern.matcher(correo);
+        return matcher.matches();
     }
 
     @FXML
