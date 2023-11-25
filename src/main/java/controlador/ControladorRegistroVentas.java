@@ -146,9 +146,7 @@ public class ControladorRegistroVentas implements Initializable {
         try{
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
             ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
-            if (productosVista == null) {
-                productosVista = FXCollections.observableArrayList();
-            }
+
             productosVista.addAll(productosGuardar);
 
         } catch (IOException | ClassNotFoundException e) {
@@ -161,17 +159,17 @@ public class ControladorRegistroVentas implements Initializable {
 
     public void iniciarDatosObservables(){
         //Iniciar la visualización de objetos en la tabla
-        productosVista = FXCollections.observableArrayList(); //Se tiene que crear otro arraylist que va a ser el que se va a visualizar en la vista
-        this.tblProductosDisponibles.setItems(productosVista); //Para setear los elementos de nuestro array original al que se muestra en pantalla
+        productosVista = FXCollections.observableArrayList();
+        this.tblProductosDisponibles.setItems(productosVista);
+         //Para setear los elementos de nuestro array original al que se muestra en pantalla
 
 
         //Mapeo de las columnas de la tabla con los atributos de los objetos persona
-        this.colProuctoDisp.setCellValueFactory((new PropertyValueFactory<>("Producto")));
-        this.colCategoriaDisp.setCellValueFactory((new PropertyValueFactory<>("Categoria")));
-        this.colInventarioDisp.setCellValueFactory((new PropertyValueFactory<>("Inventario")));
-        this.colPrecioUnitarioDisp.setCellValueFactory((new PropertyValueFactory<>("Precio unitario")));
 
-
+        this.colProuctoDisp.setCellValueFactory((new PropertyValueFactory<>("nombre")));
+        this.colCategoriaDisp.setCellValueFactory((new PropertyValueFactory<>("categoria")));
+        this.colInventarioDisp.setCellValueFactory((new PropertyValueFactory<>("cantExistencia")));
+        this.colPrecioUnitarioDisp.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
 
     }
 

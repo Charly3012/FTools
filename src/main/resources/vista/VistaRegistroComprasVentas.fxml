@@ -12,7 +12,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorRegistroVentas">
    <children>
       <AnchorPane prefHeight="40.0" prefWidth="862.0">
@@ -39,7 +38,7 @@
                 <TableColumn fx:id="colProuctoDisp" prefWidth="156.7999849319458" text="Producto" />
                 <TableColumn fx:id="colCategoriaDisp" prefWidth="139.1999969482422" text="Categoria" />
                   <TableColumn fx:id="colInventarioDisp" prefWidth="92.0" text="Inventario" />
-                  <TableColumn fx:id="colPrecioUnitarioDisp" prefWidth="92.0" text="Precio unitario" />
+                  <TableColumn fx:id="colPrecioUnitarioDisp" prefWidth="92.0" text="PrecioUnitario" />
               </columns>
             </TableView>
          </children>
