@@ -106,7 +106,7 @@ public class ControladorRegistroVentas implements Initializable {
         assert colCategoriaDisp != null : "fx:id=\"colCategoriaDisp\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         assert colProuctoDisp!= null : "fx:id=\"colProuctoDisp\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         assert tblProductosDisponibles != null : "fx:id=\"tblProductosDisponibles\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
-        assert txtBuscarProducto != null : "fx:id=\"txtBuscarProducto\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
+
 
         iniciarDatosObservables();
         persistenciaLeer();
@@ -162,7 +162,6 @@ public class ControladorRegistroVentas implements Initializable {
     public void iniciarDatosObservables(){
         //Iniciar la visualización de objetos en la tabla
         productosVista = FXCollections.observableArrayList(); //Se tiene que crear otro arraylist que va a ser el que se va a visualizar en la vista
-
         this.tblProductosDisponibles.setItems(productosVista); //Para setear los elementos de nuestro array original al que se muestra en pantalla
 
 
