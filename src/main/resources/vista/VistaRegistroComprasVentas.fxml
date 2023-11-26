@@ -27,7 +27,7 @@
       </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="50.0" prefHeight="101.0" prefWidth="478.0">
          <children>
-            <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto" />
+            <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" onKeyReleased="#escribirBuscar" prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto" />
             <Button fx:id="btnBuscar" layoutX="336.0" layoutY="15.0" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar" />
          </children>
       </AnchorPane>

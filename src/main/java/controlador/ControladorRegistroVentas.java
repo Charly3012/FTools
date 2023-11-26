@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modelo.Producto;
@@ -80,6 +81,9 @@ public class ControladorRegistroVentas implements Initializable {
     @FXML //Lista que se muestra de productos
     private ObservableList<Producto> productosVista;
 
+    @FXML //Lista que se muestra cuando se esta buscando entre los productos
+    private ObservableList<Producto> buscarProductos;
+
     /**
      * Maneja el evento de clic en el botón de búsqueda.
      *
@@ -106,7 +110,8 @@ public class ControladorRegistroVentas implements Initializable {
         assert colCategoriaDisp != null : "fx:id=\"colCategoriaDisp\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         assert colProuctoDisp!= null : "fx:id=\"colProuctoDisp\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         assert tblProductosDisponibles != null : "fx:id=\"tblProductosDisponibles\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
-
+        assert txtBuscarProducto != null : "fx:id=\"tblProductosDisponibles\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
+        assert btnBuscar != null : "fx:id=\"tblProductosDisponibles\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
 
         iniciarDatosObservables();
         persistenciaLeer();
@@ -160,8 +165,9 @@ public class ControladorRegistroVentas implements Initializable {
     public void iniciarDatosObservables(){
         //Iniciar la visualización de objetos en la tabla
         productosVista = FXCollections.observableArrayList();
+        buscarProductos = FXCollections.observableArrayList();
         this.tblProductosDisponibles.setItems(productosVista);
-         //Para setear los elementos de nuestro array original al que se muestra en pantalla
+        //Para setear los elementos de nuestro array original al que se muestra en pantalla
 
 
         //Mapeo de las columnas de la tabla con los atributos de los objetos persona
@@ -172,10 +178,23 @@ public class ControladorRegistroVentas implements Initializable {
         this.colPrecioUnitarioDisp.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
 
     }
+    @FXML
+    public void escribirBuscar(KeyEvent keyEvent) {
 
+        String busqueda = this.txtBuscarProducto.getText();
 
-
-
-
+        if(busqueda.isEmpty()){
+            this.tblProductosDisponibles.setItems(productosVista);
+        }
+        else{
+            this.buscarProductos.clear();
+            for (Producto productoVista : this.productosVista){
+                if(productoVista.getNombre().toLowerCase().contains(busqueda.toLowerCase())){
+                    this.buscarProductos.add(productoVista);
+                }
+            }
+            this.tblProductosDisponibles.setItems(buscarProductos);
+        }
+    }
 
 }
