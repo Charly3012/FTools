@@ -12,9 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.Alerta;
+import modelo.Producto;
 import modelo.Proveedor;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -24,7 +27,7 @@ import java.util.ResourceBundle;
  * @author Zared
  * @version 1.0
  */
-public class ControladorGestionDeProveedores implements Initializable {
+public class ControladorGestionDeProveedores implements Initializable, Serializable {
 
     @FXML
     private Button btnAgregarProveedor;
@@ -64,8 +67,6 @@ public class ControladorGestionDeProveedores implements Initializable {
 
     private ObservableList<Proveedor> proveedores;
 
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         proveedores = FXCollections.observableArrayList();
@@ -75,6 +76,7 @@ public class ControladorGestionDeProveedores implements Initializable {
         this.colDireccionProveedor.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         this.colCorreoProveedor.setCellValueFactory(new PropertyValueFactory<>("correo"));
         this.colNumeroProveedor.setCellValueFactory(new PropertyValueFactory<>("numero"));
+
     }
     /**
      * Abre una ventana para agregar un nuevo proveedor.
@@ -85,7 +87,6 @@ public class ControladorGestionDeProveedores implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaNuevoProveedor.fxml"));
-
 
             Parent root = loader.load();
 
@@ -107,6 +108,57 @@ public class ControladorGestionDeProveedores implements Initializable {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void borrarNuevoP(ActionEvent event) {
+        Proveedor seleccionar = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
+
+        if (seleccionar == null){
+            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un proveedor");
+            alertaDeSeleccion.mostrarAlertaError();
+        }else {
+            this.proveedores.remove(seleccionar);
+            this.tlbrBarraProveedor.refresh();
+
+            Alerta alertaDeEliminacion = new Alerta("Proveedor eliminado", "El proveedor seleccionado se ha eliminado con exito");
+            alertaDeEliminacion.mostrarAlertaInformation();
+        }
+    }
+
+    @FXML
+    void editarNuevoP(ActionEvent event) {
+        Proveedor p = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
+
+        if (p == null){
+            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un proveedor");
+            alertaDeSeleccion.mostrarAlertaError();
+        }else {
+
+            try {
+                FXMLLoader vistaEmergente = new FXMLLoader(getClass().getResource("/vista/VistaNuevoProveedor.fxml"));
+                Parent root = vistaEmergente.load();
+
+                ControladorNuevoProveedor controlador = vistaEmergente.getController();
+                controlador.initAttributtes(proveedores, p);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+                Proveedor proveedorEditado = controlador.getProveedor();
+
+                if (proveedorEditado != null){
+                    this.tlbrBarraProveedor.refresh();
+                }
+
+            } catch (IOException e) {
+                Alerta alerta = new Alerta("Error", e.getMessage());
+                alerta.mostrarAlertaError();
+            }
         }
     }
 
@@ -132,8 +184,6 @@ public class ControladorGestionDeProveedores implements Initializable {
         }
 
     }
-
-
 }
 
 
