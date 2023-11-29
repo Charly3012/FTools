@@ -6,9 +6,9 @@ public class Proveedor {
     private String nombre;
     private String direccion;
     private String correo;
-    private int numero;
+    private String numero;
 
-    public Proveedor(String nombre, String direccion, String correo, int numero) {
+    public Proveedor(String nombre, String direccion, String correo, String numero) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.correo = correo;
@@ -42,24 +42,24 @@ public class Proveedor {
         this.correo = correo;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Proveedor proveedor = (Proveedor) o;
-        return numero == proveedor.numero && Objects.equals(nombre, proveedor.nombre) && Objects.equals(direccion, proveedor.direccion) && Objects.equals(correo, proveedor.correo);
+        if (!(o instanceof Proveedor proveedor)) return false;
+        return Objects.equals(getNombre(), proveedor.getNombre()) && Objects.equals(getDireccion(), proveedor.getDireccion()) && Objects.equals(getCorreo(), proveedor.getCorreo()) && Objects.equals(getNumero(), proveedor.getNumero());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombre, direccion, correo, numero);
+        return Objects.hash(getNombre(), getDireccion(), getCorreo(), getNumero());
     }
 }

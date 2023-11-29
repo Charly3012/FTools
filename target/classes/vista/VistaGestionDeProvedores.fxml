@@ -5,10 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
@@ -22,17 +20,20 @@
       </MenuButton>
       <ToolBar cache="true" layoutY="56.0" prefHeight="53.0" prefWidth="862.0">
         <items>
-            <TextField fx:id="txtBuscarProveedores" promptText="Buscar proveedor..." />
-          <Button fx:id="btnBuscarProveedor" mnemonicParsing="false" text="Buscar" />
-            <Separator prefHeight="30.0" prefWidth="36.0" />
             <Button fx:id="btnAgregarProveedor" mnemonicParsing="false" onAction="#agregarNuevoP" text="Agregar nuevo " />
-            <Button fx:id="btnEditarProveedor" mnemonicParsing="false" text="Editar">
+            <Button fx:id="btnEditarProveedor" mnemonicParsing="false" onAction="#editarNuevoP" text="Editar">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
             </Button>
-            <Button fx:id="btnBorrarProveedor" mnemonicParsing="false" text="Borrar" />
+            <Button fx:id="btnBorrarProveedor" mnemonicParsing="false" onAction="#borrarNuevoP" text="Borrar" />
         </items>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
       </ToolBar>
       <Label fx:id="labProveedoresMenu" layoutX="97.0" layoutY="18.0" text="Gestion de proveedores" />
       <TableView fx:id="tlbrBarraProveedor" layoutY="109.0" prefHeight="391.0" prefWidth="862.0">

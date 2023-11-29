@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import modelo.Alerta;
 import modelo.Proveedor;
 
 import java.net.URL;
@@ -21,7 +22,7 @@ import java.util.regex.Pattern;
  * @author Zared
  * @version 1.0
  */
-public class ControladorNuevoProveedor implements Initializable{
+public class ControladorNuevoProveedor implements Initializable {
 
     /**
      * Botón para aceptar y guardar el proveedor.
@@ -81,8 +82,17 @@ public class ControladorNuevoProveedor implements Initializable{
 
     }
 
-    public void initAttributtes(ObservableList<Proveedor> proveedores){
+    public void initAttributtes(ObservableList<Proveedor> proveedores) {
         this.proveedores = proveedores;
+    }
+
+    public void initAttributtes(ObservableList<Proveedor> proveedores, Proveedor p) {
+        this.proveedores = proveedores;
+        this.proveedor = p;
+        this.txtNuevoProveedorNombre.setText(p.getNombre());
+        this.txtNuevoProveedorDireccion.setText(p.getDireccion());
+        this.txtNuevoProveedorCorreo.setText(p.getCorreo());
+        this.txtNuevoProveedorCel.setText(p.getNumero());
     }
 
     @FXML
@@ -90,50 +100,78 @@ public class ControladorNuevoProveedor implements Initializable{
         String nombre = this.txtNuevoProveedorNombre.getText();
         String direccion = this.txtNuevoProveedorDireccion.getText();
         String correo = this.txtNuevoProveedorCorreo.getText();
-        int numero = Integer.parseInt(this.txtNuevoProveedorCel.getText());
-
+        String numero = this.txtNuevoProveedorCel.getText();
 
         Proveedor p = new Proveedor(nombre, direccion, correo, numero);
 
 
-        if (!validarEmail(correo)){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("El correo no es valido");
-            alert.showAndWait();
+        if ((validarNombre(nombre) && validarDireccion(direccion) && validarCorreo(correo) && validarNumero(numero))) {
+
+
+            if (!proveedores.contains(p)) {
+
+                if (this.proveedor != null){
+                    this.proveedor.setNombre(nombre);
+                    this.proveedor.setDireccion(direccion);
+                    this.proveedor.setNumero(numero);
+                    this.proveedor.setCorreo(correo);
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Info");
+                    alert.setContentText("El proveedor se ha modificado correctamente");
+                    alert.showAndWait();
+
+                }else {
+                    this.proveedor = p;
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText(null);
+                    alert.setTitle("Info");
+                    alert.setContentText("El proveedor se ha añadido correctamente");
+                    alert.showAndWait();
+                }
+
+                Stage stage = (Stage) this.btnNuevoProveedorAceptar.getScene().getWindow();
+                stage.close();
+            } else {
+                mostrarError("El proveedor ya existe");
+            }
+
+
+        } else {
+            String mensajeError = "Error al agregar un nuevo proveedor:\n";
+            if (!validarNombre(nombre)) {
+                mensajeError += "- Error en el campo nombre\n";
+            }
+            if (!validarDireccion(direccion)) {
+                mensajeError += "- Error en el campo dirección\n";
+            }
+            if (!validarCorreo(correo)) {
+                mensajeError += "- Error en el campo correo\n";
+            }
+            if (!validarNumero(numero)) {
+                mensajeError += "- Error en el campo número\n";
+            }
+
+            mostrarError(mensajeError);
         }
 
-
-        if (!proveedores.contains(p)){
-            this.proveedor = p;
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setTitle("Info");
-            alert.setContentText("El proveedor se ha añadido correctamente");
-            alert.showAndWait();
-
-            Stage stage = (Stage) this.btnNuevoProveedorAceptar.getScene().getWindow();
-            stage.close();
-        }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("El proveedor ya existe");
-            alert.showAndWait();
-        }
     }
 
-    private boolean validarDireccion(String direccion){
-        String validDireccion = "^[a-zA-Z0-9#.-]*$";
-        return direccion.matches(validDireccion);
+    private boolean validarNombre(String nombre) {
+        return !nombre.isEmpty() && !nombre.matches(".*\\d.*");
     }
 
-    private boolean validarEmail(String correo) {
-        String validCorreo = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(validCorreo);
-        Matcher matcher = pattern.matcher(correo);
-        return matcher.matches();
+    private boolean validarDireccion(String direccion) {
+        return !direccion.isEmpty();
+    }
+
+    private boolean validarCorreo(String correo) {
+        return correo.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+    }
+
+    private boolean validarNumero(String numero) {
+        return numero.matches("[0-9 ]{10}");
     }
 
     @FXML
@@ -146,5 +184,14 @@ public class ControladorNuevoProveedor implements Initializable{
     public Proveedor getProveedor() {
         return proveedor;
     }
-}
 
+
+
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setTitle("Error");
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+}

@@ -15,6 +15,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import modelo.Producto;
@@ -32,7 +33,8 @@ import java.util.ResourceBundle;
  * @version 1.0
  */
 public class ControladorRegistroVentas implements Initializable {
-
+    @FXML
+    public Button btnAñadir;
     @FXML
     private AnchorPane anchorDetalleVenta;
 
@@ -67,7 +69,7 @@ public class ControladorRegistroVentas implements Initializable {
     private TableColumn<?, ?> colTotalDv;
 
     @FXML
-    private TableView<?> tblDetalleVenta;
+    private TableView<Producto> tblDetalleVenta;
 
     @FXML
     private TableView<Producto> tblProductosDisponibles;
@@ -77,6 +79,8 @@ public class ControladorRegistroVentas implements Initializable {
 
     @FXML
     private TextField txtTotal;
+    @FXML
+    private ObservableList<Producto> produc;
 
     @FXML //Lista que se muestra de productos
     private ObservableList<Producto> productosVista;
@@ -112,9 +116,10 @@ public class ControladorRegistroVentas implements Initializable {
         assert tblProductosDisponibles != null : "fx:id=\"tblProductosDisponibles\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         assert txtBuscarProducto != null : "fx:id=\"tblProductosDisponibles\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         assert btnBuscar != null : "fx:id=\"tblProductosDisponibles\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
-
+        assert tblDetalleVenta != null : "fx:id=\"tblDetalleVenta\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         iniciarDatosObservables();
         persistenciaLeer();
+        verdetalleventa();
 
 
 
@@ -178,6 +183,21 @@ public class ControladorRegistroVentas implements Initializable {
         this.colPrecioUnitarioDisp.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
 
     }
+
+    public void verdetalleventa(){
+
+        produc =FXCollections.observableArrayList();
+
+        this.colProductoDv.setCellValueFactory(new PropertyValueFactory<>("Producto"));
+        this.colCantidadDv.setCellValueFactory(new PropertyValueFactory<>("Cantidad"));
+        this.colTotalDv.setCellValueFactory(new PropertyValueFactory<>("Total"));
+
+
+    }
+
+
+
+
     @FXML
     public void escribirBuscar(KeyEvent keyEvent) {
 
@@ -197,4 +217,27 @@ public class ControladorRegistroVentas implements Initializable {
         }
     }
 
+
+
+    @FXML
+    private void seleccionar(MouseEvent event){
+        Producto p = this.tblProductosDisponibles.getSelectionModel().getSelectedItem();
+
+        if(p !=null){
+
+        }
+
+    }
+    @FXML
+    public void carrito(ActionEvent actionEvent) {
+        Producto p = this.tblProductosDisponibles.getSelectionModel().getSelectedItem();
+
+        if (p != null) {
+            // Añadir el producto seleccionado a tblDetalleVenta
+            this.tblDetalleVenta.getItems().add(p);
+
+            // Opcional: Limpiar la selección en tblProductosDisponibles
+            this.tblProductosDisponibles.getSelectionModel().clearSelection();
+        }
+    }
 }
