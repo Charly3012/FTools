@@ -25,15 +25,15 @@
             </MenuButton>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="14.0" layoutY="50.0" prefHeight="101.0" prefWidth="478.0">
-         <children>
-            <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" onKeyReleased="#escribirBuscar" prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto" />
-            <Button fx:id="btnBuscar" layoutX="336.0" layoutY="15.0" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar" />
-         </children>
-      </AnchorPane>
+       <AnchorPane layoutX="14.0" layoutY="50.0" prefHeight="101.0" prefWidth="478.0">
+           <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" onKeyReleased="#escribirBuscar"
+                      prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto"/>
+           <Button fx:id="btnBuscar" layoutX="336.0" layoutY="15.0" mnemonicParsing="false" onAction="#clickBuscar"
+                   text="Buscar"/>
+       </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="135.0" prefHeight="344.0" prefWidth="478.0">
          <children>
-            <TableView fx:id="tblProductosDisponibles" prefHeight="344.0" prefWidth="478.0">
+            <TableView fx:id="tblProductosDisponibles" onMouseClicked="#seleccionar" prefHeight="344.0" prefWidth="478.0">
               <columns>
                 <TableColumn fx:id="colProuctoDisp" prefWidth="156.7999849319458" text="Producto" />
                 <TableColumn fx:id="colCategoriaDisp" prefWidth="139.1999969482422" text="Categoria" />
@@ -60,6 +60,7 @@
             </TableView>
             <TextField fx:id="txtTotal" editable="false" layoutX="14.0" layoutY="400.0" prefHeight="26.0" prefWidth="300.0" text="Total: " />
             <Button fx:id="btnPagar" layoutX="231.0" layoutY="400.0" mnemonicParsing="false" onAction="#clickPagar" prefHeight="26.0" prefWidth="82.0" text="Pagar" />
+            <Button fx:id="btnAñadir" layoutX="11.0" layoutY="339.0" mnemonicParsing="false" onAction="#carrito" text="Añadir" />
          </children>
       </AnchorPane>
    </children>

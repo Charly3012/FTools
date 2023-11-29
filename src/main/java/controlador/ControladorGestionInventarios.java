@@ -30,8 +30,10 @@ import java.util.ResourceBundle;
  */
 public class ControladorGestionInventarios implements Initializable{
 
+
     @FXML
     public Button btnEditarProducto;
+
 
     @FXML
     public TableColumn<?, ?> colMarcaProducto;
