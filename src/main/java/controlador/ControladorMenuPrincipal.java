@@ -21,6 +21,8 @@ import java.io.IOException;
  */
 public class ControladorMenuPrincipal {
 
+    @FXML
+    public Button btnCategorias;
 
     @FXML
     private Button btnComprasYVentas;
@@ -120,4 +122,22 @@ public class ControladorMenuPrincipal {
         stage.close();
     }
 
+    public void clickCategorias(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaCategorias.fxml"));
+            Parent root = loader.load();
+            ControladorCategorias controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Categorias");
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e -> controlador.cerrarVentana());
+            Stage myStage = (Stage) this.btnInventarios.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

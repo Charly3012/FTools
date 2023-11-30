@@ -188,9 +188,9 @@ public class ControladorRegistroVentas implements Initializable {
 
         produc =FXCollections.observableArrayList();
 
-        this.colProductoDv.setCellValueFactory(new PropertyValueFactory<>("Producto"));
-        this.colCantidadDv.setCellValueFactory(new PropertyValueFactory<>("Cantidad"));
-        this.colTotalDv.setCellValueFactory(new PropertyValueFactory<>("Total"));
+        this.colProductoDv.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        //this.colCantidadDv.setCellValueFactory(new PropertyValueFactory<>("Cantidad"));
+        //this.colTotalDv.setCellValueFactory(new PropertyValueFactory<>("Total"));
 
 
     }
