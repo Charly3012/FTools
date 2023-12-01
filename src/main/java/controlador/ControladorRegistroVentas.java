@@ -156,9 +156,8 @@ public class ControladorRegistroVentas implements Initializable {
         try{
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
             ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
-
             productosVista.addAll(productosGuardar);
-
+            ois.close();
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

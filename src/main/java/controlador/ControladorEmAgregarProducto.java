@@ -1,9 +1,14 @@
 package controlador;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelo.Alerta;
+import modelo.Categoria;
 import modelo.Producto;
 
 public class ControladorEmAgregarProducto implements Initializable {
@@ -34,7 +40,10 @@ public class ControladorEmAgregarProducto implements Initializable {
     private Button btnLimpiar;
 
     @FXML
-    private ComboBox<?> cmbCategoria;
+    private ComboBox<String> cmbCategoria;
+
+    @FXML
+    private ObservableList<String> categorias;
 
     @FXML
     private TextField txtCodigoBarras;
@@ -57,8 +66,10 @@ public class ControladorEmAgregarProducto implements Initializable {
     @FXML
     private TextField txtSKU;
 
+    @FXML
     private Producto productoAux;
 
+    @FXML
     private ObservableList<Producto> productos;
 
 
@@ -67,7 +78,7 @@ public class ControladorEmAgregarProducto implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        cargarCategorias(); //Para cargar las categorías
     }
     /**
      * Método que se ejecuta al abrir la ventana
@@ -129,7 +140,7 @@ public class ControladorEmAgregarProducto implements Initializable {
             int codigoBarras = Integer.parseInt(txtCodigoBarras.getText());
             int cantExistencia = Integer.parseInt(txtInventario.getText());
             double precioUnitario = Double.parseDouble(txtPrecioPublico.getText());
-            String categoria = this.cmbCategoria.getTypeSelector();
+            String categoria = cmbCategoria.getSelectionModel().getSelectedItem();
             String descripcion = this.txtDescripcion.getText();
 
             Producto productoAuxNuevo = new Producto(nombre, marca, sku, codigoBarras, cantExistencia, precioUnitario, categoria, descripcion);
@@ -174,6 +185,9 @@ public class ControladorEmAgregarProducto implements Initializable {
         }catch (NumberFormatException e){
             Alerta errorGuardar = new Alerta("Error al guardar", "Verifique que todos los datos sean correctos \n Detalles de error: " + e.getMessage());
             errorGuardar.mostrarAlertaError();
+        }catch (ArithmeticException f){
+            Alerta errorGuardar = new Alerta("Error al guardar", "Verifique la longitud de algún dato \n Detalles de error: " + f.getMessage());
+            errorGuardar.mostrarAlertaError();
         }
 
 
@@ -214,4 +228,38 @@ public class ControladorEmAgregarProducto implements Initializable {
         Stage stage = (Stage) this.btnGuardar.getScene().getWindow();
         stage.close();
     }
+
+
+    public void cargarCategorias(){
+
+
+        File controlExistencia = new File("src/main/resources/persistencia/categorias.cja");
+
+        categorias = FXCollections.observableArrayList();
+
+        if(controlExistencia.exists()){
+            //Persistencia - Leer el archivo de datos de la categoría
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/categorias.cja"));
+                ArrayList<Categoria> categoriasGuardar = (ArrayList<Categoria>) ois.readObject();
+
+                for (Categoria categoria : categoriasGuardar) {
+                    categorias.add(categoria.getNombreCategoria());
+                }
+
+                // Llenar el ComboBox con los nombres de categorías
+                cmbCategoria.setItems(categorias);
+
+            } catch (IOException | ClassNotFoundException e) {
+                Alerta errorCategorias = new Alerta("Error de carga", "Error al cargar las categorías.\n" + "Detalles: " + e.getMessage());
+                errorCategorias.mostrarAlertaError();
+            }
+
+
+
+
+        }
+    }
+
+
 }

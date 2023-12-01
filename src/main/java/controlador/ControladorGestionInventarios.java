@@ -14,6 +14,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Alerta;
+import modelo.Categoria;
 import modelo.Producto;
 
 import java.io.*;
@@ -81,8 +82,9 @@ public class ControladorGestionInventarios implements Initializable{
     @FXML //Lista que se muestra de productos
     private ObservableList<Producto> productos;
 
-    @FXML //Lista que se muestra cuando se esta buscando entre los productos
+    @FXML //Lista que se muestra cuando se está buscando entre los productos
     private ObservableList<Producto> busquedaProductos;
+
 
     private static final long serialId = 1L;
 
