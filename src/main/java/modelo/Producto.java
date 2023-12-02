@@ -78,6 +78,12 @@ public class Producto implements Serializable {
         this.cantExistencia = cantExistencia;
         this.sku = sku;
     }
+    public Producto(String nombre, int cantExistencia,double precioUnitario ) {
+        this.nombre = nombre;
+        this.cantExistencia = cantExistencia;
+        this.precioUnitario = precioUnitario;
+
+    }
 
     public Producto() {
     }
@@ -159,8 +165,11 @@ public class Producto implements Serializable {
         return codigoBarras == producto.codigoBarras && cantExistencia == producto.cantExistencia && Double.compare(precioUnitario, producto.precioUnitario) == 0 && Objects.equals(nombre, producto.nombre) && Objects.equals(marca, producto.marca) && Objects.equals(sku, producto.sku) && Objects.equals(categoria, producto.categoria) && Objects.equals(descripcion, producto.descripcion);
     }
 
+
+
     @Override
     public int hashCode() {
         return 0;
     }
 }
+

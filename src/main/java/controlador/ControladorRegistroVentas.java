@@ -17,7 +17,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import modelo.Alerta;
 import modelo.Producto;
 
 import java.io.FileInputStream;
@@ -104,8 +106,25 @@ public class ControladorRegistroVentas implements Initializable {
      * @param event El evento de acción generado por el clic.
      */
     @FXML
-    void clickPagar(ActionEvent event) {
+    void clickPagar(ActionEvent event) /*throws IOException*/ {
+        /*try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
+            Parent root = loader.load();
+            ControladorPagar controlador = loader.getController();
 
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+
+
+
+
+        }catch (IOException e) {
+        Alerta alerta = new Alerta("Error", e.getMessage());
+        alerta.mostrarAlertaError();
+    }*/
     }
     public void initialize(URL url, ResourceBundle rb) {
 
