@@ -12,36 +12,36 @@ public class Producto implements Serializable {
     /**
      * Nombre del producto
      */
-    private String nombre;
+    protected String nombre;
     /**
      * Marca del producto
      */
-    private String marca;
+    protected String marca;
     /**
      * Codigo SKU único de cada producto
      */
-    private String sku;
+    protected String sku;
     /**
      * Código de barras del producto
      */
-    private int codigoBarras;
+    protected int codigoBarras;
     /**
      * Cantidad en existencia del producto para la venta
      */
-    private int cantExistencia;
+    protected int cantExistencia;
     /**
      * Precio unitario de cada producto, es el precio final de venta
      */
-    private double precioUnitario;
+    protected double precioUnitario;
 
     /**
      * Categoría a la que pertenece al producto
      */
-    private String categoria;
+    protected String categoria;
     /**
      * Descripción corta y relevante para el producto
      */
-    private String descripcion;
+    protected String descripcion;
 
     /**
      * Constructor completo para crear un nuevo producto
