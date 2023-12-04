@@ -110,25 +110,10 @@ public class ControladorGestionInventarios implements Initializable{
 
         iniciarDatosObservables();
         persistenciaLeer();
-        mostrarHora();
-
 
     }
 
-    public void mostrarHora(){
-        ControladorReloj controladorReloj = new ControladorReloj();
 
-        controladorReloj.setOnUpdateListener(new ControladorReloj.OnUpdateListener() {
-            @Override
-            public void onUpdate(String horaMostrada) {
-                Platform.runLater(() -> {
-                    labHoraMostrar.setText(horaMostrada);
-                });
-            }
-        });
-
-        controladorReloj.start();
-    }
 
 
 

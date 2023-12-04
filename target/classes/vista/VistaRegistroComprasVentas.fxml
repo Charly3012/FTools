@@ -23,6 +23,16 @@
                 <MenuItem mnemonicParsing="false" text="Action 2" />
               </items>
             </MenuButton>
+            <Label layoutX="424.0" layoutY="8.0" text="Hora: ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labHoraMostrar" layoutX="466.0" layoutY="9.0" text="----">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
        <AnchorPane layoutX="14.0" layoutY="50.0" prefHeight="101.0" prefWidth="478.0">
