@@ -105,6 +105,8 @@ public class ControladorRegistroVentas implements Initializable {
     @FXML //Lista que se muestra cuando se esta buscando entre los productos
     private ObservableList<Producto> buscarProductos;
 
+    private Cliente clienteCompra;
+
     /**
      * Maneja el evento de clic en el botón de búsqueda.
      *
@@ -122,7 +124,7 @@ public class ControladorRegistroVentas implements Initializable {
      */
     @FXML
     void clickPagar(ActionEvent event) /*throws IOException*/ {
-        /*try {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
             Parent root = loader.load();
             ControladorPagar controlador = loader.getController();
@@ -139,7 +141,8 @@ public class ControladorRegistroVentas implements Initializable {
         }catch (IOException e) {
         Alerta alerta = new Alerta("Error", e.getMessage());
         alerta.mostrarAlertaError();
-    }*/
+        }
+
     }
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -336,12 +339,28 @@ public class ControladorRegistroVentas implements Initializable {
             ArrayList<Cliente> clientesGuardar = (ArrayList<Cliente>) ois.readObject();
 
             for(int j = 0; j < clientesGuardar.size(); j++){
-
+                if (clientesGuardar.get(j).getCelular() == Long.parseLong(this.txtCliente.getText())){
+                    clienteCompra = clientesGuardar.get(j);
+                    break;
+                }
             }
+            if(clienteCompra == null){
+                Alerta clienteNoExiste = new Alerta("Error", "El cliente no existe");
+                clienteNoExiste.mostrarAlertaError();
+            }else{
+                this.labClienteSeleccionado.setText(clienteCompra.getNombre());
+            }
+
 
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }catch (NumberFormatException f){
+            Alerta formatoIncorrecto = new Alerta("Error", "Ingrese un número de celular valido");
+            formatoIncorrecto.mostrarAlertaError();
+
         }
+
+        this.txtCliente.setText("");
 
 
     }
