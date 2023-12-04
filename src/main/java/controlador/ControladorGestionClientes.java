@@ -1,7 +1,8 @@
 package controlador;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -26,6 +27,7 @@ import javafx.stage.Stage;
 import modelo.Alerta;
 import modelo.Categoria;
 import modelo.Cliente;
+import modelo.Producto;
 
 public class ControladorGestionClientes implements Initializable {
 
@@ -45,7 +47,7 @@ public class ControladorGestionClientes implements Initializable {
     private Button btnLimpiar;
 
     @FXML
-    private ComboBox<?> cmbGeneroCliente;
+    private ComboBox<String> cmbGeneroCliente;
 
     @FXML
     private TableColumn<?, ?> colCelularCliente;
@@ -81,48 +83,52 @@ public class ControladorGestionClientes implements Initializable {
     private ObservableList<Cliente> busquedaClientes;
 
     @FXML
+    private Cliente clienteSeleccionado;
+
+    @FXML
+    private ObservableList<String> generos;
+
+
+    @FXML
     public void clickSeleccionar(MouseEvent mouseEvent) {
-        categoriaSeleccionado = this.tblCategoriasVista.getSelectionModel().getSelectedItem();
-        if(categoriaSeleccionado != null){
-            this.txtIdCategoria.setText(categoriaSeleccionado.getIdCategoria() + "");
-            this.txtNombreCategoria.setText(categoriaSeleccionado.getNombreCategoria());
-            this.txtDescripcionCategoria.setText(categoriaSeleccionado.getDescripcionCategoria());
+        clienteSeleccionado = this.tblClientes.getSelectionModel().getSelectedItem();
+        if(clienteSeleccionado != null){
+            this.txtNombreCliente.setText(clienteSeleccionado.getNombre());
+            this.txtCelularCliente.setText(clienteSeleccionado.getCelular() + "");
+            this.cmbGeneroCliente.setValue(clienteSeleccionado.getGenero());
         }
     }
 
-    @FXML
-    void clickEliminar(ActionEvent event) {
 
-    }
 
     @FXML
     void clickGuardar(ActionEvent event) {
 
         try{
-            int idCategoria = Integer.parseInt(this.txtIdCategoria.getText());
-            String nombre = this.txtNombreCategoria.getText();
-            String descripcion = this.txtDescripcionCategoria.getText();
+            long celular = Long.parseLong(this.txtCelularCliente.getText());
+            String nombre = this.txtNombreCliente.getText();
+            String genero = this.cmbGeneroCliente.getSelectionModel().getSelectedItem() + "";
 
-            Categoria categoriaNueva = new Categoria(idCategoria, nombre, descripcion);
-            categoriaSeleccionado = this.tblCategoriasVista.getSelectionModel().getSelectedItem();
+            Cliente clienteNuevo = new Cliente(nombre, celular, genero);
+            clienteSeleccionado = this.tblClientes.getSelectionModel().getSelectedItem();
 
 
-            if(!(categorias.contains(categoriaNueva))){
+            if(!(clientes.contains(clienteNuevo))){
 
 
                 //Editar
-                if (categorias.contains(categoriaSeleccionado)){
-                    categoriaSeleccionado.setIdCategoria(idCategoria);
-                    categoriaSeleccionado.setNombreCategoria(nombre);
-                    categoriaSeleccionado.setDescripcionCategoria(descripcion);
-                    this.tblCategoriasVista.refresh();
+                if (clientes.contains(clienteSeleccionado)){
+                    clienteSeleccionado.setCelular(celular);
+                    clienteSeleccionado.setNombre(nombre);
+                    clienteSeleccionado.setGenero(genero);
+                    this.tblClientes.refresh();
 
                     Alerta categoriaModificada = new Alerta("Categoría modificada", "La categoría ha sido modificada con éxito");
                     categoriaModificada.mostrarAlertaInformation();
 
-                    this.txtIdCategoria.setText("");
-                    this.txtNombreCategoria.setText("");
-                    this.txtDescripcionCategoria.setText("");
+                    this.txtNombreCliente.setText("");
+                    this.txtCelularCliente.setText("");
+                    this.cmbGeneroCliente.setValue(null);
 
                 }
 
@@ -130,21 +136,21 @@ public class ControladorGestionClientes implements Initializable {
 
                 //Nuevo
                 else{
-                    this.categorias.add(categoriaNueva);
+                    this.clientes.add(clienteNuevo);
 
-                    Alerta agregadoCorrecto = new Alerta("Agregado correctamente", "La categoría " + this.txtNombreCategoria.getText() +" fue agregado correctamente");
+                    Alerta agregadoCorrecto = new Alerta("Agregado correctamente", "El cliente " + this.txtNombreCliente.getText() +" fue agregado correctamente");
                     agregadoCorrecto.mostrarAlertaInformation();
 
-                    this.txtIdCategoria.setText("");
-                    this.txtNombreCategoria.setText("");
-                    this.txtDescripcionCategoria.setText("");
+                    this.txtNombreCliente.setText("");
+                    this.txtCelularCliente.setText("");
+                    this.cmbGeneroCliente.setValue(null);
 
                     //Para evitar conflictos cuando se está buscando
-                    if (categoriaNueva.getNombreCategoria().toLowerCase().contains(this.txtBuscarCategoria.getText().toLowerCase())){
-                        this.busquedaCategorias.add(categoriaNueva);
+                    if (clienteNuevo.getNombre().toLowerCase().contains(this.txtBuscarCliente.getText().toLowerCase())){
+                        this.busquedaClientes.add(clienteNuevo);
 
                     }
-                    this.tblCategoriasVista.refresh();
+                    this.tblClientes.refresh();
 
                 }
 
@@ -164,32 +170,55 @@ public class ControladorGestionClientes implements Initializable {
             Alerta alertacategoria = new Alerta("Error", "Compruebe los datos e intente nuevamente\n" + "Detalles del error: " + e.getMessage());
             alertacategoria.mostrarAlertaError();
         }finally{
-            this.tblCategoriasVista.getSelectionModel().clearSelection();
+            this.tblClientes.getSelectionModel().clearSelection();
         }
 
 
 
     }
+
 
     @FXML
     void clickLimpiar(ActionEvent event) {
-
+        this.txtNombreCliente.setText("");
+        this.txtCelularCliente.setText("");
+        this.cmbGeneroCliente.setValue(null);
     }
 
-    @FXML
-    void clickSeleccionar(MouseEvent event) {
-        categoriaSeleccionado = this.tblCategoriasVista.getSelectionModel().getSelectedItem();
-        if(categoriaSeleccionado != null){
-            this.txtIdCategoria.setText(categoriaSeleccionado.getIdCategoria() + "");
-            this.txtNombreCategoria.setText(categoriaSeleccionado.getNombreCategoria());
-            this.txtDescripcionCategoria.setText(categoriaSeleccionado.getDescripcionCategoria());
-        }
-    }
 
     @FXML
     void escribirEnBuscar(KeyEvent event) {
 
     }
+
+    @FXML
+    void clickEliminar(ActionEvent event) {
+        //Para seleccionar un objeto
+        clienteSeleccionado = this.tblClientes.getSelectionModel().getSelectedItem();
+
+        if(clienteSeleccionado == null){
+            Alerta alertaNoSeleccionado = new Alerta("Error", "Debes seleccionar un cliente");
+            alertaNoSeleccionado.mostrarAlertaError();
+        }else{
+            this.clientes.remove(clienteSeleccionado);
+            this.busquedaClientes.remove(clienteSeleccionado);
+            this.tblClientes.refresh();
+
+            Alerta alertaClienteEliminado = new Alerta("Cliente eliminado", "El cliente seleccionado se ha eliminado con éxito");
+            alertaClienteEliminado.mostrarAlertaInformation();
+
+            this.tblClientes.getSelectionModel().clearSelection();
+
+        }
+
+        this.txtNombreCliente.setText("");
+        this.txtCelularCliente.setText("");
+        this.cmbGeneroCliente.setValue(null);
+
+
+    }
+
+
 
 
     @FXML
@@ -218,9 +247,13 @@ public class ControladorGestionClientes implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         iniciarDatos();
+        persistenciaLeer();
     }
 
     public void iniciarDatos(){
+        generos = FXCollections.observableArrayList("Hombre", "Mujer", "Prefiere no decir");
+        cmbGeneroCliente.setItems(generos);
+
         clientes = FXCollections.observableArrayList();
         tblClientes.setItems(clientes);
 
@@ -233,7 +266,7 @@ public class ControladorGestionClientes implements Initializable {
 
 
     public void cerrarVentana() {
-        //persistenciaEscribir();
+        persistenciaEscribir();
 
         //Retorna a la ventana anterior cuando se cierra
         try {
@@ -254,4 +287,41 @@ public class ControladorGestionClientes implements Initializable {
 
 
     }
+
+
+    /**
+     * Lee los registros de sesiones pasadas permitiendo la persistencia de datos
+     */
+    public void persistenciaLeer(){
+        File comprobracionExist = new File("src/main/resources/persistencia/gestionClientes.cja");
+
+        if(comprobracionExist.exists()){
+            //Persistencia - Leer el archivo de datos
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionClientes.cja"));
+                ArrayList<Cliente> clientesGuardar = (ArrayList<Cliente>) ois.readObject();
+                clientes.addAll(clientesGuardar);
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    /**
+     * Guarda y actualiza los cambios realizados en las tablas permitiendo la persistencia
+     * En caso de que sea primera vez que se guarda algún dato, permite la creación del archivo.
+     */
+    public void persistenciaEscribir(){
+        //Persistencia - Guardar los datos en un archivo
+        ArrayList<Cliente> clientesGuardar= new ArrayList<Cliente>(clientes);
+        try{
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/resources/persistencia/gestionClientes.cja"));
+            oos.writeObject(clientesGuardar);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
