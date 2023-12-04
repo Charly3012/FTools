@@ -51,9 +51,6 @@ public class ControladorGestionDeProveedores implements Initializable {
     private Button btnEditarProveedor;
 
     @FXML
-    private MenuButton btnMenuProveedores;
-
-    @FXML
     private TableColumn colCorreoProveedor;
 
     @FXML
@@ -66,14 +63,17 @@ public class ControladorGestionDeProveedores implements Initializable {
     private TableColumn colNumeroProveedor;
 
     @FXML
-    private Label labProveedoresMenu;
-
-    @FXML
     private TableView<Proveedor> tlbrBarraProveedor;
 
-    private ObservableList<ProductoProveedor> productosproveedor;
+    @FXML
+    private TableView<ProductoProveedor> tblProductosGestionInventarios;
 
     private ObservableList<Proveedor> proveedores;
+
+    private ObservableList<ProductoProveedor> proveedoresProductos;
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -137,66 +137,49 @@ public class ControladorGestionDeProveedores implements Initializable {
     }
     @FXML
     void ClickMostrarProductos(ActionEvent event){
-        Proveedor seleccionar = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaProveedorGestionInventarios.fxml"));
+            Parent root = loader.load();
+            ControladorProveedorGestionInventarios controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Gestión de inventarios");
+            stage.setScene(scene);
+            stage.show();
+            Stage myStage = (Stage) this.btnMostrarProducProveedor.getScene().getWindow();
+            myStage.close();
 
-        if (seleccionar == null){
-            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un proveedor");
-            alertaDeSeleccion.mostrarAlertaError();
-        }else {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaProveedorGestionInventarios.fxml"));
-                Parent root = loader.load();
-
-                /*
-                ControladorProveedorGestionInventarios controlador = loader.getController();
-                controlador.inicializarAtributos(seleccionado, productosproveedores);
-                */
-
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.show();
-                Stage myStage = (Stage) this.btnMostrarProducProveedor.getScene().getWindow();
-                myStage.close();
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
     }
+
     @FXML
-    void ClickAgregarProductoProveedor(ActionEvent event) {
+    public void ClickAgregarProductoProveedor(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaProveedorEmAgregarProducto.fxml"));
 
-        Proveedor seleccionar = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
+            Parent root = loader.load();
 
+            ControladorProveedorEmAgregarProducto controlador = loader.getController();
+            controlador.initAttributtes(proveedoresProductos);
 
-        if (seleccionar == null){
-            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un proveedor");
-            alertaDeSeleccion.mostrarAlertaError();
-        }else {
-            /*
-            try {
-                FXMLLoader vistaEmergente = new FXMLLoader(getClass().getResource("/vista/VistaProveedorEmAgregarProducto.fxml"));
-                Parent root = vistaEmergente.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
 
-                ControladorProveedorEmAgregarProducto controlador = vistaEmergente.getController();
-                controlador.inicializarAtributos(productosproveedor);
+            ProductoProveedor p = controlador.getProductoProveedor();
 
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(scene);
-                stage.showAndWait();
-
-            } catch (IOException e) {
-                Alerta alerta = new Alerta("Error", e.getMessage());
-                alerta.mostrarAlertaError();
+            if (p != null){
+                this.proveedoresProductos.add(p);
+                this.tblProductosGestionInventarios.refresh();
             }
 
-             */
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
     }
 
     @FXML
@@ -204,7 +187,7 @@ public class ControladorGestionDeProveedores implements Initializable {
         Proveedor p = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
 
         if (p == null){
-            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un proveedor");
+            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un producto");
             alertaDeSeleccion.mostrarAlertaError();
         }else {
 
@@ -281,6 +264,8 @@ public class ControladorGestionDeProveedores implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 }
 
 
