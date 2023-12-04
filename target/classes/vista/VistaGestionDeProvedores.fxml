@@ -44,5 +44,7 @@
             <TableColumn fx:id="colNumeroProveedor" prefWidth="185.0" text="Número de contacto" />
         </columns>
       </TableView>
+      <Button fx:id="btnAgregarProdProveedor" layoutX="615.0" layoutY="70.0" mnemonicParsing="false" onAction="#ClickAgregarProductoProveedor" text="Agregar producto" />
+      <Button fx:id="btnMostrarProducProveedor" layoutX="733.0" layoutY="70.0" mnemonicParsing="false" onAction="#ClickMostrarProductos" text="Mostrar productos" />
    </children>
 </AnchorPane>

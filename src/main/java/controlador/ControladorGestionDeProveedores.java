@@ -1,5 +1,6 @@
 package controlador;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,11 +15,13 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Alerta;
 import modelo.Producto;
+import modelo.ProductoProveedor;
 import modelo.Proveedor;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 /**
@@ -27,7 +30,13 @@ import java.util.ResourceBundle;
  * @author Zared
  * @version 1.0
  */
-public class ControladorGestionDeProveedores implements Initializable, Serializable {
+public class ControladorGestionDeProveedores implements Initializable {
+
+    @FXML
+    private Button btnAgregarProdProveedor;
+
+    @FXML
+    private Button btnMostrarProducProveedor;
 
     @FXML
     private Button btnAgregarProveedor;
@@ -62,8 +71,7 @@ public class ControladorGestionDeProveedores implements Initializable, Serializa
     @FXML
     private TableView<Proveedor> tlbrBarraProveedor;
 
-    @FXML
-    private TextField txtBuscarProveedores;
+    private ObservableList<ProductoProveedor> productosproveedor;
 
     private ObservableList<Proveedor> proveedores;
 
@@ -77,6 +85,7 @@ public class ControladorGestionDeProveedores implements Initializable, Serializa
         this.colCorreoProveedor.setCellValueFactory(new PropertyValueFactory<>("correo"));
         this.colNumeroProveedor.setCellValueFactory(new PropertyValueFactory<>("numero"));
 
+        persistenciaLeer();
     }
     /**
      * Abre una ventana para agregar un nuevo proveedor.
@@ -126,6 +135,69 @@ public class ControladorGestionDeProveedores implements Initializable, Serializa
             alertaDeEliminacion.mostrarAlertaInformation();
         }
     }
+    @FXML
+    void ClickMostrarProductos(ActionEvent event){
+        Proveedor seleccionar = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
+
+        if (seleccionar == null){
+            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un proveedor");
+            alertaDeSeleccion.mostrarAlertaError();
+        }else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaProveedorGestionInventarios.fxml"));
+                Parent root = loader.load();
+
+                /*
+                ControladorProveedorGestionInventarios controlador = loader.getController();
+                controlador.inicializarAtributos(seleccionado, productosproveedores);
+                */
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+                Stage myStage = (Stage) this.btnMostrarProducProveedor.getScene().getWindow();
+                myStage.close();
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+    @FXML
+    void ClickAgregarProductoProveedor(ActionEvent event) {
+
+        Proveedor seleccionar = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
+
+
+        if (seleccionar == null){
+            Alerta alertaDeSeleccion = new Alerta("Error", "Debes seleccionar un proveedor");
+            alertaDeSeleccion.mostrarAlertaError();
+        }else {
+            /*
+            try {
+                FXMLLoader vistaEmergente = new FXMLLoader(getClass().getResource("/vista/VistaProveedorEmAgregarProducto.fxml"));
+                Parent root = vistaEmergente.load();
+
+                ControladorProveedorEmAgregarProducto controlador = vistaEmergente.getController();
+                controlador.inicializarAtributos(productosproveedor);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+            } catch (IOException e) {
+                Alerta alerta = new Alerta("Error", e.getMessage());
+                alerta.mostrarAlertaError();
+            }
+
+             */
+        }
+
+    }
 
     @FXML
     void editarNuevoP(ActionEvent event) {
@@ -167,6 +239,9 @@ public class ControladorGestionDeProveedores implements Initializable, Serializa
      * El evento de acción generado por el clic.
      */
     public void cerrarVentana(){
+
+        persistenciaEscribir();
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaMenuPrincipal.fxml"));
             Parent root = loader.load();
@@ -183,6 +258,28 @@ public class ControladorGestionDeProveedores implements Initializable, Serializa
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void persistenciaLeer() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            File file = new File("src/main/resources/persistencia/proveedores.json");
+            if (file.exists()) {
+                Proveedor[] proveedoresArray = objectMapper.readValue(file, Proveedor[].class);
+                proveedores.addAll(Arrays.asList(proveedoresArray));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void persistenciaEscribir() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(new File("src/main/resources/persistencia/proveedores.json"), proveedores);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

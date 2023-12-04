@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Proveedor {
@@ -7,6 +8,8 @@ public class Proveedor {
     private String direccion;
     private String correo;
     private String numero;
+    private List<ProductoProveedor> productos;
+
 
     public Proveedor(String nombre, String direccion, String correo, String numero) {
         this.nombre = nombre;
@@ -38,7 +41,7 @@ public class Proveedor {
         return correo;
     }
 
-    public void setCorreo(String coreo) {
+    public void setCorreo(String correo) {
         this.correo = correo;
     }
 
