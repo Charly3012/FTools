@@ -97,7 +97,7 @@ public class ControladorRegistroVentas implements Initializable {
     @FXML
     private TextField txtTotal;
     @FXML
-    private ObservableList<DatosVenta> produc;
+    protected ObservableList<DatosVenta> produc;
 
     @FXML //Lista que se muestra de productos
     private ObservableList<Producto> productosVista;
@@ -123,22 +123,22 @@ public class ControladorRegistroVentas implements Initializable {
      * @param event El evento de acción generado por el clic.
      */
     @FXML
-    void clickPagar(ActionEvent event) /*throws IOException*/ {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
-            Parent root = loader.load();
-            ControladorPagar controlador = loader.getController();
+    void clickPagar(ActionEvent event) throws IOException {
 
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
+       try{ FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
+        Parent root = loader.load();
+        ControladorPagar controlador = loader.getController();
+
+        controlador.setProduc(produc);
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
 
 
-
-
-        }catch (IOException e) {
+    }catch (IOException e) {
         Alerta alerta = new Alerta("Error", e.getMessage());
         alerta.mostrarAlertaError();
         }
@@ -311,6 +311,15 @@ public class ControladorRegistroVentas implements Initializable {
         actualizarTotal();
     }
 
+    public double suma = 0;
+
+   public double getSuma() {
+        return suma;
+    }
+
+
+
+
     public void actualizarTotal(){
         ArrayList<DatosVenta> auxDetalleVenta = new ArrayList<>();
         auxDetalleVenta.addAll(produc);
@@ -318,15 +327,21 @@ public class ControladorRegistroVentas implements Initializable {
             this.labTotalMostrar.setText("----");
         }else{
 
-
             double suma = 0;
             for (int i = 0; i < produc.size(); i++){
                 suma = suma + produc.get(i).getSubtotal();
             }
 
             this.labTotalMostrar.setText(suma + "");
+
+
+
         }
+
     }
+
+
+
 
 
     @FXML
@@ -364,4 +379,6 @@ public class ControladorRegistroVentas implements Initializable {
 
 
     }
+
+
 }
