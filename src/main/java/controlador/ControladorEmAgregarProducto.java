@@ -123,6 +123,7 @@ public class ControladorEmAgregarProducto implements Initializable {
         this.txtMarca.setText(p.getMarca());
         this.txtCodigoBarras.setText(p.getCodigoBarras() + "");
         this.txtPrecioPublico.setText(p.getPrecioUnitario() + "");
+        this.cmbCategoria.setValue(p.getCategoria());
 
     }
 
