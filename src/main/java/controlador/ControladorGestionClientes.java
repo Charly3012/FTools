@@ -76,9 +76,15 @@ public class ControladorGestionClientes implements Initializable {
     @FXML
     private TextField txtNombreCliente;
 
+    /**
+     * Tabla que se visualiza en GUI
+     */
     @FXML
     private ObservableList<Cliente> clientes;
 
+    /**
+     * Tabla que se visualiza en GUI al realizar una búsqueda
+     */
     @FXML
     private ObservableList<Cliente> busquedaClientes;
 
@@ -189,6 +195,20 @@ public class ControladorGestionClientes implements Initializable {
     @FXML
     void escribirEnBuscar(KeyEvent event) {
 
+        String busqueda = this.txtBuscarCliente.getText();
+
+        if(busqueda.isEmpty()){
+            this.tblClientes.setItems(clientes);
+        }
+        else{
+            this.busquedaClientes.clear();
+            for (Cliente clienteBus : this.clientes){
+                if(clienteBus.getNombre().toLowerCase().contains(busqueda.toLowerCase())){
+                    this.busquedaClientes.add(clienteBus);
+                }
+            }
+            this.tblClientes.setItems(busquedaClientes);
+        }
     }
 
     @FXML
@@ -287,6 +307,8 @@ public class ControladorGestionClientes implements Initializable {
 
 
     }
+
+
 
 
     /**
