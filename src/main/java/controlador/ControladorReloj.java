@@ -7,6 +7,8 @@ import java.util.Calendar;
 public class ControladorReloj extends Thread {
 
     private String horaMostrada;
+    private String fechaMostrada;
+
 
 
     private OnUpdateListener onUpdateListener;
@@ -14,6 +16,8 @@ public class ControladorReloj extends Thread {
 
     public interface OnUpdateListener {
         void onUpdate(String horaMostrada);
+
+        void onUpdate(String horaMostrada, String fechaMostrada);
     }
 
     public void setOnUpdateListener(OnUpdateListener onUpdateListener) {
@@ -29,6 +33,11 @@ public class ControladorReloj extends Thread {
                 int hora = c.get(Calendar.HOUR);
                 int minutos = c.get(Calendar.MINUTE);
                 int segundos = c.get(Calendar.SECOND);
+                int dia = c.get(Calendar.DATE);
+                int mes = c.get(Calendar.MONTH);
+                int anno = c.get(Calendar.YEAR);
+
+                fechaMostrada = dia + "/"+ mes + "/" + anno;
 
                 String tiempoHora = (hora + ":" + minutos + ":" + segundos);
                 horaMostrada = tiempoHora;
@@ -36,6 +45,7 @@ public class ControladorReloj extends Thread {
 
                 if (onUpdateListener != null) {
                     onUpdateListener.onUpdate(tiempoHora);
+                    onUpdateListener.onUpdate(fechaMostrada);
                 }
 
                 Thread.sleep(1000);
@@ -48,6 +58,10 @@ public class ControladorReloj extends Thread {
 
     public String getHoraMostrada() {
         return horaMostrada;
+    }
+
+    public String getFechaMostrada(){
+        return fechaMostrada;
     }
 
 
