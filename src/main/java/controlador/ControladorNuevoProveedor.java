@@ -171,7 +171,7 @@ public class ControladorNuevoProveedor implements Initializable {
     }
 
     private boolean validarNumero(String numero) {
-        return numero.matches("[0-9 ]{10}");
+        return numero.matches("[0-9]{10}");
     }
 
     @FXML
