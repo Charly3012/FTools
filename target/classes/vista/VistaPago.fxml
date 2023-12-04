@@ -8,31 +8,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="297.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorPagar">
-   <children>
-      <Button fx:id="btnCobrar" layoutX="130.0" layoutY="263.0" mnemonicParsing="false" onAction="#CobraryGenerar" text="Cobrar y generar nota " />
-      <TextField fx:id="txtTotal" layoutX="123.0" layoutY="56.0" />
-      <Label layoutX="15.0" layoutY="52.0" prefHeight="34.0" prefWidth="100.0" text="Total a pagar:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtPago" layoutX="123.0" layoutY="104.0" />
-      <TextField fx:id="txtCambio" layoutX="123.0" layoutY="155.0" />
-      <Label layoutX="29.0" layoutY="100.0" prefHeight="34.0" prefWidth="100.0" text="Pago con :">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="41.0" layoutY="151.0" prefHeight="34.0" prefWidth="100.0" text="Cambio:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="86.0" fitWidth="100.0" layoutX="22.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../imagenes/notas.png" />
-      </ImageView>
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="297.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controlador.ControladorPagar">
+   <Button fx:id="btnCobrar" layoutX="130.0" layoutY="263.0" mnemonicParsing="false" onAction="#CobraryGenerar"
+           text="Cobrar y generar nota "/>
+   <Label layoutX="15.0" layoutY="52.0" prefHeight="34.0" prefWidth="100.0" text="Total a pagar:">
+      <font>
+         <Font size="15.0"/>
+      </font>
+   </Label>
+   <TextField fx:id="txtPago" layoutX="123.0" layoutY="104.0"/>
+   <TextField fx:id="txtCambio" layoutX="123.0" layoutY="155.0"/>
+   <Label layoutX="29.0" layoutY="100.0" prefHeight="34.0" prefWidth="100.0" text="Pago con :">
+      <font>
+         <Font size="15.0"/>
+      </font>
+   </Label>
+   <Label layoutX="41.0" layoutY="151.0" prefHeight="34.0" prefWidth="100.0" text="Cambio:">
+      <font>
+         <Font size="15.0"/>
+      </font>
+   </Label>
+   <ImageView fitHeight="86.0" fitWidth="100.0" layoutX="22.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../imagenes/notas.png"/>
+   </ImageView>
+   <Label fx:id="labTotal" layoutX="115.0" layoutY="52.0" prefHeight="34.0" prefWidth="100.0" text="-----">
+      <font>
+         <Font size="15.0"/>
+      </font>
+   </Label>
 </AnchorPane>
-
-
