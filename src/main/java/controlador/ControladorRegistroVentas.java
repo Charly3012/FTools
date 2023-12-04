@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -54,7 +55,7 @@ public class ControladorRegistroVentas implements Initializable {
     private Button btnPagar;
 
     @FXML
-    private TableColumn<?, ?> colCantidadDv;
+    private TableColumn<DatosVenta, String> colCantidadDv;
 
     @FXML
     private TableColumn<?, ?> colCategoriaDisp;
@@ -66,13 +67,13 @@ public class ControladorRegistroVentas implements Initializable {
     private TableColumn<?, ?> colPrecioUnitarioDisp;
 
     @FXML
-    private TableColumn<?, ?> colProductoDv;
+    private TableColumn<DatosVenta, Integer> colProductoDv;
 
     @FXML
     private TableColumn<?, ?> colProuctoDisp;
 
     @FXML
-    private TableColumn<?, ?> colTotalDv;
+    private TableColumn<DatosVenta, Integer> colTotalDv;
 
     @FXML
     private TableView<DatosVenta> tblDetalleVenta;
@@ -201,9 +202,17 @@ public class ControladorRegistroVentas implements Initializable {
         //Iniciar datos de detalle venta
         produc = FXCollections.observableArrayList();
 
+
         this.colProductoDv.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        this.colCantidadDv.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        this.colCantidadDv.setCellValueFactory(new PropertyValueFactory<DatosVenta, String>("cantidad"));
+
         this.colTotalDv.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+
+        //Para poder editar la tabla de detalle venta
+        this.tblDetalleVenta.setEditable(true);
+        this.colCantidadDv.setCellFactory(TextFieldTableCell.forTableColumn());
+
+        this.tblDetalleVenta.setItems(produc);
     }
 
 
@@ -249,15 +258,14 @@ public class ControladorRegistroVentas implements Initializable {
 
         String nombreProducto = p.getNombre();
         int cantidadExistencia = p.getCantExistencia();
-        int cantidad = 1;
-        double subtotal = p.getPrecioUnitario() * cantidad;
+        String cantidad = "1";
+        double subtotal = p.getPrecioUnitario() * (Integer.parseInt(cantidad));
 
-        DatosVenta pVenta = new DatosVenta(nombreProducto, cantidad, subtotal);
+        DatosVenta pVenta = new DatosVenta(nombreProducto, cantidad, subtotal, p.getPrecioUnitario(), cantidadExistencia);
 
         if (p != null) {
             // Añadir el producto seleccionado a tblDetalleVenta
             this.tblDetalleVenta.getItems().add(pVenta);
-
             // Opcional: Limpiar la selección en tblProductosDisponibles
             this.tblProductosDisponibles.getSelectionModel().clearSelection();
         }
@@ -265,6 +273,25 @@ public class ControladorRegistroVentas implements Initializable {
 
     @FXML
     public void clickEditarCantidad(TableColumn.CellEditEvent<?,?> cellEditEvent) {
-        System.out.println("Puto");
+
+        try {
+            DatosVenta pVenta = this.tblDetalleVenta.getSelectionModel().getSelectedItem();
+
+            pVenta.setCantidad((String) cellEditEvent.getNewValue());
+            int aux = Integer.parseInt(((String) cellEditEvent.getNewValue()));
+            pVenta.setSubtotal(pVenta.getPrecioUnitario() * aux);
+
+            tblDetalleVenta.refresh();
+        } catch (NumberFormatException e) {
+            Alerta alerta = new Alerta("Error", "El valor tiene que ser de tipo entero");
+            alerta.mostrarAlertaError();
+            DatosVenta pVenta = this.tblDetalleVenta.getSelectionModel().getSelectedItem();
+
+            pVenta.setCantidad("1");
+            int aux = Integer.parseInt("1");
+            pVenta.setSubtotal(pVenta.getPrecioUnitario() * aux);
+            tblDetalleVenta.refresh();
+        }
     }
+
 }
