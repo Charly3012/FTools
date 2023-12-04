@@ -8,11 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
@@ -21,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Alerta;
+import modelo.Cliente;
 import modelo.DatosVenta;
 import modelo.Producto;
 
@@ -42,6 +39,19 @@ import java.util.ResourceBundle;
 public class ControladorRegistroVentas implements Initializable {
     @FXML
     public Button btnAñadir;
+
+    @FXML
+    public Label labTotalMostrar;
+
+    @FXML
+    public TextField txtCliente;
+
+    @FXML
+    public Button btnSeleccionarCliente;
+
+    @FXML
+    public Label labClienteSeleccionado;
+
     @FXML
     private AnchorPane anchorDetalleVenta;
 
@@ -269,6 +279,8 @@ public class ControladorRegistroVentas implements Initializable {
             // Opcional: Limpiar la selección en tblProductosDisponibles
             this.tblProductosDisponibles.getSelectionModel().clearSelection();
         }
+
+        actualizarTotal();
     }
 
     @FXML
@@ -292,6 +304,45 @@ public class ControladorRegistroVentas implements Initializable {
             pVenta.setSubtotal(pVenta.getPrecioUnitario() * aux);
             tblDetalleVenta.refresh();
         }
+
+        actualizarTotal();
     }
 
+    public void actualizarTotal(){
+        ArrayList<DatosVenta> auxDetalleVenta = new ArrayList<>();
+        auxDetalleVenta.addAll(produc);
+        if(auxDetalleVenta.isEmpty()){
+            this.labTotalMostrar.setText("----");
+        }else{
+
+
+            double suma = 0;
+            for (int i = 0; i < produc.size(); i++){
+                suma = suma + produc.get(i).getSubtotal();
+            }
+
+            this.labTotalMostrar.setText(suma + "");
+        }
+    }
+
+
+    @FXML
+    public void clickSeleccionarCliente(ActionEvent actionEvent) {
+
+
+        //Persistencia - Leer el archivo de datos
+        try{
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionClientes.cja"));
+            ArrayList<Cliente> clientesGuardar = (ArrayList<Cliente>) ois.readObject();
+
+            for(int j = 0; j < clientesGuardar.size(); j++){
+
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 }
