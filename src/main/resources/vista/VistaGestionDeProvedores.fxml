@@ -3,21 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorGestionDeProveedores">
+<AnchorPane prefHeight="500.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorGestionDeProveedores">
    <children>
-      <MenuButton fx:id="btnMenuProveedores" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Menu">
-        <items>
-          <MenuItem mnemonicParsing="false" text="Action 1" />
-          <MenuItem mnemonicParsing="false" text="Action 2" />
-        </items>
-      </MenuButton>
       <ToolBar cache="true" layoutY="56.0" prefHeight="53.0" prefWidth="862.0">
         <items>
             <Button fx:id="btnAgregarProveedor" mnemonicParsing="false" onAction="#agregarNuevoP" text="Agregar nuevo " />
@@ -35,7 +27,7 @@
             <Insets left="15.0" />
          </padding>
       </ToolBar>
-      <Label fx:id="labProveedoresMenu" layoutX="97.0" layoutY="18.0" text="Gestion de proveedores" />
+      <Label fx:id="labProveedoresMenu" layoutX="15.0" layoutY="18.0" text="Gestion de proveedores" />
       <TableView fx:id="tlbrBarraProveedor" layoutY="109.0" prefHeight="391.0" prefWidth="862.0">
         <columns>
           <TableColumn fx:id="colNombreProveedor" prefWidth="224.0" text="Nombre " />

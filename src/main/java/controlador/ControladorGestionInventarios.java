@@ -1,5 +1,6 @@
 package controlador;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,11 +47,13 @@ public class ControladorGestionInventarios implements Initializable{
     public TableColumn<?, ?> colCodigoBarrasProducto;
 
     @FXML
+    public Label labHoraMostrar;
+
+    @FXML
     private Button btnAgregarProducto;
 
     @FXML
     private Button btnEliminarProducto;
-
 
     @FXML
     private TableColumn<?, ?> colCategoriasProducto;
@@ -86,6 +89,8 @@ public class ControladorGestionInventarios implements Initializable{
     private ObservableList<Producto> busquedaProductos;
 
 
+
+
     private static final long serialId = 1L;
 
 
@@ -105,8 +110,24 @@ public class ControladorGestionInventarios implements Initializable{
 
         iniciarDatosObservables();
         persistenciaLeer();
+        mostrarHora();
 
 
+    }
+
+    public void mostrarHora(){
+        ControladorReloj controladorReloj = new ControladorReloj();
+
+        controladorReloj.setOnUpdateListener(new ControladorReloj.OnUpdateListener() {
+            @Override
+            public void onUpdate(String horaMostrada) {
+                Platform.runLater(() -> {
+                    labHoraMostrar.setText(horaMostrada);
+                });
+            }
+        });
+
+        controladorReloj.start();
     }
 
 
