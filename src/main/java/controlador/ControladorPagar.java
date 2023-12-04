@@ -32,6 +32,7 @@ public class ControladorPagar {
     @FXML
     public Label labTotal;
 
+
     @FXML
     public void CobraryGenerar(ActionEvent actionEvent) {
         try {
