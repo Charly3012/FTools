@@ -153,7 +153,7 @@ public class ControladorEmAgregarProducto implements Initializable {
                 if(this.productoAux != null){
 
                     this.productoAux.setNombre(nombre);
-                    //this.productoAux.setCategoria(categoria);
+                    this.productoAux.setCategoria(cmbCategoria.getSelectionModel().getSelectedItem());
                     this.productoAux.setCantExistencia(cantExistencia);
                     this.productoAux.setSku(sku);
                     this.productoAux.setDescripcion(descripcion);

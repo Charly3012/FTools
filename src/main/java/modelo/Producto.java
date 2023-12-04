@@ -79,7 +79,7 @@ public class Producto implements Serializable {
         this.sku = sku;
     }
 
-    public Producto(String nombre, int cantExistencia,double precioUnitario ) {
+    public Producto(String nombre, int cantExistencia,double precioUnitario) {
         this.nombre = nombre;
         this.cantExistencia = cantExistencia;
         this.precioUnitario = precioUnitario;
@@ -91,6 +91,12 @@ public class Producto implements Serializable {
     }
 
     public Producto() {
+    }
+
+    public Producto(String nombre, double precioUnitario, int cantExistencia) {
+        this.nombre = nombre;
+        this.precioUnitario = precioUnitario;
+        this.cantExistencia = cantExistencia;
     }
 
     public String getNombre() {

@@ -49,10 +49,10 @@
                   <Font size="23.0" />
                </font>
             </Text>
-            <TableView fx:id="tblDetalleVenta" layoutX="11.0" layoutY="70.0" prefHeight="269.0" prefWidth="300.0">
+            <TableView fx:id="tblDetalleVenta" editable="true" layoutX="11.0" layoutY="70.0" prefHeight="269.0" prefWidth="300.0">
               <columns>
-                <TableColumn fx:id="colProductoDv" editable="false" onEditCommit="#clickEditarCantidad" prefWidth="140.79998779296875" text="Producto" />
-                <TableColumn fx:id="colCantidadDv" prefWidth="87.20001220703125" text="Cantidad" />
+                <TableColumn fx:id="colProductoDv" editable="false" prefWidth="140.79998779296875" text="Producto" />
+                <TableColumn fx:id="colCantidadDv" onEditCommit="#clickEditarCantidad" prefWidth="87.20001220703125" text="Cantidad" />
                   <TableColumn fx:id="colTotalDv" editable="false" prefWidth="71.2000732421875" text="Subtotal" />
               </columns>
             </TableView>
