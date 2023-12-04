@@ -26,10 +26,8 @@
          </children>
       </AnchorPane>
        <AnchorPane layoutX="14.0" layoutY="50.0" prefHeight="101.0" prefWidth="478.0">
-           <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" onKeyReleased="#escribirBuscar"
-                      prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto"/>
-           <Button fx:id="btnBuscar" layoutX="336.0" layoutY="15.0" mnemonicParsing="false" onAction="#clickBuscar"
-                   text="Buscar"/>
+           <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" onKeyReleased="#escribirBuscar" prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto" />
+           <Button fx:id="btnBuscar" layoutX="336.0" layoutY="15.0" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar" />
        </AnchorPane>
       <AnchorPane layoutX="14.0" layoutY="135.0" prefHeight="344.0" prefWidth="478.0">
          <children>
@@ -53,9 +51,9 @@
             </Text>
             <TableView fx:id="tblDetalleVenta" layoutX="11.0" layoutY="70.0" prefHeight="269.0" prefWidth="300.0">
               <columns>
-                <TableColumn fx:id="colProductoDv" prefWidth="140.79998779296875" text="Producto" />
+                <TableColumn fx:id="colProductoDv" editable="false" onEditCommit="#clickEditarCantidad" prefWidth="140.79998779296875" text="Producto" />
                 <TableColumn fx:id="colCantidadDv" prefWidth="87.20001220703125" text="Cantidad" />
-                  <TableColumn fx:id="colTotalDv" prefWidth="71.2000732421875" text="Total" />
+                  <TableColumn fx:id="colTotalDv" editable="false" prefWidth="71.2000732421875" text="Subtotal" />
               </columns>
             </TableView>
             <TextField fx:id="txtTotal" editable="false" layoutX="14.0" layoutY="400.0" prefHeight="26.0" prefWidth="300.0" text="Total: " />

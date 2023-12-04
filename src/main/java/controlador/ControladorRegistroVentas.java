@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import modelo.Alerta;
+import modelo.DatosVenta;
 import modelo.Producto;
 
 import java.io.File;
@@ -74,7 +75,7 @@ public class ControladorRegistroVentas implements Initializable {
     private TableColumn<?, ?> colTotalDv;
 
     @FXML
-    private TableView<Producto> tblDetalleVenta;
+    private TableView<DatosVenta> tblDetalleVenta;
 
     @FXML
     private TableView<Producto> tblProductosDisponibles;
@@ -85,7 +86,7 @@ public class ControladorRegistroVentas implements Initializable {
     @FXML
     private TextField txtTotal;
     @FXML
-    private ObservableList<Producto> produc;
+    private ObservableList<DatosVenta> produc;
 
     @FXML //Lista que se muestra de productos
     private ObservableList<Producto> productosVista;
@@ -141,13 +142,6 @@ public class ControladorRegistroVentas implements Initializable {
         assert tblDetalleVenta != null : "fx:id=\"tblDetalleVenta\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         iniciarDatosObservables();
         persistenciaLeer();
-        verdetalleventa();
-
-
-
-
-
-
     }
 
 
@@ -204,18 +198,15 @@ public class ControladorRegistroVentas implements Initializable {
         this.colInventarioDisp.setCellValueFactory((new PropertyValueFactory<>("cantExistencia")));
         this.colPrecioUnitarioDisp.setCellValueFactory((new PropertyValueFactory<>("precioUnitario")));
 
-    }
-
-    public void verdetalleventa(){
-
-        produc =FXCollections.observableArrayList();
+        //Iniciar datos de detalle venta
+        produc = FXCollections.observableArrayList();
 
         this.colProductoDv.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        //this.colCantidadDv.setCellValueFactory(new PropertyValueFactory<>("Cantidad"));
-        //this.colTotalDv.setCellValueFactory(new PropertyValueFactory<>("Total"));
-
-
+        this.colCantidadDv.setCellValueFactory(new PropertyValueFactory<>("cantidad"));
+        this.colTotalDv.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
     }
+
+
 
 
 
@@ -250,16 +241,30 @@ public class ControladorRegistroVentas implements Initializable {
         }
 
     }
+
+
     @FXML
     public void carrito(ActionEvent actionEvent) {
         Producto p = this.tblProductosDisponibles.getSelectionModel().getSelectedItem();
 
+        String nombreProducto = p.getNombre();
+        int cantidadExistencia = p.getCantExistencia();
+        int cantidad = 1;
+        double subtotal = p.getPrecioUnitario() * cantidad;
+
+        DatosVenta pVenta = new DatosVenta(nombreProducto, cantidad, subtotal);
+
         if (p != null) {
             // Añadir el producto seleccionado a tblDetalleVenta
-            this.tblDetalleVenta.getItems().add(p);
+            this.tblDetalleVenta.getItems().add(pVenta);
 
             // Opcional: Limpiar la selección en tblProductosDisponibles
             this.tblProductosDisponibles.getSelectionModel().clearSelection();
         }
+    }
+
+    @FXML
+    public void clickEditarCantidad(TableColumn.CellEditEvent<?,?> cellEditEvent) {
+        System.out.println("Puto");
     }
 }
