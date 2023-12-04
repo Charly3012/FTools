@@ -27,11 +27,11 @@
       </AnchorPane>
        <AnchorPane layoutX="14.0" layoutY="50.0" prefHeight="101.0" prefWidth="478.0">
            <TextField fx:id="txtBuscarProducto" layoutX="14.0" layoutY="14.0" onKeyReleased="#escribirBuscar" prefHeight="26.0" prefWidth="309.0" promptText="Buscar producto" />
-           <Button fx:id="btnBuscar" layoutX="336.0" layoutY="15.0" mnemonicParsing="false" onAction="#clickBuscar" text="Buscar" />
+         <Button fx:id="btnAñadir" layoutX="352.0" layoutY="15.0" mnemonicParsing="false" onAction="#carrito" prefHeight="25.0" prefWidth="123.0" text="Añadir" />
        </AnchorPane>
-      <AnchorPane layoutX="14.0" layoutY="135.0" prefHeight="344.0" prefWidth="478.0">
+      <AnchorPane layoutX="14.0" layoutY="104.0" prefHeight="375.0" prefWidth="478.0">
          <children>
-            <TableView fx:id="tblProductosDisponibles" onMouseClicked="#seleccionar" prefHeight="344.0" prefWidth="478.0">
+            <TableView fx:id="tblProductosDisponibles" onMouseClicked="#seleccionar" prefHeight="375.0" prefWidth="478.0">
               <columns>
                 <TableColumn fx:id="colProuctoDisp" prefWidth="156.7999849319458" text="Producto" />
                 <TableColumn fx:id="colCategoriaDisp" prefWidth="139.1999969482422" text="Categoria" />
@@ -42,23 +42,35 @@
          </children>
       </AnchorPane>
       <Separator layoutX="516.0" layoutY="36.0" orientation="VERTICAL" prefHeight="442.0" prefWidth="7.0" />
-      <AnchorPane fx:id="anchorDetalleVenta" layoutX="523.0" layoutY="36.0" prefHeight="442.0" prefWidth="322.0">
+      <AnchorPane fx:id="anchorDetalleVenta" layoutX="523.0" layoutY="12.0" prefHeight="466.0" prefWidth="322.0">
          <children>
-            <Text layoutX="79.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalle de venta" textAlignment="CENTER">
+            <Text layoutX="78.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Detalle de venta" textAlignment="CENTER">
                <font>
                   <Font size="23.0" />
                </font>
             </Text>
-            <TableView fx:id="tblDetalleVenta" editable="true" layoutX="11.0" layoutY="70.0" prefHeight="269.0" prefWidth="300.0">
+            <TableView fx:id="tblDetalleVenta" editable="true" layoutX="10.0" layoutY="128.0" prefHeight="280.0" prefWidth="300.0">
               <columns>
                 <TableColumn fx:id="colProductoDv" editable="false" prefWidth="140.79998779296875" text="Producto" />
                 <TableColumn fx:id="colCantidadDv" onEditCommit="#clickEditarCantidad" prefWidth="87.20001220703125" text="Cantidad" />
                   <TableColumn fx:id="colTotalDv" editable="false" prefWidth="71.2000732421875" text="Subtotal" />
               </columns>
             </TableView>
-            <TextField fx:id="txtTotal" editable="false" layoutX="14.0" layoutY="400.0" prefHeight="26.0" prefWidth="300.0" text="Total: " />
-            <Button fx:id="btnPagar" layoutX="231.0" layoutY="400.0" mnemonicParsing="false" onAction="#clickPagar" prefHeight="26.0" prefWidth="82.0" text="Pagar" />
-            <Button fx:id="btnAñadir" layoutX="11.0" layoutY="339.0" mnemonicParsing="false" onAction="#carrito" text="Añadir" />
+            <Button fx:id="btnPagar" layoutX="226.0" layoutY="426.0" mnemonicParsing="false" onAction="#clickPagar" prefHeight="26.0" prefWidth="82.0" text="Pagar" />
+            <Label layoutX="14.0" layoutY="424.0" text="Total:">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="labTotalMostrar" layoutX="69.0" layoutY="424.0" text="----">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCliente" layoutX="11.0" layoutY="64.0" prefHeight="25.0" prefWidth="186.0" promptText="Cliente (1 si es no recurrente)" />
+            <Button fx:id="btnSeleccionarCliente" layoutX="209.0" layoutY="64.0" mnemonicParsing="false" onAction="#clickSeleccionarCliente" prefHeight="25.0" prefWidth="99.0" text="Buscar Cliente" />
+            <Label layoutX="14.0" layoutY="99.0" text="Cliente: " />
+            <Label fx:id="labClienteSeleccionado" layoutX="62.0" layoutY="99.0" text="----" />
          </children>
       </AnchorPane>
    </children>
