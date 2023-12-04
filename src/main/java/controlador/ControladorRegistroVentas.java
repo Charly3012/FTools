@@ -1,5 +1,6 @@
 package controlador;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,6 +52,9 @@ public class ControladorRegistroVentas implements Initializable {
 
     @FXML
     public Label labClienteSeleccionado;
+
+    @FXML
+    public Label labHoraMostrar;
 
     @FXML
     private AnchorPane anchorDetalleVenta;
@@ -156,6 +160,22 @@ public class ControladorRegistroVentas implements Initializable {
         assert tblDetalleVenta != null : "fx:id=\"tblDetalleVenta\" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
         iniciarDatosObservables();
         persistenciaLeer();
+        mostrarHora();
+    }
+
+    public void mostrarHora(){
+        ControladorReloj controladorReloj = new ControladorReloj();
+
+        controladorReloj.setOnUpdateListener(new ControladorReloj.OnUpdateListener() {
+            @Override
+            public void onUpdate(String horaMostrada) {
+                Platform.runLater(() -> {
+                    labHoraMostrar.setText(horaMostrada);
+                });
+            }
+        });
+
+        controladorReloj.start();
     }
 
 
