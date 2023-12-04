@@ -281,15 +281,20 @@ public class ControladorGestionInventarios implements Initializable{
      * Lee los registros de sesiones pasadas permitiendo la persistencia de datos
      */
     public void persistenciaLeer(){
-        //Persistencia - Leer el archivo de datos
-        try{
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
-            ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
-            productos.addAll(productosGuardar);
+        File comprobracionExist = new File("src/main/resources/persistencia/gestionInventarios.cja");
+        if (comprobracionExist.exists()){
 
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            //Persistencia - Leer el archivo de datos
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
+                ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
+                productos.addAll(productosGuardar);
+
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
+
     }
 
     /**

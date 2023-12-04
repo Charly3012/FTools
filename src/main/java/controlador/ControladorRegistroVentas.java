@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import modelo.Alerta;
 import modelo.Producto;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -173,17 +174,18 @@ public class ControladorRegistroVentas implements Initializable {
         }
     }
     public void persistenciaLeer(){
-        //Persistencia - Leer el archivo de datos
-        try{
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
-            ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
-            productosVista.addAll(productosGuardar);
-            ois.close();
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        File comprobracionExist = new File("src/main/resources/persistencia/categorias.cja");
+        if(comprobracionExist.exists()){
+            //Persistencia - Leer el archivo de datos
+            try{
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/gestionInventarios.cja"));
+                ArrayList<Producto> productosGuardar = (ArrayList<Producto>) ois.readObject();
+                productosVista.addAll(productosGuardar);
+                ois.close();
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
         }
-
-
 
     }
 
