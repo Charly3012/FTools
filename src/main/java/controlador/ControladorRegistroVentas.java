@@ -110,8 +110,8 @@ public class ControladorRegistroVentas implements Initializable {
      * @param event El evento de acción generado por el clic.
      */
     @FXML
-    void clickPagar(ActionEvent event) /*throws IOException*/ {
-        /*try {
+    void clickPagar(ActionEvent event) throws IOException{
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
             Parent root = loader.load();
             ControladorPagar controlador = loader.getController();
@@ -128,7 +128,7 @@ public class ControladorRegistroVentas implements Initializable {
         }catch (IOException e) {
         Alerta alerta = new Alerta("Error", e.getMessage());
         alerta.mostrarAlertaError();
-    }*/
+    }
     }
     public void initialize(URL url, ResourceBundle rb) {
 
