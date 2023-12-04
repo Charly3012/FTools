@@ -34,6 +34,8 @@ import java.util.ResourceBundle;
  * @author Jhonatan Solis
  * @version 1.0
  */
+
+//ventas
 public class ControladorRegistroVentas implements Initializable {
     @FXML
     public Button btnAñadir;
