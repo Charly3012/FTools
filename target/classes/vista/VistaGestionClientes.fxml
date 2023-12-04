@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="500.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorGestionClientes">
+   <children>
+      <AnchorPane layoutX="14.0" layoutY="88.0" prefHeight="403.0" prefWidth="590.0">
+         <children>
+            <TableView fx:id="tblClientes" onMouseClicked="#clickSeleccionar" prefHeight="403.0" prefWidth="590.0">
+              <columns>
+                <TableColumn fx:id="colCelularCliente" prefWidth="114.0" text="Celular" />
+                <TableColumn fx:id="colNombreCliente" prefWidth="300.0" text="Nombre " />
+                  <TableColumn fx:id="colGeneroCliente" prefWidth="175.0" text="Genero" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="9.0" prefHeight="41.0" prefWidth="922.0">
+         <children>
+            <Label fx:id="labNombrePestana" layoutX="90.0" layoutY="12.0" prefHeight="17.0" prefWidth="157.0" text="Gestión de inventario" />
+            <MenuButton fx:id="comMenuDesplegable" layoutX="10.0" layoutY="7.0" mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Compras y Ventas" />
+                  <MenuItem mnemonicParsing="false" text="Proveedores" />
+               </items>
+            </MenuButton>
+            <Label layoutX="671.0" layoutY="13.0" text="Hora: " />
+         </children>
+      </AnchorPane>
+      <Label layoutX="26.0" layoutY="59.0" text="Buscar: " />
+      <TextField fx:id="txtBuscarCliente" layoutX="77.0" layoutY="55.0" onKeyReleased="#escribirEnBuscar" prefHeight="25.0" prefWidth="526.0" promptText="Buscar cliente" />
+      <AnchorPane layoutX="620.0" layoutY="88.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="403.0" prefWidth="300.0">
+         <children>
+            <TextField fx:id="txtCelularCliente" layoutX="16.0" layoutY="55.0" prefHeight="25.0" prefWidth="269.0" promptText="Número del cliente" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="14.0" />
+            <TextField fx:id="txtNombreCliente" layoutX="17.0" layoutY="120.0" prefHeight="25.0" prefWidth="269.0" promptText="Nombre del cliente" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="14.0" />
+            <Label layoutX="17.0" layoutY="32.0" text="Celular" />
+            <Label layoutX="17.0" layoutY="95.0" text="Nombre: " />
+            <Label layoutX="17.0" layoutY="160.0" text="Genero:" />
+            <Button fx:id="btnGuardar" layoutX="16.0" layoutY="306.0" mnemonicParsing="false" onAction="#clickGuardar" prefHeight="25.0" prefWidth="269.0" text="Guardar" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="14.0" />
+            <Button fx:id="btnLimpiar" layoutX="17.0" layoutY="338.0" mnemonicParsing="false" onAction="#clickLimpiar" prefHeight="25.0" prefWidth="269.0" text="Limpiar" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="14.0" />
+            <Button fx:id="btnEliminar" layoutX="16.0" layoutY="370.0" mnemonicParsing="false" onAction="#clickEliminar" prefHeight="25.0" prefWidth="269.0" text="Eliminar" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="14.0" />
+            <ComboBox fx:id="cmbGeneroCliente" layoutX="17.0" layoutY="189.0" prefHeight="25.0" prefWidth="269.0" promptText="Genero del cliente" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

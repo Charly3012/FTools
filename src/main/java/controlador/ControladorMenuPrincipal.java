@@ -25,6 +25,9 @@ public class ControladorMenuPrincipal {
     public Button btnCategorias;
 
     @FXML
+    public Button btnClientes;
+
+    @FXML
     private Button btnComprasYVentas;
 
     @FXML
@@ -122,6 +125,7 @@ public class ControladorMenuPrincipal {
         stage.close();
     }
 
+    @FXML
     public void clickCategorias(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaCategorias.fxml"));
@@ -130,6 +134,26 @@ public class ControladorMenuPrincipal {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setTitle("Categorias");
+            stage.setScene(scene);
+            stage.show();
+            stage.setOnCloseRequest(e -> controlador.cerrarVentana());
+            Stage myStage = (Stage) this.btnInventarios.getScene().getWindow();
+            myStage.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void clickClientes(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaGestionClientes.fxml"));
+            Parent root = loader.load();
+            ControladorGestionClientes controlador = loader.getController();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Clientes");
             stage.setScene(scene);
             stage.show();
             stage.setOnCloseRequest(e -> controlador.cerrarVentana());

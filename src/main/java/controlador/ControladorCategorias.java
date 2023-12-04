@@ -306,9 +306,9 @@ public class ControladorCategorias implements Initializable {
      * Lee los registros de sesiones pasadas permitiendo la persistencia de datos
      */
     public void persistenciaLeer(){
-        File nose = new File("src/main/resources/persistencia/categorias.cja");
+        File comprobracionExist = new File("src/main/resources/persistencia/categorias.cja");
 
-        if(nose.exists()){
+        if(comprobracionExist.exists()){
             //Persistencia - Leer el archivo de datos
             try{
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/main/resources/persistencia/categorias.cja"));
@@ -320,7 +320,7 @@ public class ControladorCategorias implements Initializable {
             }
         }
         else{
-            System.out.println("Tas mal pa");
+            System.out.println(" ");
         }
 
     }
