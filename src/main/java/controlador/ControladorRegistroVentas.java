@@ -1,5 +1,6 @@
 package controlador;
 
+import com.fasterxml.jackson.databind.type.ArrayType;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,15 +18,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import modelo.Alerta;
-import modelo.Cliente;
-import modelo.DatosVenta;
-import modelo.Producto;
+import modelo.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -111,6 +106,10 @@ public class ControladorRegistroVentas implements Initializable {
 
     private Cliente clienteCompra;
 
+    private String fecha;
+
+    private ArrayList<Venta> ventas = new ArrayList<>();
+
     /**
      * Maneja el evento de clic en el botón de búsqueda.
      *
@@ -124,30 +123,9 @@ public class ControladorRegistroVentas implements Initializable {
     /**
      * Maneja el evento de clic en el botón de pagar.
      *
-     * @param event El evento de acción generado por el clic.
+     * @param rb El evento de acción generado por el clic.
      */
-    @FXML
-    void clickPagar(ActionEvent event) throws IOException {
 
-       try{ FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
-        Parent root = loader.load();
-        ControladorPagar controlador = loader.getController();
-
-        controlador.setProduc(produc);
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-
-
-    }catch (IOException e) {
-        Alerta alerta = new Alerta("Error", e.getMessage());
-        alerta.mostrarAlertaError();
-        }
-
-    }
     public void initialize(URL url, ResourceBundle rb) {
 
         assert colPrecioUnitarioDisp != null : "fx:id=\"colPrecioUnitarioDisp \" was not injected: check your FXML file 'VistaRegistroComprasVentas.fxml'.";
@@ -168,9 +146,18 @@ public class ControladorRegistroVentas implements Initializable {
 
         controladorReloj.setOnUpdateListener(new ControladorReloj.OnUpdateListener() {
             @Override
-            public void onUpdate(String horaMostrada) {
+            public void onUpdate(String fechaMostrada) {
+                Platform.runLater(() -> {
+                    fecha = fechaMostrada;
+
+                });
+            }
+
+            @Override
+            public void onUpdate(String horaMostrada, String fechaMostrada) {
                 Platform.runLater(() -> {
                     labHoraMostrar.setText(horaMostrada);
+
                 });
             }
         });
@@ -196,6 +183,15 @@ public class ControladorRegistroVentas implements Initializable {
             stage.show();
             Stage myStage = (Stage) this.btnPagar.getScene().getWindow();
             myStage.close();
+
+            //Persistencia - Guardar los datos en un archivo
+            ArrayList<Producto> productosGuardar= new ArrayList<>(productosVista);
+            try{
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/main/resources/persistencia/gestionInventarios.cja"));
+                oos.writeObject(productosGuardar);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -400,5 +396,63 @@ public class ControladorRegistroVentas implements Initializable {
 
     }
 
+    @FXML
+    void clickPagar(ActionEvent event) throws IOException {
+
+        try{ FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/VistaPago.fxml"));
+            if(clienteCompra != null){
+                Parent root = loader.load();
+                ControladorPagar controlador = loader.getController();
+
+                controlador.setProduc(produc);
+
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+
+                //Genera el objeto venta
+                ArrayList<DatosVenta> aux = new ArrayList<>();
+                aux.addAll(produc);
+                double precioCompraTotal = Double.parseDouble(labTotalMostrar.getText());
+                Venta nuevaVenta = new Venta(clienteCompra.getCelular(), precioCompraTotal, fecha, aux);
+                ventas.add(nuevaVenta);
+
+                //Para disminuir el inventario
+                ArrayList<Producto> nuevoInventario = new ArrayList<>();
+                nuevoInventario.addAll(productosVista);
+                for(int i = 0; i < aux.size(); i++ ){
+                    for(int j = 0; j < nuevoInventario.size(); j ++){
+                        if (nuevoInventario.get(j).getNombre().equals(aux.get(i).getNombre())){
+                            int inventario;
+                            inventario = nuevoInventario.get(j).getCantExistencia() - (Integer.parseInt(aux.get(i).getCantidad()));
+                            nuevoInventario.get(j).setCantExistencia(inventario);
+                        }
+                    }
+                }
+
+                productosVista.removeAll(productosVista);
+                productosVista.addAll(nuevoInventario);
+
+                tblDetalleVenta.refresh();
+
+                produc.removeAll(produc);
+                tblDetalleVenta.refresh();
+
+            }
+
+            else{
+                Alerta alerta = new Alerta("Error", "Debe ingresar un cliente valido");
+                alerta.mostrarAlertaError();
+            }
+
+
+        }catch (IOException e) {
+            Alerta alerta = new Alerta("Error", e.getMessage());
+            alerta.mostrarAlertaError();
+        }
+
+    }
 
 }
