@@ -73,8 +73,11 @@ public class ControladorGestionDeProveedores implements Initializable {
     private ObservableList<ProductoProveedor> proveedoresProductos;
 
 
-
-
+    /**
+     * Métodos que se ejecutan al abrir la ventana
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         proveedores = FXCollections.observableArrayList();
@@ -120,6 +123,10 @@ public class ControladorGestionDeProveedores implements Initializable {
         }
     }
 
+    /**
+     * Borra el registro
+     * @param event
+     */
     @FXML
     void borrarNuevoP(ActionEvent event) {
         Proveedor seleccionar = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
@@ -154,6 +161,10 @@ public class ControladorGestionDeProveedores implements Initializable {
         }
     }
 
+    /**
+     * Agrega un nuevo registro en proveedores
+     * @param actionEvent
+     */
     @FXML
     public void ClickAgregarProductoProveedor(ActionEvent actionEvent) {
         try {
@@ -182,6 +193,10 @@ public class ControladorGestionDeProveedores implements Initializable {
         }
     }
 
+    /**
+     * Editar registro
+     * @param event
+     */
     @FXML
     void editarNuevoP(ActionEvent event) {
         Proveedor p = this.tlbrBarraProveedor.getSelectionModel().getSelectedItem();
@@ -243,6 +258,9 @@ public class ControladorGestionDeProveedores implements Initializable {
 
     }
 
+    /**
+     * Persistencia para leer datos
+     */
     public void persistenciaLeer() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -256,6 +274,9 @@ public class ControladorGestionDeProveedores implements Initializable {
         }
     }
 
+    /**
+     * Persistencia para guardar datos
+     */
     public void persistenciaEscribir() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {

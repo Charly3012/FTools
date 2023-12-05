@@ -20,6 +20,10 @@ public class ControladorReloj extends Thread {
         void onUpdate(String horaMostrada, String fechaMostrada);
     }
 
+    /**
+     * Obtiene la hora y fecha
+     * @param onUpdateListener
+     */
     public void setOnUpdateListener(OnUpdateListener onUpdateListener) {
         this.onUpdateListener = onUpdateListener;
     }
@@ -56,10 +60,18 @@ public class ControladorReloj extends Thread {
         }
     }
 
+    /**
+     * Devuelve la hora
+     * @return
+     */
     public String getHoraMostrada() {
         return horaMostrada;
     }
 
+    /**
+     * Devuelve la fecha
+     * @return
+     */
     public String getFechaMostrada(){
         return fechaMostrada;
     }

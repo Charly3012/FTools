@@ -89,7 +89,11 @@ public class ControladorGestionInventarios implements Initializable{
     private static final long serialId = 1L;
 
 
-
+    /**
+     * Métodos que se inician cuando se abre la ventana
+     * @param url
+     * @param rb
+     */
     public void initialize(URL url, ResourceBundle rb) {
         assert btnAgregarProducto != null : "fx:id=\"btnAgregarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert btnEliminarProducto != null : "fx:id=\"btnEliminarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";

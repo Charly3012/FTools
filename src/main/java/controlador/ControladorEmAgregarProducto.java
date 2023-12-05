@@ -230,7 +230,9 @@ public class ControladorEmAgregarProducto implements Initializable {
         stage.close();
     }
 
-
+    /**
+     * Carga las categorías en el comboBox para su visualización
+     */
     public void cargarCategorias(){
 
 

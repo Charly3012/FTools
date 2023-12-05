@@ -1,26 +1,26 @@
 /*
- * Copyright (c) 2015, 2023, Oracle and/or its affiliates. All rights reserved.
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ * Copyright (c) 2015, 2022, Oracle and/or its affiliates. All rights reserved.
+ * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  *
- * This code is free software; you can redistribute it and/or modify it
- * under the terms of the GNU General Public License version 2 only, as
- * published by the Free Software Foundation.  Oracle designates this
- * particular file as subject to the "Classpath" exception as provided
- * by Oracle in the LICENSE file that accompanied this code.
  *
- * This code is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
- * version 2 for more details (a copy is included in the LICENSE file that
- * accompanied this code).
  *
- * You should have received a copy of the GNU General Public License version
- * 2 along with this work; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- * Please contact Oracle, 500 Oracle Parkway, Redwood Shores, CA 94065 USA
- * or visit www.oracle.com if you need additional information or have any
- * questions.
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 "use strict";
 const messages = {
@@ -31,8 +31,8 @@ const messages = {
     loading: "Loading search index...",
     searching: "Searching...",
     redirecting: "Redirecting to first result...",
-    linkIcon: "Link icon",
-    linkToSection: "Link to this section"
+    copyUrl: "Copy URL",
+    urlCopied: "Copied!"
 }
 const categories = {
     modules: "Modules",
@@ -366,7 +366,7 @@ $.widget("custom.catcomplete", $.ui.autocomplete, {
             ? item.l
             : getHighlightedText(item.input, item.boundaries, 0, item.input.length);
         var idx = item.indexItem;
-        if (item.category === "searchTags" && idx && idx.h) {
+        if (item.category === "searchTags" && idx.h) {
             if (idx.d) {
                 div.html(label + "<span class='search-tag-holder-result'> (" + idx.h + ")</span><br><span class='search-tag-desc-result'>"
                     + idx.d + "</span><br>");
@@ -407,16 +407,16 @@ $(function() {
     $("ul.sub-nav-list-small li a").click(collapse);
     $("input#search-input").focus(collapse);
     $("main").click(collapse);
-    $("section[id] > :header, :header[id], :header:has(a[id])").each(function(idx, el) {
-        // Create anchor links for headers with an associated id attribute
-        var hdr = $(el);
-        var id = hdr.attr("id") || hdr.parent("section").attr("id") || hdr.children("a").attr("id");
-        if (id) {
-            hdr.append(" <a href='#" + id + "' class='anchor-link' aria-label='" + messages.linkToSection
-                + "'><img src='" + pathtoroot + "link.svg' alt='" + messages.linkIcon +"' tabindex='0'"
-                + " width='16' height='16'></a>");
+    $("section[id] > :header, :header[id], :header:has(a[id])").hover(
+        function () {
+            $(this).append($("<button class='copy copy-header' onclick='copyUrl(this)'> " +
+                "<img src='" + pathtoroot + "copy.svg' alt='" + messages.copyUrl + "'> " +
+                "<span data-copied='" + messages.urlCopied + "'></span></button>"));
+        },
+        function () {
+            $(this).find("button:last").remove();
         }
-    });
+    );
     $(window).on("orientationchange", collapse).on("resize", function(e) {
         if (expanded && windowWidth !== window.innerWidth) collapse();
     });

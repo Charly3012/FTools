@@ -16,7 +16,7 @@
       <Label fx:id="labNuevoProveedorDireccion" layoutX="311.0" layoutY="71.0" text="Dirección:" />
       <TextField fx:id="txtNuevoProveedorDireccion" layoutX="377.0" layoutY="71.0" />
       <Label fx:id="labNuevoProveedorCel" layoutX="62.0" layoutY="124.0" text="Cel:" />
-      <TextField fx:id="txtNuevoProveedorCel" layoutX="95.0" layoutY="120.0" promptText="+0 (080) 012 3456" />
+      <TextField fx:id="txtNuevoProveedorCel" layoutX="95.0" layoutY="120.0" />
       <Label fx:id="labNuevoProveedorCorreo" layoutX="325.0" layoutY="124.0" text="Correo:" />
       <TextField fx:id="txtNuevoProveedorCorreo" layoutX="377.0" layoutY="120.0" />
       <Line endX="441.0" fill="#00000078" layoutX="117.0" layoutY="44.0" startX="-100.0" stroke="#bfbfbf" />

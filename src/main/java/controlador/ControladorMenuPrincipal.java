@@ -125,6 +125,10 @@ public class ControladorMenuPrincipal {
         stage.close();
     }
 
+    /**
+     * Abré la pestaña de categorías
+     * @param actionEvent
+     */
     @FXML
     public void clickCategorias(ActionEvent actionEvent) {
         try {
@@ -145,6 +149,10 @@ public class ControladorMenuPrincipal {
         }
     }
 
+    /**
+     * Abré la pestaña de clientes
+     * @param actionEvent
+     */
     @FXML
     public void clickClientes(ActionEvent actionEvent) {
         try {

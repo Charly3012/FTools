@@ -1,56 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorProveedorGestionInventarios">
+<AnchorPane prefHeight="500.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorProveedorGestionInventarios">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="59.0" prefHeight="62.0" prefWidth="523.0">
+      <AnchorPane layoutY="67.0" prefHeight="50.0" prefWidth="922.0">
          <children>
-            <TextField fx:id="txtBuscarProducto" layoutY="19.0" onKeyReleased="#escribirEnBuscar" prefHeight="25.0" prefWidth="339.0" promptText="Buscar producto" />
-            <ComboBox fx:id="comFiltrarPor" layoutX="359.0" layoutY="19.0" prefWidth="150.0" promptText="Buscar por:" />
+            <Button fx:id="btnAgregarProducto" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#ClickAgregarProducto" prefHeight="25.0" prefWidth="89.0" text="Agregar" />
+            <Button fx:id="btnEditarProducto" layoutX="113.0" layoutY="13.0" mnemonicParsing="false" onAction="#ClickEditarProducto" prefHeight="25.0" prefWidth="89.0" text="Editar" />
+            <Button fx:id="btnEliminarProducto" layoutX="210.0" layoutY="13.0" mnemonicParsing="false" onAction="#ClickEliminarProducto" prefHeight="25.0" prefWidth="89.0" text="Eliminar" />
          </children></AnchorPane>
       <AnchorPane layoutY="130.0" prefHeight="370.0" prefWidth="922.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
          <children>
             <TableView fx:id="tblProductosGestionInventarios" prefHeight="370.0" prefWidth="922.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columns>
-                  <TableColumn fx:id="colSkuProducto" prefWidth="66.0" text="SKU" />
-                <TableColumn fx:id="colNombreProducto" prefWidth="158.0" text="Nombre" />
-                  <TableColumn fx:id="colMarcaProducto" prefWidth="129.0" text="Marca" />
-                <TableColumn fx:id="colCategoriasProducto" minWidth="0.0" prefWidth="120.0" text="Categoria" />
-                  <TableColumn fx:id="colInventarioProducto" prefWidth="125.0" text="Inventario" />
-                  <TableColumn fx:id="colPrecioUnitario" prefWidth="128.0" text="Precio unitario" />
-                  <TableColumn fx:id="colCodigoBarrasProducto" prefWidth="196.0" text="Codigo de barras" />
+                  <TableColumn fx:id="colProveedor" prefWidth="167.0" text="Proveedor" />
+                <TableColumn fx:id="colNombreProducto" prefWidth="152.0" text="Nombre" />
+                  <TableColumn fx:id="colMarcaProducto" prefWidth="119.0" text="Marca" />
+                  <TableColumn fx:id="colInventarioProducto" prefWidth="162.0" text="Inventario" />
+                  <TableColumn fx:id="colPrecioUnitario" prefWidth="148.0" text="Precio unitario" />
+                  <TableColumn fx:id="colCodigoBarrasProducto" prefWidth="173.0" text="Codigo de barras" />
               </columns>
             </TableView>
          </children></AnchorPane>
       <AnchorPane layoutY="-1.0" prefHeight="41.0" prefWidth="922.0">
          <children>
-            <Label fx:id="labNombrePestana" layoutX="90.0" layoutY="12.0" prefHeight="17.0" prefWidth="157.0" text="Gestión de inventario" />
-            <MenuButton fx:id="comMenuDesplegable" layoutX="10.0" layoutY="7.0" mnemonicParsing="false" text="Menu">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Compras y Ventas" />
-                  <MenuItem mnemonicParsing="false" text="Proveedores" />
-              </items>
-            </MenuButton>
-            <Label layoutX="671.0" layoutY="13.0" text="Hora: " />
+            <Label fx:id="labNombrePestana" layoutX="14.0" layoutY="13.0" prefHeight="17.0" prefWidth="231.0" text="Gestión de inventario de proveedores" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="565.0" layoutY="60.0" prefHeight="62.0" prefWidth="357.0" AnchorPane.rightAnchor="30.0">
-         <children>
-            <Button fx:id="btnAgregarProducto" layoutX="26.0" layoutY="19.0" mnemonicParsing="false" onAction="#ClickAgregarProducto" prefHeight="25.0" prefWidth="89.0" text="Agregar" />
-            <Button fx:id="btnEditarProducto" layoutX="134.0" layoutY="19.0" mnemonicParsing="false" onAction="#ClickEditarProducto" prefHeight="25.0" prefWidth="89.0" text="Editar" />
-            <Button fx:id="btnEliminarProducto" layoutX="244.0" layoutY="19.0" mnemonicParsing="false" onAction="#ClickEliminarProducto" prefHeight="25.0" prefWidth="89.0" text="Eliminar" />
-         </children>
-      </AnchorPane>
-      <Separator layoutX="550.0" layoutY="60.0" orientation="VERTICAL" prefHeight="62.0" prefWidth="7.0" />
    </children>
 </AnchorPane>

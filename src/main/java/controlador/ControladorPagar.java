@@ -40,12 +40,20 @@ public class ControladorPagar {
     public Label labTotal;
 
 
+    /**
+     * Cobra y genera el ticket, además de actualizar el inventario general
+     * @param actionEvent
+     */
     @FXML
     public void CobraryGenerar(ActionEvent actionEvent) {
         Stage stage = (Stage) btnCobrar.getScene().getWindow();
         stage.close();
 
     }
+
+    /**
+     * Actualiza el total a pagar
+     */
     public void actualizarTotal() {
         ArrayList<DatosVenta> auxDetalleVenta = new ArrayList<>();
         auxDetalleVenta.addAll(producEnPagar);
@@ -60,6 +68,10 @@ public class ControladorPagar {
         }
     }
 
+    /**
+     * Calcula el cambio a devolver
+     * @param keyEvent
+     */
     public void escribirPago(KeyEvent keyEvent) {
         try {
             double op1 = Double.parseDouble(this.txtPago.getText());

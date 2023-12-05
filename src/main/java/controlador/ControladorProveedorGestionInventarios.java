@@ -65,6 +65,11 @@ public class ControladorProveedorGestionInventarios implements Initializable{
     @FXML
     private TableView<ProductoProveedor> tblProductosGestionInventarios;
 
+    /**
+     * Métodos que se ejecutan al abrir la pestaña
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         proveedoresProductos = FXCollections.observableArrayList();
@@ -81,6 +86,10 @@ public class ControladorProveedorGestionInventarios implements Initializable{
         /*persistenciaLeer();*/
     }
 
+    /**
+     * Agregar un producto
+     * @param event
+     */
     @FXML
     void ClickAgregarProducto(ActionEvent event) {
         try {
@@ -109,6 +118,10 @@ public class ControladorProveedorGestionInventarios implements Initializable{
         }
     }
 
+    /**
+     * Editar producto
+     * @param event
+     */
     @FXML
     void ClickEditarProducto(ActionEvent event) {
         ProductoProveedor p = this.tblProductosGestionInventarios.getSelectionModel().getSelectedItem();
@@ -144,12 +157,18 @@ public class ControladorProveedorGestionInventarios implements Initializable{
         }
     }
 
+    /**
+     * Elimiar producto
+     * @param event
+     */
     @FXML
     void ClickEliminarProducto(ActionEvent event) {
 
     }
 
-
+    /**
+     * Cerrar la ventana
+     */
     public void cerrarVentana(){
 
         /*persistenciaEscribir();*/

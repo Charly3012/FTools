@@ -60,15 +60,29 @@ public class ControladorProveedorEmAgregarProducto implements Initializable{
 
     private ObservableList<ProductoProveedor> proveedoresProductos;
 
+    /**
+     * Método que se ejecuta al abrir la ventana
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Iniciar atributos
+     * @param proveedoresProductos
+     */
     public void initAttributtes(ObservableList<ProductoProveedor> proveedoresProductos) {
         this.proveedoresProductos = proveedoresProductos;
     }
 
+    /**
+     * Iniciar atributos
+     * @param proveedoresProductos
+     * @param p
+     */
     public void initAttributtes(ObservableList<ProductoProveedor> proveedoresProductos, ProductoProveedor p) {
         this.proveedoresProductos = proveedoresProductos;
         this.productoProveedor = p;
@@ -82,7 +96,10 @@ public class ControladorProveedorEmAgregarProducto implements Initializable{
         this.txtPrecioPublico.setText(String.valueOf(p.getPrecioUnitario()));
     }
 
-
+    /**
+     * Guarda producto de proveedor
+     * @param event
+     */
     @FXML
     void clickGuardar(ActionEvent event) {
         String nombre = this.txtNombre.getText();
@@ -198,7 +215,10 @@ public class ControladorProveedorEmAgregarProducto implements Initializable{
     }
 
 
-
+    /**
+     * Limpia los campos
+     * @param event
+     */
     @FXML
     void clickLimpiar(ActionEvent event) {
         this.txtNombre.setText("");
@@ -210,6 +230,10 @@ public class ControladorProveedorEmAgregarProducto implements Initializable{
         this.txtDescripcion.setText("");
     }
 
+    /**
+     * Salir de la pestaña
+     * @param event
+     */
     @FXML
     void clickSalir(ActionEvent event) {
         this.productoProveedor = null;
@@ -217,6 +241,10 @@ public class ControladorProveedorEmAgregarProducto implements Initializable{
         stage.close();
     }
 
+    /**
+     * Muestra error en caso de haber
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
@@ -226,6 +254,10 @@ public class ControladorProveedorEmAgregarProducto implements Initializable{
     }
 
 
+    /**
+     * Devuelve el producto del proveedor
+     * @return
+     */
     public ProductoProveedor getProductoProveedor() {
         return productoProveedor;
     }

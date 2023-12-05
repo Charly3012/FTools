@@ -30,13 +30,18 @@ public class ControladorReportes implements Initializable {
 
     }
 
+    /**
+     * Métodos que se ejecutan al iniciar la pestaña
+     */
     @FXML
     void initialize() {
         assert btnReporteProductos != null : "fx:id=\"btnReporteProductos\" was not injected: check your FXML file 'VistaReportes.fxml'.";
         assert labNombrePestana != null : "fx:id=\"labNombrePestana\" was not injected: check your FXML file 'VistaReportes.fxml'.";
 
     }
-
+    /**
+     * Métodos que se ejecutan al iniciar la pestaña
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
