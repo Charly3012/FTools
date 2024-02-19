@@ -199,7 +199,7 @@ public class ControladorGestionInventarios implements Initializable{
     @FXML
     void ClickAgregarProducto(ActionEvent event) {
 
-        //Abrir una ventana modal, y si, cada que quieras abrir una tienes que escribir esto
+        //Abrir una ventana modal, y si, cada que quieras abrir una tienes que escribir y no recuerdo que mas
         try {
             FXMLLoader vistaEmergente = new FXMLLoader(getClass().getResource("/vista/VistaEmAgregarProducto.fxml"));
             Parent root = vistaEmergente.load();
