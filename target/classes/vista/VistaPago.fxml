@@ -8,31 +8,40 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="297.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorPagar">
-   <children>
-      <Button fx:id="btnCobrar" layoutX="130.0" layoutY="263.0" mnemonicParsing="false" onAction="#CobraryGenerar" text="Cobrar y generar nota " />
-      <TextField fx:id="txtTotal" layoutX="123.0" layoutY="56.0" />
-      <Label layoutX="15.0" layoutY="52.0" prefHeight="34.0" prefWidth="100.0" text="Total a pagar:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtPago" layoutX="123.0" layoutY="104.0" />
-      <TextField fx:id="txtCambio" layoutX="123.0" layoutY="155.0" />
-      <Label layoutX="29.0" layoutY="100.0" prefHeight="34.0" prefWidth="100.0" text="Pago con :">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="41.0" layoutY="151.0" prefHeight="34.0" prefWidth="100.0" text="Cambio:">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="86.0" fitWidth="100.0" layoutX="22.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../imagenes/notas.png" />
-      </ImageView>
-   </children>
+<AnchorPane prefHeight="454.0" prefWidth="464.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ControladorPagar">
+   <Button fx:id="btnCobrar" layoutX="149.0" layoutY="389.0" mnemonicParsing="false" onAction="#CobraryGenerar" text="Cobrar y generar nota " />
+   <ImageView fitHeight="86.0" fitWidth="100.0" layoutX="189.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../imagenes/notas.png" />
+   </ImageView>
+   <Label layoutX="16.0" layoutY="20.0" text="Resumen de pago" />
+   <AnchorPane layoutX="25.0" layoutY="60.0" prefHeight="214.0" prefWidth="415.0">
+      <children>
+         <Label layoutX="14.0" layoutY="23.0" prefHeight="34.0" prefWidth="125.0" text="Total a pagar:">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <Label fx:id="labTotal" layoutX="147.0" layoutY="23.0" prefHeight="34.0" prefWidth="100.0" text="-----">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <Label layoutX="14.0" layoutY="66.0" prefHeight="34.0" prefWidth="100.0" text="Pago con :">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <TextField fx:id="txtPago" layoutX="139.0" layoutY="71.0" onKeyReleased="#escribirPago" promptText="Dinero recibido" />
+         <Label layoutX="14.0" layoutY="114.0" prefHeight="34.0" prefWidth="100.0" text="Cambio:">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <Label fx:id="labCambio" layoutX="139.0" layoutY="114.0" prefHeight="34.0" prefWidth="100.0" text="-----">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+      </children>
+   </AnchorPane>
 </AnchorPane>
-
-

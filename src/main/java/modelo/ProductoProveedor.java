@@ -3,95 +3,50 @@ package modelo;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * Clase principal de la abstracción de los productos que se manejen en la tienda
- * @author Charly
- * @version 1.0
- */
-public class ProductoProveedor implements Serializable {
+public class ProductoProveedor{
     /**
      * Nombre del producto
      */
-    protected String nombre;
+    private String nombre;
     /**
      * Marca del producto
      */
-    protected String marca;
+    private String marca;
     /**
      * Codigo SKU único de cada producto
      */
-    protected String sku;
+    private String sku;
     /**
      * Código de barras del producto
      */
-    protected int codigoBarras;
+    private String codigoBarras;
     /**
      * Cantidad en existencia del producto para la venta
      */
-    protected int cantExistencia;
+    private String cantExistencia;
     /**
      * Precio unitario de cada producto, es el precio final de venta
      */
-    protected double precioUnitario;
+    private String precioUnitario;
 
-    /**
-     * Categoría a la que pertenece al producto
-     */
-    protected String categoria;
     /**
      * Descripción corta y relevante para el producto
      */
-    protected String descripcion;
+    private String descripcion;
 
-    /**
-     * Constructor completo para crear un nuevo producto
-     * @param nombre
-     * @param marca
-     * @param sku
-     * @param codigoBarras
-     * @param cantExistencia
-     * @param precioUnitario
-     * @param categoria
-     * @param descripcion
-     */
-    public ProductoProveedor(String nombre, String marca, String sku, int codigoBarras, int cantExistencia, double precioUnitario, String categoria, String descripcion) {
+    private String nombreProveedor;
+
+    public ProductoProveedor(String nombre, String marca, String sku, String codigoBarras, String cantExistencia, String precioUnitario, String descripcion, String nombreProveedor) {
         this.nombre = nombre;
         this.marca = marca;
         this.sku = sku;
         this.codigoBarras = codigoBarras;
         this.cantExistencia = cantExistencia;
         this.precioUnitario = precioUnitario;
-        this.categoria = categoria;
         this.descripcion = descripcion;
+        this.nombreProveedor = nombreProveedor;
     }
 
-    /**
-     * Consytructor de producto
-     * @param nombre
-     * @param categoria
-     * @param sku
-     * @param cantExistencia
-     */
-    public ProductoProveedor(String nombre, String categoria, int cantExistencia, String sku) {
-        this.nombre = nombre;
-        this.categoria = categoria;
-        this.cantExistencia = cantExistencia;
-        this.sku = sku;
-    }
-
-    public ProductoProveedor(String nombre, int cantExistencia, double precioUnitario ) {
-        this.nombre = nombre;
-        this.cantExistencia = cantExistencia;
-        this.precioUnitario = precioUnitario;
-
-    }
-
-    public ProductoProveedor(String nombre){
-        this.nombre = nombre;
-    }
-
-    public ProductoProveedor() {
-    }
 
     public String getNombre() {
         return nombre;
@@ -117,37 +72,30 @@ public class ProductoProveedor implements Serializable {
         this.sku = sku;
     }
 
-    public int getCodigoBarras() {
+    public String getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(int codigoBarras) {
+    public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
 
-    public int getCantExistencia() {
+    public String getCantExistencia() {
         return cantExistencia;
     }
 
-    public void setCantExistencia(int cantExistencia) {
+    public void setCantExistencia(String cantExistencia) {
         this.cantExistencia = cantExistencia;
     }
 
-    public double getPrecioUnitario() {
+    public String getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(double precioUnitario) {
+    public void setPrecioUnitario(String precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
 
     public String getDescripcion() {
         return descripcion;
@@ -157,24 +105,23 @@ public class ProductoProveedor implements Serializable {
         this.descripcion = descripcion;
     }
 
-    /**
-     * Función para comparar existencia en base de datos, no permite que existan dos productos con los mismos atributos
-     * @param o objeto a comprar
-     * @return booleano que determina la existencia o inexistencia de un producto igual
-     */
+    public String getNombreProveedor() {
+        return nombreProveedor;
+    }
+
+    public void setNombreProveedor(String nombreProveedor) {
+        this.nombreProveedor = nombreProveedor;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ProductoProveedor producto = (ProductoProveedor) o;
-        return codigoBarras == producto.codigoBarras && cantExistencia == producto.cantExistencia && Double.compare(precioUnitario, producto.precioUnitario) == 0 && Objects.equals(nombre, producto.nombre) && Objects.equals(marca, producto.marca) && Objects.equals(sku, producto.sku) && Objects.equals(categoria, producto.categoria) && Objects.equals(descripcion, producto.descripcion);
+        if (!(o instanceof ProductoProveedor that)) return false;
+        return Objects.equals(getNombre(), that.getNombre()) && Objects.equals(getMarca(), that.getMarca()) && Objects.equals(getSku(), that.getSku()) && Objects.equals(getCodigoBarras(), that.getCodigoBarras()) && Objects.equals(getCantExistencia(), that.getCantExistencia()) && Objects.equals(getPrecioUnitario(), that.getPrecioUnitario()) && Objects.equals(getDescripcion(), that.getDescripcion()) && Objects.equals(getNombreProveedor(), that.getNombreProveedor());
     }
-
-
 
     @Override
     public int hashCode() {
-        return 0;
+        return Objects.hash(getNombre(), getMarca(), getSku(), getCodigoBarras(), getCantExistencia(), getPrecioUnitario(), getDescripcion(), getNombreProveedor());
     }
 }
-

@@ -77,15 +77,28 @@ public class ControladorNuevoProveedor implements Initializable {
 
     private ObservableList<Proveedor> proveedores;
 
+    /**
+     * Métodos que si ejecutan al iniciar la pestaña
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * Iniciar atributos para mapear en la pestaña emergente
+     * @param proveedores
+     */
     public void initAttributtes(ObservableList<Proveedor> proveedores) {
         this.proveedores = proveedores;
     }
 
+    /**
+     * Iniciar atributos para mapear en la pestaña emergente
+     * @param proveedores, p
+     */
     public void initAttributtes(ObservableList<Proveedor> proveedores, Proveedor p) {
         this.proveedores = proveedores;
         this.proveedor = p;
@@ -95,6 +108,10 @@ public class ControladorNuevoProveedor implements Initializable {
         this.txtNuevoProveedorCel.setText(p.getNumero());
     }
 
+    /**
+     * Cierra la pestaña y guarda un nuevo proveedor
+     * @param event
+     */
     @FXML
     void aceptarGuardar(ActionEvent event) {
         String nombre = this.txtNuevoProveedorNombre.getText();
@@ -158,22 +175,46 @@ public class ControladorNuevoProveedor implements Initializable {
 
     }
 
+    /**
+     * Validación de nombre
+     * @param nombre
+     * @return
+     */
     private boolean validarNombre(String nombre) {
         return !nombre.isEmpty() && !nombre.matches(".*\\d.*");
     }
 
+    /**
+     * Validación de dirección
+     * @param direccion
+     * @return
+     */
     private boolean validarDireccion(String direccion) {
         return !direccion.isEmpty();
     }
 
+    /**
+     * Validación de correo
+     * @param correo
+     * @return
+     */
     private boolean validarCorreo(String correo) {
         return correo.matches("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
     }
 
+    /**
+     * VAlidación de número
+     * @param numero
+     * @return
+     */
     private boolean validarNumero(String numero) {
         return numero.matches("[0-9]{10}");
     }
 
+    /**
+     * Cancela la accion principal
+     * @param event
+     */
     @FXML
     void cancelarSalir(ActionEvent event) {
         this.proveedor = null;
@@ -181,12 +222,19 @@ public class ControladorNuevoProveedor implements Initializable {
         stage.close();
     }
 
+    /**
+     * Obtener proveedor
+     * @return
+     */
     public Proveedor getProveedor() {
         return proveedor;
     }
 
 
-
+    /**
+     * Muestre error en caso de haberlo
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);

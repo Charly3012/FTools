@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.example.ftoolss","l":"controlador"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.example.ftoolss","l":"controlador"},{"m":"com.example.ftoolss","l":"modelo"}];updateSearchResults();

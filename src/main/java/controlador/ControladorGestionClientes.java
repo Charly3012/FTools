@@ -88,13 +88,22 @@ public class ControladorGestionClientes implements Initializable {
     @FXML
     private ObservableList<Cliente> busquedaClientes;
 
+    /**
+     * Cliente que se selecciona para diferentes propositos
+     */
     @FXML
     private Cliente clienteSeleccionado;
 
+    /**
+     * Observable list para visualizar los generos de los clientes
+     */
     @FXML
     private ObservableList<String> generos;
 
-
+    /**
+     * Para leeer la selección de un objeto de la tabla
+     * @param mouseEvent
+     */
     @FXML
     public void clickSeleccionar(MouseEvent mouseEvent) {
         clienteSeleccionado = this.tblClientes.getSelectionModel().getSelectedItem();
@@ -106,7 +115,10 @@ public class ControladorGestionClientes implements Initializable {
     }
 
 
-
+    /**
+     * Botón para guardar/editar según sea el caso
+     * @param event
+     */
     @FXML
     void clickGuardar(ActionEvent event) {
 
@@ -183,7 +195,10 @@ public class ControladorGestionClientes implements Initializable {
 
     }
 
-
+    /**
+     * Limpia el formulario
+     * @param event
+     */
     @FXML
     void clickLimpiar(ActionEvent event) {
         this.txtNombreCliente.setText("");
@@ -191,7 +206,10 @@ public class ControladorGestionClientes implements Initializable {
         this.cmbGeneroCliente.setValue(null);
     }
 
-
+    /**
+     * Barra de busqueda para filtrar por nombre
+     * @param event
+     */
     @FXML
     void escribirEnBuscar(KeyEvent event) {
 
@@ -211,6 +229,10 @@ public class ControladorGestionClientes implements Initializable {
         }
     }
 
+    /**
+     * Elimina el registro seleccionado
+     * @param event
+     */
     @FXML
     void clickEliminar(ActionEvent event) {
         //Para seleccionar un objeto
@@ -239,8 +261,9 @@ public class ControladorGestionClientes implements Initializable {
     }
 
 
-
-
+    /**
+     * Método que se inicializa cuando se abré la pestaña
+     */
     @FXML
     void initialize() {
         assert btnEliminar != null : "fx:id=\"btnEliminar\" was not injected: check your FXML file 'VistaGestionClientes.fxml'.";
@@ -270,6 +293,9 @@ public class ControladorGestionClientes implements Initializable {
         persistenciaLeer();
     }
 
+    /**
+     * Iniciar datos de tablas visibles
+     */
     public void iniciarDatos(){
         generos = FXCollections.observableArrayList("Hombre", "Mujer", "Prefiere no decir");
         cmbGeneroCliente.setItems(generos);
@@ -284,7 +310,9 @@ public class ControladorGestionClientes implements Initializable {
         this.colGeneroCliente.setCellValueFactory((new PropertyValueFactory<>("genero")));
     }
 
-
+    /**
+     * Métodos que se ejectan al cerra la ventana
+     */
     public void cerrarVentana() {
         persistenciaEscribir();
 

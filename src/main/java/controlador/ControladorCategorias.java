@@ -77,6 +77,11 @@ public class ControladorCategorias implements Initializable {
 
     private Categoria categoriaSeleccionado;
 
+    /**
+     * Metodo que se inicializa cuando se abre la pestaña
+     * @param url
+     * @param rb
+     */
     @FXML
     public void initialize(URL url, ResourceBundle rb) {
         assert btnEliminar != null : "fx:id=\"btnEliminar\" was not injected: check your FXML file 'VistaCategorias.fxml'.";
@@ -98,6 +103,9 @@ public class ControladorCategorias implements Initializable {
 
     }
 
+    /**
+     * Mapeo de datos en las tablas visibles
+     */
     public void iniciarDatos(){
         categorias = FXCollections.observableArrayList();
         tblCategoriasVista.setItems(categorias);
@@ -109,6 +117,10 @@ public class ControladorCategorias implements Initializable {
         this.colNombreCategoria.setCellValueFactory((new PropertyValueFactory<>("nombreCategoria")));
     }
 
+    /**
+     * Función para eliminar un registro
+     * @param event
+     */
     @FXML
     void clickEliminar(ActionEvent event) {
         //Para seleccionar un objeto
@@ -142,6 +154,10 @@ public class ControladorCategorias implements Initializable {
 
     }
 
+    /**
+     * comprueba que lo que se desee eliminar no este en uso para una eliminación exitosa
+     * @return
+     */
     public boolean comprobacionEliminar(){
 
         try{
@@ -162,6 +178,10 @@ public class ControladorCategorias implements Initializable {
 
     }
 
+    /**
+     * Para guardar un objeto seleccionado
+     * @param mouseEvent
+     */
     @FXML
     public void clickSeleccionar(MouseEvent mouseEvent) {
         categoriaSeleccionado = this.tblCategoriasVista.getSelectionModel().getSelectedItem();
@@ -173,6 +193,10 @@ public class ControladorCategorias implements Initializable {
     }
 
 
+    /**
+     * Para guardar y/o editar registros existentes o nuevos
+     * @param event
+     */
     @FXML
     void clickGuardar(ActionEvent event) {
 
@@ -249,6 +273,10 @@ public class ControladorCategorias implements Initializable {
 
     }
 
+    /**
+     * Función que limpia el formulario
+     * @param event
+     */
     @FXML
     void clickLimpiar(ActionEvent event) {
         this.txtIdCategoria.setText("");
@@ -258,6 +286,10 @@ public class ControladorCategorias implements Initializable {
 
     }
 
+    /**
+     * Barra de busqueda por nombre
+     * @param keyEvent
+     */
     @FXML
     public void escribirEnBuscar(KeyEvent keyEvent) {
 
@@ -278,6 +310,9 @@ public class ControladorCategorias implements Initializable {
     }
 
 
+    /**
+     * Métodos que se ejecutan al cerra la ventana
+     */
     public void cerrarVentana() {
         persistenciaEscribir();
 

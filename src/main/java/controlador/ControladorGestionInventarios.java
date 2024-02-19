@@ -1,6 +1,5 @@
 package controlador;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,13 +46,11 @@ public class ControladorGestionInventarios implements Initializable{
     public TableColumn<?, ?> colCodigoBarrasProducto;
 
     @FXML
-    public Label labHoraMostrar;
-
-    @FXML
     private Button btnAgregarProducto;
 
     @FXML
     private Button btnEliminarProducto;
+
 
     @FXML
     private TableColumn<?, ?> colCategoriasProducto;
@@ -89,12 +86,14 @@ public class ControladorGestionInventarios implements Initializable{
     private ObservableList<Producto> busquedaProductos;
 
 
-
-
     private static final long serialId = 1L;
 
 
-
+    /**
+     * Métodos que se inician cuando se abre la ventana
+     * @param url
+     * @param rb
+     */
     public void initialize(URL url, ResourceBundle rb) {
         assert btnAgregarProducto != null : "fx:id=\"btnAgregarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
         assert btnEliminarProducto != null : "fx:id=\"btnEliminarProducto\" was not injected: check your FXML file 'VistaGestionInventarios.fxml'.";
@@ -111,9 +110,8 @@ public class ControladorGestionInventarios implements Initializable{
         iniciarDatosObservables();
         persistenciaLeer();
 
+
     }
-
-
 
 
 
